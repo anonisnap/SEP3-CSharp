@@ -5,9 +5,6 @@ namespace SEP3_DB_Server {
 		static void Main(string[ ] args)
 		{
 			ServerBrains server = new ServerBrains();
-
 		}
-		
-		
 	}
 }

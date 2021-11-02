@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SEP3_DB_Server.Models
+namespace WebDBserverAPI.Models
 {
     public class Spike
     {
-        [Key] public string snor { get; set; }
+        [Key] public string SpikeName { get; set; }
     }
 }

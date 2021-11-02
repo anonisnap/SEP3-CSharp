@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SEP3_DB_Server.DataAccess;
+using WebDBserverAPI.DataAccess;
 
 namespace SEP3_DB_Server.Migrations
 {
     [DbContext(typeof(SEP_DBContext))]
-    [Migration("20211102164716_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211102181552_SecondCreate")]
+    partial class SecondCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,14 +17,14 @@ namespace SEP3_DB_Server.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.11");
 
-            modelBuilder.Entity("SEP3_DB_Server.Models.Snor", b =>
+            modelBuilder.Entity("SEP3_DB_Server.Models.Spike", b =>
                 {
                     b.Property<string>("snor")
                         .HasColumnType("TEXT");
 
                     b.HasKey("snor");
 
-                    b.ToTable("Snors");
+                    b.ToTable("Spikes");
                 });
 #pragma warning restore 612, 618
         }
