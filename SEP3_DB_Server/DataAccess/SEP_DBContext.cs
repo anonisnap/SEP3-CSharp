@@ -5,7 +5,7 @@ namespace SEP3_DB_Server.DataAccess
 {
     public class SEP_DBContext : DbContext
     {
-        public DbSet<Snor> Snors { get; set; }
+        public DbSet<Spike> Snors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

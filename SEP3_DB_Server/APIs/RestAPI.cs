@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using SEP3_DB_Server.APIs.Controllers;
 
 namespace SEP3_DB_Server.APIs
 {
@@ -7,10 +8,11 @@ namespace SEP3_DB_Server.APIs
 	{
 		private List<ControllerBase> _controllers;
 
-		public RestAPI()
+		public RestAPI(IServer server)
 		{
-
 			_controllers = new();
+
+			_controllers.Add(new SpikeController(server));
 		}
 	}
 }
