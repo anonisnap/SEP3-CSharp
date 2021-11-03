@@ -24,6 +24,7 @@ namespace WebDBserverAPI.Controllers
 		public async Task<ActionResult<String>> GetSpikeAsync([FromRoute] string spikeName)
 		{
 			Spike returnValue = await _database.FindAsync<Spike>(spikeName);
+			Console.WriteLine($"Sending value, {returnValue.SpikeName}, to Requesting Client");
 			return Ok(returnValue);
 		}
 
