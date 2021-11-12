@@ -7,7 +7,7 @@ namespace WebDBserverAPI
     {
         public static string Get()
         {
-            var uriString = ConfigurationManager.AppSettings["ELEPHANTSQL_URL"] ?? "postgres://geoxbaal:94pUQGCtr5DO8tB7LCIYz6PcWS6ha-xz@abul.db.elephantsql.com/geoxbaal";
+            var uriString = ConfigurationManager.AppSettings["ELEPHANTSQL_URL"] ?? "URL HER";
             Console.WriteLine($"uriString: {uriString}");
             var uri = new Uri(uriString);
             var db = uri.AbsolutePath.Trim('/');
