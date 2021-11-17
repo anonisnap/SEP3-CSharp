@@ -8,7 +8,7 @@ namespace Entities.Models
 {
     public class WarehouseItem
     {
-        public int ItemID { get; set; }
+        public int Id { get; set; }
         public string ItemName { get; set; }
         public double Length { get; set; }
         public double Width { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    internal class WarehouseItemLocations
+    public class WarehouseItemLocation
     {
         public Location Location { get; set; }
         public WarehouseItem Item { get; set; }
