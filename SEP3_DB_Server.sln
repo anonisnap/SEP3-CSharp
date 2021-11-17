@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDBserverAPI", "WebDBserverAPI\WebDBserverAPI.csproj", "{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDBserverAPI", "WebDBserverAPI\WebDBserverAPI.csproj", "{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEP3_WebServerClient", "SEP3_WebServerClient\SEP3_WebServerClient.csproj", "{9FFED981-3B28-4F59-AE63-AA64B1093F8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
