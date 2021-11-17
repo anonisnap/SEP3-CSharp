@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDBserverAPI", "WebDBserv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEP3_WebServerClient", "SEP3_WebServerClient\SEP3_WebServerClient.csproj", "{9FFED981-3B28-4F59-AE63-AA64B1093F8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{4F0B8FAE-C10D-4843-B012-8CF207312C5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FFED981-3B28-4F59-AE63-AA64B1093F8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F0B8FAE-C10D-4843-B012-8CF207312C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F0B8FAE-C10D-4843-B012-8CF207312C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F0B8FAE-C10D-4843-B012-8CF207312C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F0B8FAE-C10D-4843-B012-8CF207312C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

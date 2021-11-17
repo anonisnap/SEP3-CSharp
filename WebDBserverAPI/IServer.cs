@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using WebDBserverAPI.Models;
+using SEP3_WebServerClient.Models;
 
 namespace WebDBserverAPI
 {
