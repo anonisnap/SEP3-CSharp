@@ -27,6 +27,7 @@ namespace SEP3_WebServerClient {
 			services.AddRazorPages( );
 			services.AddServerSideBlazor( );
 			services.AddSingleton<ISpikeHandler, SpikeHandler>();
+			services.AddSingleton<IWarehouseItemHandler, WarehouseItemHandler>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,45 @@
 @page "/AddWarehouseItem"
-<h3>AddWarehouseItem</h3>
+@using Entities.Models
+@using SEP3_WebServerClient.Data
+
+@inject IWarehouseItemHandler _warehouseItemHandler
+@inject NavigationManager _navigationManager
+
+<h4>
+    <i>You are now adding a new AddWarehouseItem</i>
+</h4>
+
+<EditForm Model="@_warehouseItem" OnValidSubmit="@AddNewWarehouseItem">
+    <DataAnnotationsValidator/> <ValidationSummary/>
+    <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_warehouseItem.ItemName"/> </div>
+    <div class="form-group"> Id:<br/> <InputNumber @bind-Value="_warehouseItem.Id"/> </div>
+    <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_warehouseItem.Height"/> </div>
+    <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_warehouseItem.Length"/> </div>
+    <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_warehouseItem.Width"/> </div>
+    <div class="form-group"> Weight:<br/> <InputNumber @bind-Value="_warehouseItem.Weight"/> </div>
+
+    <p class="actions">
+        <button class="btn btn-outline-dark" type="submit">Add</button>
+    </p>
+</EditForm>
+
 
 @code {
     //TODO: Jeg mangler i astah ;( - Og lav mig
+
+    private WarehouseItem _warehouseItem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //Todo: Missing awaits=?
+        _warehouseItem = new();
+    }
+
+    private void AddNewWarehouseItem()
+    {
+        _warehouseItemHandler.NewWarehouseItem(_warehouseItem);
+        //Navigate to specific Spike created instead?
+        _navigationManager.NavigateTo("/WarehouseItems");
+    }
 
 }
