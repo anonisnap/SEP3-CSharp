@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SEP3_WebServerClient.Models;
 
 namespace WebDBserverAPI.Controllers
 {
+    //TODO: Jeg mangler i astah ;(
     [ApiController] [Route("[controller]")]
     public class WarehouseItemController : ControllerBase, WarehouseItemControllerI
     {

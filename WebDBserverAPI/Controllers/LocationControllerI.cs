@@ -7,6 +7,7 @@ namespace WebDBserverAPI.Controllers
 {
     public interface LocationControllerI
     {
+        //TODO: Jeg mangler i astah ;(
         Task<ActionResult> GetLocationAsync(int locationId);
         Task<ActionResult> PutLocationAsync(Location location); //FIXME: Giver det mening?
         Task<ActionResult> DeleteLocationAsync(int locationId);

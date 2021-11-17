@@ -20,6 +20,8 @@ namespace ServerCommunication.SocketCommunication
         public void Run()
         {
             //SpikeTest
+            //TODO: Send og Receive shall be loooped,
+            //so they continue at the same time until closed - SBT
             Spike spike = new Spike {SpikeName = "SnorSnor"};
             SendObject(spike);
             ReceiveObject(spike);
@@ -30,6 +32,7 @@ namespace ServerCommunication.SocketCommunication
         public void SendObject(Object obj)
         {
 
+            //objectAsJSON? 
             string spikeAsJSON = JsonSerializer.Serialize(obj);
             byte[] bytes = Encoding.ASCII.GetBytes(spikeAsJSON);
             

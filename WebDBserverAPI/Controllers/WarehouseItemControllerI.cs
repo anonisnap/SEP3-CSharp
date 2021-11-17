@@ -6,6 +6,7 @@ namespace WebDBserverAPI.Controllers
 {
     public interface WarehouseItemControllerI
     {
+        //TODO: Jeg mangler i astah ;(
         Task<ActionResult> GetWarehouseItemAsync(int warehouseItemId);
         Task<ActionResult> PutWarehouseItemAsync(WarehouseItem warehouseItem);
         Task<ActionResult> DeleteWarehouseItemAsync(int warehouseItemId);
