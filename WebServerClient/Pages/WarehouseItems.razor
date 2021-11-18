@@ -1,0 +1,61 @@
+@page "/WarehouseItems"
+@using SEP3_WebServerClient.Data
+@using Entities.Models
+
+@inject IWarehouseItemHandler _warehouseItemsHandler
+@inject NavigationManager _navigationManager
+
+<h3>WarehouseItems List</h3>
+
+@if (_warehouseItems == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_warehouseItems.Any())
+{
+    <p>
+        <em>No Spike items exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id:</th>
+            <th>Item Name:</th>
+            <th>Lenght:</th>
+            <th>Width:</th>
+            <th>Height:</th>
+            <th>Weight:</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in _warehouseItems)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ItemName</td>
+                <td>@item.Length</td>
+                <td>@item.Width</td>
+                <td>@item.Height</td>
+                <td>@item.Weight</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    //TODO: Jeg mangler i astah ;( - Og lav mig
+
+    private IList<WarehouseItem> _warehouseItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _warehouseItems = await _warehouseItemsHandler.GetWarehouseItems();
+    }
+}

@@ -1,6 +1,5 @@
 ﻿@page "/Spikes"
 @using SEP3_WebServerClient.Data
-@using System.Collections
 @using SEP3_WebServerClient.Models
 
 @inject ISpikeHandler _spikeHandler
@@ -47,5 +46,4 @@ else
     {
         _spikes = await _spikeHandler.GetSpikes();
     }
-
 }

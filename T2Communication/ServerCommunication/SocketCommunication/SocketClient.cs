@@ -29,7 +29,7 @@ namespace ServerCommunication.SocketCommunication
         }
 
 
-        public Task SendToServer(Spike spike)
+        public Task SendSpikeToServer(Spike spike)
         {
             throw new NotImplementedException();
         }

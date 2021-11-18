@@ -18,7 +18,7 @@ namespace SEP3_WebServerClient.Data
         
         public async Task NewSpike(Spike newSpike)
         {
-            await _serverCommunication.SendToServer(newSpike);
+            await _serverCommunication.SendSpikeToServer(newSpike);
         }
 
         public async Task<IList<Spike>> GetSpikes()

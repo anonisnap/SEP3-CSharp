@@ -7,7 +7,9 @@ namespace ServerCommunication
 {
     public interface IServerCommunication
     {
-        Task SendToServer(Spike spike);
+        //TODO: How do we split this well, so it doesn't get bloated?
+        //WarehouseItems, Locations, and so on.
+        Task SendSpikeToServer(Spike spike);
 
         Task<IList<Spike>> GetFromServer();
     }
