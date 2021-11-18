@@ -9,7 +9,7 @@ namespace WebDBserverAPI.DataAccess
         public DbSet<Spike> Spikes { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<WarehouseItem> WarehouseItems { get; set; }
-        public DbSet<WarehouseItemLocation> WarehouseItemLocations { get; set; }
+        //public DbSet<WarehouseItemLocation> WarehouseItemLocations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,8 +22,10 @@ namespace WebDBserverAPI.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Spike>().HasKey(spike => spike.SpikeName);
-            modelBuilder.Entity<WarehouseItemLocation>().HasKey(locations => new {locations.Item, locations.Location});
+            //modelBuilder.Entity<WarehouseItemLocation>().HasNoKey();
+            //modelBuilder.Entity<WarehouseItemLocation>().HasKey(locations => new {locations.Item, locations.Location});
             base.OnModelCreating(modelBuilder);
+            
         }
     }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.Threading.Tasks;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
-{
+{/*
     //TODO: Jeg mangler i astah ;(
-    [ApiController] [Route("[controller]")]
+    //[ApiController] [Route("[controller]")]
     public class LocationController : ControllerBase, LocationControllerI
     {
         private DbContext _database;
@@ -41,5 +42,7 @@ namespace WebDBserverAPI.Controllers
             //TODO: lav mig!
             throw new System.NotImplementedException();
         }
+        
     }
+    */
 }

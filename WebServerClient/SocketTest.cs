@@ -9,7 +9,7 @@ namespace SEP3_WebServerClient
 {
     public class SocketTest
     {
-        public static void Main(string[] args)
+        public static void Main1(string[] args)
         {
             //sending
             TcpClient client = new TcpClient("localhost", 1235);

@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
-{
+{/*
     //TODO: Jeg mangler i astah ;(
-    [ApiController] [Route("[controller]")]
-    public class WarehouseItemController : ControllerBase, WarehouseItemControllerI
+    //[ApiController] [Route("[controller]")]
+    public class WarehouseItemController : ControllerBase
     {
         private DbContext _database;
 
@@ -61,5 +61,5 @@ namespace WebDBserverAPI.Controllers
             //TODO: Lav mig
             throw new NotImplementedException();
         }
-    }
+    }*/
 }

@@ -11,11 +11,10 @@ using ServerCommunication.SocketCommunication;
 
 namespace SEP3_WebServerClient {
 	public class Program {
-		public static void Main2(string[ ] args)
+		public static void Main(string[ ] args)
 		{
-			Thread t = new Thread(() => new SocketClient());
 			
-			//CreateHostBuilder(args).Build( ).Run( );
+			CreateHostBuilder(args).Build( ).Run( );
 		}
 
 		public static IHostBuilder CreateHostBuilder(string[ ] args) =>

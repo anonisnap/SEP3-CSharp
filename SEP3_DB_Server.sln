@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tier 3", "Tier 3", "{5DC207
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2Communication", "T2Communication\T2Communication.csproj", "{B5E3979D-00EB-4330-8A20-9B773C671135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseAccess", "DataBaseAccess\DataBaseAccess.csproj", "{F8C00474-9046-4A49-93F9-AA6811462581}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{B5E3979D-00EB-4330-8A20-9B773C671135}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E3979D-00EB-4330-8A20-9B773C671135}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E3979D-00EB-4330-8A20-9B773C671135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C00474-9046-4A49-93F9-AA6811462581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C00474-9046-4A49-93F9-AA6811462581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C00474-9046-4A49-93F9-AA6811462581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C00474-9046-4A49-93F9-AA6811462581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{7F8CBD4E-60C6-4147-AD2F-12CD0C93C890} = {5DC20736-7777-4B78-905C-260C0F649825}
 		{9FFED981-3B28-4F59-AE63-AA64B1093F8F} = {3AD60C34-9136-4838-9714-4B2AB8A9AC21}
 		{B5E3979D-00EB-4330-8A20-9B773C671135} = {3AD60C34-9136-4838-9714-4B2AB8A9AC21}
+		{F8C00474-9046-4A49-93F9-AA6811462581} = {5DC20736-7777-4B78-905C-260C0F649825}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0625D4A0-EB0F-4EAC-9810-F752EEABD6D4}

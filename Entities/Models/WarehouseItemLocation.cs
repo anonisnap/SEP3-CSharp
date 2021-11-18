@@ -10,6 +10,7 @@ namespace Entities.Models
     {
         public Location Location { get; set; }
         public WarehouseItem Item { get; set; }
+        
         public int Amount { get; set; }
     }
 }
