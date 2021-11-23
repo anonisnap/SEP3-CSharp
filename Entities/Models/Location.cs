@@ -8,8 +8,6 @@ namespace Entities.Models
 {
     public class Location
     {
-        public string LocationId { get; set; }
-        
-        
+        public string Id { get; set; }
     }
 }
