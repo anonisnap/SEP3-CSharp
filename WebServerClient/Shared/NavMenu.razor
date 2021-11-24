@@ -1,5 +1,5 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">WebServerClient</a>
+    <a class="navbar-brand" href="">Menu</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,13 +13,13 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Spikes">
-                <span class="oi oi-plus" aria-hidden="true"></span> Spikes
+            <NavLink class="nav-link" href="AddWarehouseItem">
+                <span class="oi oi-people" aria-hidden="true"></span> Register Item
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="AddSpike">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> AddSpike
+            <NavLink class="nav-link" href="WarehouseItems">
+                <span class="oi oi-plus" aria-hidden="true"></span> Items
             </NavLink>
         </li>
     </ul>
@@ -34,4 +34,5 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
 }
