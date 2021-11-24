@@ -25,19 +25,19 @@ namespace WebDBserverAPI.Controllers
             return Ok(location);
         }
 
-        public Task<ActionResult> PutLocationAsync(Location location)
+        public async Task<ActionResult> PutLocationAsync(Location location)
         {
             //TODO: lav mig!
             throw new System.NotImplementedException();
         }
 
-        public Task<ActionResult> DeleteLocationAsync(int locationId)
+        public async Task<ActionResult> DeleteLocationAsync(int locationId)
         {
             //TODO: lav mig!
             throw new System.NotImplementedException();
         }
 
-        public Task<ActionResult> PostLocationAsync(int locationId, Location location)
+        public async Task<ActionResult> PostLocationAsync(int locationId, Location location)
         {
             //TODO: lav mig!
             throw new System.NotImplementedException();
