@@ -1,3 +1,4 @@
+using DataBaseAccess;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using SEP3_WebServerClient.Models;
@@ -16,7 +17,6 @@ namespace WebDBserverAPI.DataAccess
         {
             //Name of database
             optionsBuilder.UseNpgsql(ConnStr.Get(), options => options.UseAdminDatabase("geoxbaal"));
-            //optionsBuilder.UseSqlite(@"Data Source = D:\GitHubProjects\SEP 3\SEP3_DB_Server\WebDBserverAPI\warehouse.db");
         }
 
         // Migrating is a little weird, and it refuses to accept this as is...
@@ -24,8 +24,8 @@ namespace WebDBserverAPI.DataAccess
         {
             modelBuilder.Entity<Spike>().HasKey(spike => spike.SpikeName);
             
-            modelBuilder.Entity<Location>().HasKey((location => location.Id));
-            modelBuilder.Entity<WarehouseItem>().HasKey((warehouseItem => warehouseItem.Id));
+            modelBuilder.Entity<Location>().HasKey(location => location.Id);
+            modelBuilder.Entity<WarehouseItem>().HasKey(warehouseItem => warehouseItem.Id);
             modelBuilder.Entity<WarehouseItemLocationDB>().HasKey(locations => new {locations.ItemId, locations.LocationId});
             
         }
