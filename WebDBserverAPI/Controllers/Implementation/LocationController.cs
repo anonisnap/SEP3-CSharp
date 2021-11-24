@@ -6,9 +6,9 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
-{/*
+{
     //TODO: Jeg mangler i astah ;(
-    //[ApiController] [Route("[controller]")]
+    [ApiController] [Route("[controller]")]
     public class LocationController : ControllerBase, LocationControllerI
     {
         private DbContext _database;
@@ -19,10 +19,10 @@ namespace WebDBserverAPI.Controllers
             _database = database;
         }
 
-        public Task<ActionResult> GetLocationAsync(int locationId)
+        public async Task<ActionResult> GetLocationAsync(int locationId)
         {
-            //TODO: lav mig!
-            throw new System.NotImplementedException();
+            Location location = await _database.FindAsync<Location>(locationId);
+            return Ok(location);
         }
 
         public Task<ActionResult> PutLocationAsync(Location location)
@@ -44,5 +44,4 @@ namespace WebDBserverAPI.Controllers
         }
         
     }
-    */
 }
