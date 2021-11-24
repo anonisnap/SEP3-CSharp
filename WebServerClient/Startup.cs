@@ -26,7 +26,7 @@ namespace SEP3_WebServerClient {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddRazorPages( );
 			services.AddServerSideBlazor( );
-			services.AddSingleton<ISpikeHandler, SpikeHandler>();
+			
 			services.AddSingleton<IItemHandler, ItemHandler>();
 		}
 

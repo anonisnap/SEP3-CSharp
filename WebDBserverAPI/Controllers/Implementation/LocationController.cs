@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
-{
+{/*
     //TODO: Jeg mangler i astah ;(
     [ApiController] [Route("[controller]")]
     public class LocationController : ControllerBase, LocationControllerI
@@ -48,5 +48,5 @@ namespace WebDBserverAPI.Controllers
             throw new System.NotImplementedException();
         }
         
-    }
+    }*/
 }

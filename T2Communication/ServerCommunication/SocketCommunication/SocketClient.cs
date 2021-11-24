@@ -10,33 +10,45 @@ namespace ServerCommunication.SocketCommunication
 {
     public class SocketClient : ISocketClient
     {
-        public SocketClientHandler SocketClientHandler;
+        private SocketClientHandler socketClientHandler;
+
+        public SocketClient()
+        {
+            CreateClientHandler();
+        }
 
         public void CreateClientHandler()
         {
-            while (true)
-            {
-                //TODO: TcpClient --> nye ports for nye clineter
-                TcpClient tcpClient = new TcpClient("localhost", 1235);
-                SocketClientHandler socketClientHandler = new SocketClientHandler(tcpClient);
-                Thread t = new Thread(() => socketClientHandler.Run());
-                t.Start();
-            }
+            
+            //TODO: TcpClient --> nye ports for nye clineter
+            TcpClient tcpClient = new TcpClient("localhost", 1235);
+            socketClientHandler = new SocketClientHandler(tcpClient);
+            // observing with "HandelReceivedObject" on action "ReceivedFromServer" 
+            socketClientHandler.ReceivedFromServer += HandelReceivedObject;
+            Thread t = new Thread(() => socketClientHandler.Run());
+            t.Start();
+            
+        }
+        
+        public async Task SendToServer(Request request)
+        {
+            Console.WriteLine($"I am trying to sendToServer via {socketClientHandler}");
+            await socketClientHandler.SendObject(request);
         }
 
-        public Task RegisterItem(Item item)
+        public Task<IList<Spike>> GetFromServer(Request request)
         {
             throw new NotImplementedException();
         }
 
-        public Task SendSpikeToServer(Spike spike)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<IList<Spike>> GetFromServer()
+        private void HandelReceivedObject(Object obj)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("shit got out of hand");
         }
+        
+        
+        
     }
+    
 }

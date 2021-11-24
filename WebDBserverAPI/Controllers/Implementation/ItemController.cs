@@ -40,7 +40,7 @@ namespace WebDBserverAPI.Controllers
             Console.WriteLine("Successfully entered ItemController.PutItemAsync()");
             await _database.AddAsync(item);
             await _database.SaveChangesAsync();
-            return Created($"/WarehouseItem/{item.Id}", item);
+            return Created($"/Item/{item.Id}", item);
         }
 
         [HttpDelete]

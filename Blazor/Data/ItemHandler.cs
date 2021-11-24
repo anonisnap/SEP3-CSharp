@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
@@ -10,15 +11,19 @@ namespace Blazor.Data
         //TODO: Jeg mangler i astah ;(
         private IServerCommunication _serverCommunication;
         
-        public ItemHandler()
+        public ItemHandler(IServerCommunication serverCommunication)
         {
-            //TODO: What me doing?
+            _serverCommunication = serverCommunication;
         }
         
         public async Task RegisterItem(Item item)
         {
-           await _serverCommunication.RegisterItem(item);
-           
+            Console.WriteLine("ItemHandler.RegisterItem");
+            
+            Request putRequest = new Request(RequestType.PUT, typeof(Item).ToString(), item);
+            
+            await _serverCommunication.SendToServer(putRequest);
+            Console.WriteLine("just send to server");
         }
 
         public async Task<IList<Item>> GetItems()
