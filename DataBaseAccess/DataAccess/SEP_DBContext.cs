@@ -1,4 +1,3 @@
-using DataBaseAccess;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using SEP3_WebServerClient.Models;
@@ -11,7 +10,7 @@ namespace WebDBserverAPI.DataAccess
         
         public DbSet<Location> Locations { get; set; }
         public DbSet<Item> WarehouseItems { get; set; }
-        public DbSet<ItemLocationDb> WarehouseItemLocationsDB { get; set; }
+        public DbSet<ItemLocationDB> WarehouseItemLocationsDB { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,8 +23,8 @@ namespace WebDBserverAPI.DataAccess
             modelBuilder.Entity<Spike>().HasKey(spike => spike.SpikeName);
             
             modelBuilder.Entity<Location>().HasKey(location => location.Id);
-            modelBuilder.Entity<WarehouseItem>().HasKey(warehouseItem => warehouseItem.Id);
-            modelBuilder.Entity<WarehouseItemLocationDB>().HasKey(locations => new {locations.ItemId, locations.LocationId});
+            modelBuilder.Entity<Item>().HasKey(warehouseItem => warehouseItem.Id);
+            modelBuilder.Entity<ItemLocationDB>().HasKey(locations => new {locations.ItemId, locations.LocationId});
             
         }
     }
