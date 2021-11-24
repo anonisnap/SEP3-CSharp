@@ -18,17 +18,7 @@ namespace SEP3_DB_Server.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("Entities.Models.Location", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Entities.Models.WarehouseItem", b =>
+            modelBuilder.Entity("Entities.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +45,7 @@ namespace SEP3_DB_Server.Migrations
                     b.ToTable("WarehouseItems");
                 });
 
-            modelBuilder.Entity("Entities.Models.WarehouseItemLocationDB", b =>
+            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");
@@ -73,6 +63,16 @@ namespace SEP3_DB_Server.Migrations
                     b.ToTable("WarehouseItemLocationsDB");
                 });
 
+            modelBuilder.Entity("Entities.Models.Location", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("SEP3_WebServerClient.Models.Spike", b =>
                 {
                     b.Property<string>("SpikeName")
@@ -83,9 +83,9 @@ namespace SEP3_DB_Server.Migrations
                     b.ToTable("Spikes");
                 });
 
-            modelBuilder.Entity("Entities.Models.WarehouseItemLocationDB", b =>
+            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
-                    b.HasOne("Entities.Models.WarehouseItem", "Item")
+                    b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
