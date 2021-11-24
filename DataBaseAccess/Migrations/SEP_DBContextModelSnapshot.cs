@@ -42,7 +42,7 @@ namespace SEP3_DB_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WarehouseItems");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
@@ -60,7 +60,7 @@ namespace SEP3_DB_Server.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("WarehouseItemLocationsDB");
+                    b.ToTable("ItemLocationsDB");
                 });
 
             modelBuilder.Entity("Entities.Models.Location", b =>

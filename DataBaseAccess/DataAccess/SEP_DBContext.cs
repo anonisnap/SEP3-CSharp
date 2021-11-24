@@ -9,8 +9,8 @@ namespace WebDBserverAPI.DataAccess
         public DbSet<Spike> Spikes { get; set; }
         
         public DbSet<Location> Locations { get; set; }
-        public DbSet<Item> WarehouseItems { get; set; }
-        public DbSet<ItemLocationDB> WarehouseItemLocationsDB { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemLocationDB> ItemLocationsDB { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
