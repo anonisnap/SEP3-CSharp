@@ -14,15 +14,15 @@ namespace WebDBserverAPI.Controllers
 
         public ItemController(DbContext dbContext)
         {
-            Console.WriteLine("WarehouseItemController instantiated");
+            Console.WriteLine("ItemController instantiated");
             _database = dbContext;
         }
 
         [HttpGet]
         [Route("{warehouseItemId}")]
-        public async Task<ActionResult> GetWarehouseItemAsync([FromRoute] int warehouseItemId)
+        public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
         {
-            Item returnValue = await _database.FindAsync<Item>(warehouseItemId);
+            Item returnValue = await _database.FindAsync<Item>(itemId);
             if (returnValue != null)
             {
                 Console.WriteLine($"Sending value, {returnValue?.Id}, to Requesting Client");
@@ -35,7 +35,7 @@ namespace WebDBserverAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutWarehouseItemAsync([FromBody] Item item)
+        public async Task<ActionResult> PutItemAsync([FromBody] Item item)
         {
             Console.WriteLine("Successfully entered WarehouseItemController.PutWarehouseItemAsync()");
             await _database.AddAsync(item);
@@ -45,7 +45,7 @@ namespace WebDBserverAPI.Controllers
 
         [HttpDelete]
         [Route("{warehouseItemId}")]
-        public async Task<ActionResult> DeleteWarehouseItemAsync([FromRoute] int warehouseItemId)
+        public async Task<ActionResult> DeleteItemAsync([FromRoute] int warehouseItemId)
         {
             Console.WriteLine($"Attempting to delete warehouseItem ({warehouseItemId})");
             Item itemToDelete = await _database.FindAsync<Item>(warehouseItemId);
@@ -53,10 +53,10 @@ namespace WebDBserverAPI.Controllers
             await _database.SaveChangesAsync();
             return Ok(itemToDelete);
         }
-
+        
         [HttpPost]
         [Route("{warehouseItemId}")]
-        public async Task<ActionResult> PostWarehouseItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
+        public async Task<ActionResult> PostItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
         {
             
             //TODO: Lav mig
