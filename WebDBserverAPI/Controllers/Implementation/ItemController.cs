@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
-{/*
+{
     //TODO: Jeg mangler i astah ;(
-    //[ApiController] [Route("[controller]")]
-    public class WarehouseItemController : ControllerBase
+    [ApiController] [Route("[controller]")]
+    public class ItemController : ControllerBase
     {
         private DbContext _database;
 
-        public WarehouseItemController(DbContext dbContext)
+        public ItemController(DbContext dbContext)
         {
             Console.WriteLine("WarehouseItemController instantiated");
             _database = dbContext;
@@ -22,7 +22,7 @@ namespace WebDBserverAPI.Controllers
         [Route("{warehouseItemId}")]
         public async Task<ActionResult> GetWarehouseItemAsync([FromRoute] int warehouseItemId)
         {
-            WarehouseItem returnValue = await _database.FindAsync<WarehouseItem>(warehouseItemId);
+            Item returnValue = await _database.FindAsync<Item>(warehouseItemId);
             if (returnValue != null)
             {
                 Console.WriteLine($"Sending value, {returnValue?.Id}, to Requesting Client");
@@ -35,12 +35,12 @@ namespace WebDBserverAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutWarehouseItemAsync([FromBody] WarehouseItem warehouseItem)
+        public async Task<ActionResult> PutWarehouseItemAsync([FromBody] Item item)
         {
             Console.WriteLine("Successfully entered WarehouseItemController.PutWarehouseItemAsync()");
-            await _database.AddAsync(warehouseItem);
+            await _database.AddAsync(item);
             await _database.SaveChangesAsync();
-            return Created($"/WarehouseItem/{warehouseItem.Id}", warehouseItem);
+            return Created($"/WarehouseItem/{item.Id}", item);
         }
 
         [HttpDelete]
@@ -48,18 +48,19 @@ namespace WebDBserverAPI.Controllers
         public async Task<ActionResult> DeleteWarehouseItemAsync([FromRoute] int warehouseItemId)
         {
             Console.WriteLine($"Attempting to delete warehouseItem ({warehouseItemId})");
-            WarehouseItem warehouseItemToDelete = await _database.FindAsync<WarehouseItem>(warehouseItemId);
-            _database.Remove(warehouseItemToDelete);
+            Item itemToDelete = await _database.FindAsync<Item>(warehouseItemId);
+            _database.Remove(itemToDelete);
             await _database.SaveChangesAsync();
-            return Ok(warehouseItemToDelete);
+            return Ok(itemToDelete);
         }
 
         [HttpPost]
         [Route("{warehouseItemId}")]
-        public async Task<ActionResult> PostWarehouseItemAsync([FromRoute] int warehouseItemId, [FromBody] WarehouseItem warehouseItem)
+        public async Task<ActionResult> PostWarehouseItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
         {
+            
             //TODO: Lav mig
             throw new NotImplementedException();
         }
-    }*/
+    }
 }

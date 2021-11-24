@@ -22,10 +22,7 @@ namespace WebDBserverAPI.Controllers
 		[HttpGet]
 		[Route("{spikeName}")]
 		public async Task<ActionResult> GetSpikeAsync([FromRoute] string spikeName)
-		{/*
-			Console.WriteLine($"got get spike request");
-			return Ok(new Spike{SpikeName = "john"});
-			*/
+		{
 			
 			Spike returnValue = await _database.FindAsync<Spike>(spikeName);
 			if (returnValue != null)
@@ -37,6 +34,7 @@ namespace WebDBserverAPI.Controllers
 			{
 				return NotFound("null");
 			}
+			
 		}
 
 

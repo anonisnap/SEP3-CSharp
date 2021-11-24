@@ -3,34 +3,36 @@ using System.Threading.Tasks;
 using Entities.Models;
 using ServerCommunication;
 
-namespace SEP3_WebServerClient.Data
+namespace Blazor.Data
 {
-    public class WarehouseItemHandler : IWarehouseItemHandler
+    public class ItemHandler : IItemHandler
     {
         //TODO: Jeg mangler i astah ;(
         private IServerCommunication _serverCommunication;
         
-        public WarehouseItemHandler()
+        public ItemHandler()
         {
             //TODO: What me doing?
         }
         
-        public async Task NewWarehouseItem(WarehouseItem warehouseItem)
+        public async Task RegisterItem(Item item)
         {
             //TODO: MAKE ME PLEASE
-           // await _serverCommunication.SendWarehouseItemToServer(warehouseItem);
+           //await _serverCommunication.SendObject(item);
            
         }
 
-        public async Task<IList<WarehouseItem>> GetWarehouseItems()
+        public async Task<IList<Item>> GetItems()
         {
             //TODO: MAKE ME PLEASE
+            //await _serverCommunication.GetItems();
             throw new System.NotImplementedException();
         }
 
-        public async Task<WarehouseItem> GetWarehouseItem(int itemId)
+        public async Task<Item> GetItem(int itemId)
         {
             //TODO: MAKE ME PLEASE
+            //await _serverCommunication.GetItem(itemId);
             throw new System.NotImplementedException();
         }
     }

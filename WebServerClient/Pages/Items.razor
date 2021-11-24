@@ -2,7 +2,7 @@
 @using SEP3_WebServerClient.Data
 @using Entities.Models
 
-@inject IWarehouseItemHandler _warehouseItemsHandler
+@inject IItemHandler _itemsHandler
 @inject NavigationManager _navigationManager
 
 <h3>WarehouseItems List</h3>
@@ -52,10 +52,10 @@ else
 @code {
     //TODO: Jeg mangler i astah ;( - Og lav mig
 
-    private IList<WarehouseItem> _warehouseItems;
+    private IList<Item> _warehouseItems;
 
     protected override async Task OnInitializedAsync()
     {
-        _warehouseItems = await _warehouseItemsHandler.GetWarehouseItems();
+        _warehouseItems = await _itemsHandler.GetItems();
     }
 }

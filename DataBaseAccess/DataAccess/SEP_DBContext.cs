@@ -10,8 +10,8 @@ namespace WebDBserverAPI.DataAccess
         public DbSet<Spike> Spikes { get; set; }
         
         public DbSet<Location> Locations { get; set; }
-        public DbSet<WarehouseItem> WarehouseItems { get; set; }
-        public DbSet<WarehouseItemLocationDB> WarehouseItemLocationsDB { get; set; }
+        public DbSet<Item> WarehouseItems { get; set; }
+        public DbSet<ItemLocationDb> WarehouseItemLocationsDB { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -19,7 +19,6 @@ namespace WebDBserverAPI.DataAccess
             optionsBuilder.UseNpgsql(ConnStr.Get(), options => options.UseAdminDatabase("geoxbaal"));
         }
 
-        // Migrating is a little weird, and it refuses to accept this as is...
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Spike>().HasKey(spike => spike.SpikeName);
