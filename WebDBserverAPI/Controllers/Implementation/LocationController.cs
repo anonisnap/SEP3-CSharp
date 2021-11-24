@@ -27,14 +27,19 @@ namespace WebDBserverAPI.Controllers
 
         public async Task<ActionResult> PutLocationAsync(Location location)
         {
-            //TODO: lav mig!
-            throw new System.NotImplementedException();
+            Console.WriteLine("Successfully entered LocationController.PutLocationAsync()");
+            await _database.AddAsync(location);
+            await _database.SaveChangesAsync();
+            return Created($"/WarehouseItem/{location.Id}", location);
         }
 
         public async Task<ActionResult> DeleteLocationAsync(int locationId)
         {
-            //TODO: lav mig!
-            throw new System.NotImplementedException();
+            Console.WriteLine($"Attempting to delete location ({locationId})");
+            Location itemToDelete = await _database.FindAsync<Location>(locationId);
+            _database.Remove(itemToDelete);
+            await _database.SaveChangesAsync();
+            return Ok(itemToDelete);
         }
 
         public async Task<ActionResult> PostLocationAsync(int locationId, Location location)
