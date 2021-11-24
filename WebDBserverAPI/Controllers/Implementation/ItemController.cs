@@ -8,11 +8,11 @@ namespace WebDBserverAPI.Controllers
 {
     //TODO: Jeg mangler i astah ;(
     [ApiController] [Route("[controller]")]
-    public class WarehouseItemController : ControllerBase
+    public class ItemController : ControllerBase
     {
         private DbContext _database;
 
-        public WarehouseItemController(DbContext dbContext)
+        public ItemController(DbContext dbContext)
         {
             Console.WriteLine("WarehouseItemController instantiated");
             _database = dbContext;
@@ -58,6 +58,7 @@ namespace WebDBserverAPI.Controllers
         [Route("{warehouseItemId}")]
         public async Task<ActionResult> PostWarehouseItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
         {
+            
             //TODO: Lav mig
             throw new NotImplementedException();
         }

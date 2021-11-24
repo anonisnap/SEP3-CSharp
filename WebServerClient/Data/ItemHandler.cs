@@ -18,19 +18,21 @@ namespace SEP3_WebServerClient.Data
         public async Task RegisterItem(Item item)
         {
             //TODO: MAKE ME PLEASE
-           // await _serverCommunication.SendWarehouseItemToServer(warehouseItem);
+           //await _serverCommunication.SendObject(item);
            
         }
 
         public async Task<IList<Item>> GetItems()
         {
             //TODO: MAKE ME PLEASE
+            //await _serverCommunication.GetItems();
             throw new System.NotImplementedException();
         }
 
         public async Task<Item> GetItem(int itemId)
         {
             //TODO: MAKE ME PLEASE
+            //await _serverCommunication.GetItem(itemId);
             throw new System.NotImplementedException();
         }
     }
