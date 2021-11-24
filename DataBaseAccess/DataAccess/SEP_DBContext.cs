@@ -19,7 +19,6 @@ namespace WebDBserverAPI.DataAccess
             //optionsBuilder.UseSqlite(@"Data Source = D:\GitHubProjects\SEP 3\SEP3_DB_Server\WebDBserverAPI\warehouse.db");
         }
 
-        // Migrating is a little weird, and it refuses to accept this as is...
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Spike>().HasKey(spike => spike.SpikeName);
