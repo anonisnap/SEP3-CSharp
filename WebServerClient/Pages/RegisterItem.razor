@@ -2,7 +2,7 @@
 @using Entities.Models
 @using SEP3_WebServerClient.Data
 
-@inject IWarehouseItemHandler _warehouseItemHandler
+@inject IItemHandler _warehouseItemHandler
 @inject NavigationManager _navigationManager
 
 <h4>
@@ -37,8 +37,8 @@
 
     private void AddNewWarehouseItem()
     {
-        _warehouseItemHandler.NewWarehouseItem(_item);
-        //Navigate to specific Spike created instead?
+        _warehouseItemHandler.RegisterItem(_item);
+        //Navigate to specific Item created instead?
         _navigationManager.NavigateTo("/WarehouseItems");
     }
 

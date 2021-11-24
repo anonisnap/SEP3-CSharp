@@ -5,30 +5,30 @@ using ServerCommunication;
 
 namespace SEP3_WebServerClient.Data
 {
-    public class WarehouseItemHandler : IWarehouseItemHandler
+    public class ItemHandler : IItemHandler
     {
         //TODO: Jeg mangler i astah ;(
         private IServerCommunication _serverCommunication;
         
-        public WarehouseItemHandler()
+        public ItemHandler()
         {
             //TODO: What me doing?
         }
         
-        public async Task NewWarehouseItem(Item item)
+        public async Task RegisterItem(Item item)
         {
             //TODO: MAKE ME PLEASE
            // await _serverCommunication.SendWarehouseItemToServer(warehouseItem);
            
         }
 
-        public async Task<IList<Item>> GetWarehouseItems()
+        public async Task<IList<Item>> GetItems()
         {
             //TODO: MAKE ME PLEASE
             throw new System.NotImplementedException();
         }
 
-        public async Task<Item> GetWarehouseItem(int itemId)
+        public async Task<Item> GetItem(int itemId)
         {
             //TODO: MAKE ME PLEASE
             throw new System.NotImplementedException();
