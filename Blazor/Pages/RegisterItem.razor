@@ -1,13 +1,11 @@
-@page "/AddWarehouseItem"
+﻿@page "/RegisterItem"
+@using Blazor.Data
 @using Entities.Models
-@using SEP3_WebServerClient.Data
 
-@inject IItemHandler _warehouseItemHandler
+@inject IItemHandler _itemsHandler
 @inject NavigationManager _navigationManager
 
-<h4>
-    <i>You are now adding a new AddWarehouseItem</i>
-</h4>
+<h3>Register a new Item</h3>
 
 <EditForm Model="@_item" OnValidSubmit="@AddNewWarehouseItem">
     <DataAnnotationsValidator/> <ValidationSummary/>
@@ -23,7 +21,6 @@
     </p>
 </EditForm>
 
-
 @code {
     //TODO: Jeg mangler i astah ;( - Og lav mig
 
@@ -37,8 +34,9 @@
 
     private void AddNewWarehouseItem()
     {
-        _warehouseItemHandler.RegisterItem(_item);
+        _itemsHandler.RegisterItem(_item);
     //Navigate to specific Item created instead?
         _navigationManager.NavigateTo("/WarehouseItems");
     }
+
 }
