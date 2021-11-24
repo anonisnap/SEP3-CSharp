@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class WarehouseItemLocation
+    public class ItemLocation
     {
         public Location Location { get; set; }
-        public WarehouseItem Item { get; set; }
+        public Item Item { get; set; }
         
         public int Amount { get; set; }
     }

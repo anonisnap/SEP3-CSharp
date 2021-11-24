@@ -9,14 +9,14 @@
     <i>You are now adding a new AddWarehouseItem</i>
 </h4>
 
-<EditForm Model="@_warehouseItem" OnValidSubmit="@AddNewWarehouseItem">
+<EditForm Model="@_item" OnValidSubmit="@AddNewWarehouseItem">
     <DataAnnotationsValidator/> <ValidationSummary/>
-    <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_warehouseItem.ItemName"/> </div>
-    <div class="form-group"> Id:<br/> <InputNumber @bind-Value="_warehouseItem.Id"/> </div>
-    <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_warehouseItem.Height"/> </div>
-    <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_warehouseItem.Length"/> </div>
-    <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_warehouseItem.Width"/> </div>
-    <div class="form-group"> Weight:<br/> <InputNumber @bind-Value="_warehouseItem.Weight"/> </div>
+    <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_item.ItemName"/> </div>
+    <div class="form-group"> Id:<br/> <InputNumber @bind-Value="_item.Id"/> </div>
+    <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_item.Height"/> </div>
+    <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_item.Length"/> </div>
+    <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_item.Width"/> </div>
+    <div class="form-group"> Weight:<br/> <InputNumber @bind-Value="_item.Weight"/> </div>
 
     <p class="actions">
         <button class="btn btn-outline-dark" type="submit">Add</button>
@@ -27,17 +27,17 @@
 @code {
     //TODO: Jeg mangler i astah ;( - Og lav mig
 
-    private WarehouseItem _warehouseItem;
+    private Item _item;
 
     protected override async Task OnInitializedAsync()
     {
         //Todo: Missing awaits=?
-        _warehouseItem = new();
+        _item = new();
     }
 
     private void AddNewWarehouseItem()
     {
-        _warehouseItemHandler.NewWarehouseItem(_warehouseItem);
+        _warehouseItemHandler.NewWarehouseItem(_item);
         //Navigate to specific Spike created instead?
         _navigationManager.NavigateTo("/WarehouseItems");
     }

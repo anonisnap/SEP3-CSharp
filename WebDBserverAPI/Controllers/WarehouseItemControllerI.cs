@@ -8,9 +8,9 @@ namespace WebDBserverAPI.Controllers
     {
         //TODO: Jeg mangler i astah ;(
         Task<ActionResult> GetWarehouseItemAsync(int warehouseItemId);
-        Task<ActionResult> PutWarehouseItemAsync(WarehouseItem warehouseItem);
+        Task<ActionResult> PutWarehouseItemAsync(Item item);
         Task<ActionResult> DeleteWarehouseItemAsync(int warehouseItemId);
-        Task<ActionResult> PostWarehouseItemAsync(int warehouseItemId, WarehouseItem warehouseItem);
+        Task<ActionResult> PostWarehouseItemAsync(int warehouseItemId, Item item);
         
     }
 }

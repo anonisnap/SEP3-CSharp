@@ -7,8 +7,8 @@ namespace SEP3_WebServerClient.Data
     public interface IWarehouseItemHandler
     {
         //TODO: Jeg mangler i astah ;(
-        Task NewWarehouseItem(WarehouseItem warehouseItem);
-        Task<IList<WarehouseItem>> GetWarehouseItems();
-        Task<WarehouseItem> GetWarehouseItem(int itemId);
+        Task NewWarehouseItem(Item item);
+        Task<IList<Item>> GetWarehouseItems();
+        Task<Item> GetWarehouseItem(int itemId);
     }
 }

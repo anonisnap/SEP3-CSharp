@@ -15,20 +15,20 @@ namespace SEP3_WebServerClient.Data
             //TODO: What me doing?
         }
         
-        public async Task NewWarehouseItem(WarehouseItem warehouseItem)
+        public async Task NewWarehouseItem(Item item)
         {
             //TODO: MAKE ME PLEASE
            // await _serverCommunication.SendWarehouseItemToServer(warehouseItem);
            
         }
 
-        public async Task<IList<WarehouseItem>> GetWarehouseItems()
+        public async Task<IList<Item>> GetWarehouseItems()
         {
             //TODO: MAKE ME PLEASE
             throw new System.NotImplementedException();
         }
 
-        public async Task<WarehouseItem> GetWarehouseItem(int itemId)
+        public async Task<Item> GetWarehouseItem(int itemId)
         {
             //TODO: MAKE ME PLEASE
             throw new System.NotImplementedException();
