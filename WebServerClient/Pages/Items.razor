@@ -2,7 +2,7 @@
 @using SEP3_WebServerClient.Data
 @using Entities.Models
 
-@inject IWarehouseItemHandler _warehouseItemsHandler
+@inject IItemHandler _itemsHandler
 @inject NavigationManager _navigationManager
 
 <h3>WarehouseItems List</h3>
@@ -56,6 +56,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _warehouseItems = await _warehouseItemsHandler.GetWarehouseItems();
+        _warehouseItems = await _itemsHandler.GetItems();
     }
 }

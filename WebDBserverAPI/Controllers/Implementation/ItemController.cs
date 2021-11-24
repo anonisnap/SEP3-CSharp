@@ -11,7 +11,7 @@ namespace WebDBserverAPI.Controllers
     public class ItemController : ControllerBase
     {
         private DbContext _database;
-        
+
         public ItemController(DbContext dbContext)
         {
             Console.WriteLine("WarehouseItemController instantiated");
@@ -23,7 +23,6 @@ namespace WebDBserverAPI.Controllers
         public async Task<ActionResult> GetWarehouseItemAsync([FromRoute] int warehouseItemId)
         {
             Item returnValue = await _database.FindAsync<Item>(warehouseItemId);
-            
             if (returnValue != null)
             {
                 Console.WriteLine($"Sending value, {returnValue?.Id}, to Requesting Client");
@@ -33,7 +32,6 @@ namespace WebDBserverAPI.Controllers
             {
                 return NotFound("null");
             }
-            
         }
 
         [HttpPut]
@@ -60,6 +58,7 @@ namespace WebDBserverAPI.Controllers
         [Route("{warehouseItemId}")]
         public async Task<ActionResult> PostWarehouseItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
         {
+            
             //TODO: Lav mig
             throw new NotImplementedException();
         }
