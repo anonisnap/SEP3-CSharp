@@ -8,11 +8,11 @@ namespace WebDBserverAPI.Controllers
 {
     //TODO: Jeg mangler i astah ;(
     [ApiController] [Route("[controller]")]
-    public class WarehouseItemController : ControllerBase
+    public class ItemController : ControllerBase
     {
         private DbContext _database;
-
-        public WarehouseItemController(DbContext dbContext)
+        
+        public ItemController(DbContext dbContext)
         {
             Console.WriteLine("WarehouseItemController instantiated");
             _database = dbContext;
@@ -23,6 +23,7 @@ namespace WebDBserverAPI.Controllers
         public async Task<ActionResult> GetWarehouseItemAsync([FromRoute] int warehouseItemId)
         {
             Item returnValue = await _database.FindAsync<Item>(warehouseItemId);
+            
             if (returnValue != null)
             {
                 Console.WriteLine($"Sending value, {returnValue?.Id}, to Requesting Client");
@@ -32,6 +33,7 @@ namespace WebDBserverAPI.Controllers
             {
                 return NotFound("null");
             }
+            
         }
 
         [HttpPut]
