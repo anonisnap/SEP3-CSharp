@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Entities.Models;
 using SEP3_WebServerClient.Models;
 
 namespace ServerCommunication.SocketCommunication
 {
     public class SocketClient : ISocketClient
     {
-        
         public SocketClientHandler SocketClientHandler;
 
-        
-        
-        
-        
         public void CreateClientHandler()
         {
             while (true)
@@ -28,6 +24,10 @@ namespace ServerCommunication.SocketCommunication
             }
         }
 
+        public Task RegisterItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task SendSpikeToServer(Spike spike)
         {

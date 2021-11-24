@@ -17,8 +17,7 @@ namespace Blazor.Data
         
         public async Task RegisterItem(Item item)
         {
-            //TODO: MAKE ME PLEASE
-           //await _serverCommunication.SendObject(item);
+           await _serverCommunication.RegisterItem(item);
            
         }
 
