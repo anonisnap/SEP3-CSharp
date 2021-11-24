@@ -19,7 +19,7 @@ namespace WebDBserverAPI.Controllers
         }
 
         [HttpGet]
-        [Route("{warehouseItemId}")]
+        [Route("{itemId:int}")]
         public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
         {
             Item returnValue = await _database.FindAsync<Item>(itemId);
@@ -37,26 +37,26 @@ namespace WebDBserverAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> PutItemAsync([FromBody] Item item)
         {
-            Console.WriteLine("Successfully entered WarehouseItemController.PutWarehouseItemAsync()");
+            Console.WriteLine("Successfully entered ItemController.PutItemAsync()");
             await _database.AddAsync(item);
             await _database.SaveChangesAsync();
             return Created($"/WarehouseItem/{item.Id}", item);
         }
 
         [HttpDelete]
-        [Route("{warehouseItemId}")]
-        public async Task<ActionResult> DeleteItemAsync([FromRoute] int warehouseItemId)
+        [Route("{itemId:int}")]
+        public async Task<ActionResult> DeleteItemAsync([FromRoute] int itemId)
         {
-            Console.WriteLine($"Attempting to delete warehouseItem ({warehouseItemId})");
-            Item itemToDelete = await _database.FindAsync<Item>(warehouseItemId);
+            Console.WriteLine($"Attempting to delete Item ({itemId})");
+            Item itemToDelete = await _database.FindAsync<Item>(itemId);
             _database.Remove(itemToDelete);
             await _database.SaveChangesAsync();
             return Ok(itemToDelete);
         }
         
         [HttpPost]
-        [Route("{warehouseItemId}")]
-        public async Task<ActionResult> PostItemAsync([FromRoute] int warehouseItemId, [FromBody] Item item)
+        [Route("{itemId:int}")]
+        public async Task<ActionResult> PostItemAsync([FromRoute] int itemId, [FromBody] Item item)
         {
             
             //TODO: Lav mig
