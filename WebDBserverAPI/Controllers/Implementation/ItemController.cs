@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace WebDBserverAPI.Controllers
 {
     //TODO: Jeg mangler i astah ;(
-    [ApiController] [Route("[controller]")]
+    [ApiController]
+    [Route("[controller]")]
     public class ItemController : ControllerBase
     {
         private DbContext _database;
@@ -53,14 +54,30 @@ namespace WebDBserverAPI.Controllers
             await _database.SaveChangesAsync();
             return Ok(itemToDelete);
         }
-        
+
         [HttpPost]
         [Route("{itemId:int}")]
         public async Task<ActionResult> PostItemAsync([FromRoute] int itemId, [FromBody] Item item)
         {
-            
-            //TODO: Lav mig
-            throw new NotImplementedException();
+            Console.WriteLine($"Posting Item {item} for route item/{itemId}");
+            Item existingItem = await _database.FindAsync<Item>(itemId);
+            if (existingItem == null)
+            {
+                Console.WriteLine("Item did not exist. Creating");
+                _database.Add(item);
+                _database.SaveChanges();
+                return Created($"Item/{itemId}", item);
+            }
+            else
+            {
+                Console.WriteLine("Updating Item");
+                _database.Update(item);
+                _database.SaveChanges();
+                return Ok(item);
+            }
+
+            ////TODO: Lav mig
+            //throw new NotImplementedException();
         }
     }
 }
