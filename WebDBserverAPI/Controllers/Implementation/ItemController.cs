@@ -82,7 +82,6 @@ namespace WebDBserverAPI.Controllers
 			else
 			{
 				// If Item was found. Update the values of the item
-				Console.WriteLine("Updating Item");
 				item.Id = existingItem.Id; // If Primary Key is different this will cause an error on Value Updates
 				_database.Update(existingItem).CurrentValues.SetValues(item); // Update method allows for tracking of item, meaning everything happens as DB stuff
 				_database.SaveChanges();
