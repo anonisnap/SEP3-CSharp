@@ -64,6 +64,7 @@ namespace WebDBserverAPI.Controllers
             if (existingItem == null)
             {
                 Console.WriteLine("Item did not exist. Creating");
+                item.Id = itemId;
                 _database.Add(item);
                 _database.SaveChanges();
                 return Created($"Item/{itemId}", item);
@@ -71,7 +72,8 @@ namespace WebDBserverAPI.Controllers
             else
             {
                 Console.WriteLine("Updating Item");
-                _database.Update(item);
+                item.Id = existingItem.Id;
+                _database.Update(existingItem).CurrentValues.SetValues(item);
                 _database.SaveChanges();
                 return Ok(item);
             }
