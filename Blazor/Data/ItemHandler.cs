@@ -16,6 +16,7 @@ namespace Blazor.Data
             _serverCommunication = serverCommunication;
         }
         
+        
         public async Task RegisterItem(Item item)
         {
             Console.WriteLine("ItemHandler.RegisterItem");
