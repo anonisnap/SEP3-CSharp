@@ -5,15 +5,15 @@
 @inject IItemHandler _itemsHandler
 @inject NavigationManager _navigationManager
 
-<h3>WarehouseItems List</h3>
+<h3>Item List</h3>
 
-@if (_warehouseItems == null)
+@if (_items == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_warehouseItems.Any())
+else if (!_items.Any())
 {
     <p>
         <em>No Spike items exist. Please add some.</em>
@@ -34,7 +34,7 @@ else
         </thead>
         <tbody>
 
-        @foreach (var item in _warehouseItems)
+        @foreach (var item in _items)
         {
             <tr>
                 <td>@item.Id</td>
@@ -52,10 +52,10 @@ else
 @code {
     //TODO: Jeg mangler i astah ;( - Og lav mig
 
-    private IList<Item> _warehouseItems;
+    private IList<Item> _items;
 
     protected override async Task OnInitializedAsync()
     {
-        _warehouseItems = await _itemsHandler.GetItems();
+        _items = await _itemsHandler.GetItems();
     }
 }
