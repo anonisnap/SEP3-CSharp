@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataBaseAccess.DataRepos;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,67 +13,74 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class ItemController : ControllerBase, IItemController
 	{
-		private DbContext _database;
+		private IDataRepo<Item> _itemDataRepo;
 
-		public ItemController(DbContext dbContext)
+		public ItemController(IDataRepo<Item> itemDataRepo)
 		{
-			_database = dbContext;
+			_itemDataRepo = itemDataRepo;
 		}
 
 		[HttpGet]
 		[Route("{itemId:int}")]
 		public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
 		{
-			Item returnValue = await _database.FindAsync<Item>(itemId);
-			if (returnValue != null)
-			{
-				// Returning Item if found
-				Console.WriteLine($"o {returnValue.ItemName}"); // FIXME
-				return Ok(returnValue);
-			}
-			else
-			{
-				// Returning Null if not found
-				return NotFound("null");
-			}
+			Item item = await _itemDataRepo.GetAsync(itemId);
+			
+			if (item == null) return NotFound();
+			
+			return Ok(item);
+			
+		}
+		
+		[HttpGet]
+		public async Task<ActionResult<IList<Item>>> GetItemsAsync()
+		{
+			IList<Item> items = await _itemDataRepo.GetAllAsync();
+			
+			return Ok(items);
+			
 		}
 
+		
 		[HttpPut]
 		public async Task<ActionResult> PutItemAsync([FromBody] Item item)
 		{
-			// Adds Item to Database
-			await _database.AddAsync(item);
-			await _database.SaveChangesAsync();
-			Console.WriteLine($"+ {item.ItemName}"); // FIXME
-			// Returns URL of created item, as well as the object itself
+			await _itemDataRepo.AddAsync(item);
 			return Created($"/Item/{item.Id}", item);
 		}
 
 		[HttpDelete]
 		[Route("{itemId:int}")]
-		public async Task<ActionResult> DeleteItemAsync([FromRoute] int itemId)
+		public async Task<ActionResult<Item>> DeleteItemAsync([FromRoute] int itemId)
 		{
-			// Find Item which is to be deleted
-			Item itemToDelete = await _database.FindAsync<Item>(itemId);
+			Item itemToDelete = await _itemDataRepo.RemoveAsync(itemId);
+			
 			if (itemToDelete == null)
 			{
-				// If Item was not found, return 404 not found
 				return NotFound();
 			}
 
-			// Remove Item
-			_database.Remove(itemToDelete);
-			Console.WriteLine($"- {itemToDelete.ItemName}"); // FIXME
-			// Save Changes done to DB
-			await _database.SaveChangesAsync();
-			// Return deleted item
 			return Ok(itemToDelete);
+			
 		}
 
 		[HttpPost]
 		[Route("{itemId:int}")]
 		public async Task<ActionResult> PostItemAsync([FromRoute] int itemId, [FromBody] Item item)
 		{
+			try
+			{
+				await _itemDataRepo.UpdateAsync(item);
+				return Ok(item);
+			}
+			catch (Exception e)
+			{
+				
+				return StatusCode(500, e.Message);
+			}
+			
+			
+			/*
 			// Look for item with given ItemId
 			Item existingItem = await _database.FindAsync<Item>(itemId);
 			if (existingItem == null)
@@ -91,7 +100,8 @@ namespace WebDBserverAPI.Controllers
 				_database.SaveChanges();
 				Console.WriteLine($"o {existingItem.ItemName}"); // FIXME
 				return Ok(item);
-			}
+			}*/
+			
 		}
 	}
 }

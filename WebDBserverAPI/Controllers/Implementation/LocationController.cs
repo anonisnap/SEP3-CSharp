@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using DataBaseAccess.DataRepos;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -12,31 +13,30 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController
 	{
-		private DbContext _database;
+		private IDataRepo<Location> _locationDataRepo;
 
-		public LocationController(DbContext database)
+		public LocationController(IDataRepo<Location> locationDataRepo)
 		{
 			Console.WriteLine("Location Controller has been instantiated");
-			_database = database;
+			_locationDataRepo = locationDataRepo;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult> GetLocationAsync(string locationId)
 		{
-			Location location = await _database.FindAsync<Location>(locationId);
+			Location location = await _locationDataRepo.GetAsync(locationId);
 			if (location == null)
 			{
 				return NotFound();
 			}
 			return Ok(location);
+			
 		}
 
 		[HttpPut]
 		public async Task<ActionResult> PutLocationAsync(Location location)
 		{
-			Console.WriteLine("Successfully entered LocationController.PutLocationAsync()");
-			await _database.AddAsync(location);
-			await _database.SaveChangesAsync();
+			await _locationDataRepo.AddAsync(location);
 			return Created($"/WarehouseItem/{location.Id}", location);
 		}
 
@@ -45,6 +45,8 @@ namespace WebDBserverAPI.Controllers
 		[Route("{locationId}")]
 		public async Task<ActionResult> PostLocationAsync([FromRoute] string locationId, Location location)
 		{
+			throw new NotImplementedException();
+			/*
 			Location existingLocation = await _database.FindAsync<Location>(locationId);
 			if (existingLocation == null)
 			{
@@ -62,7 +64,7 @@ namespace WebDBserverAPI.Controllers
 				_database.Update(existingLocation).CurrentValues.SetValues(location); // Update method allows for tracking of location, meaning everything happens as DB stuff
 				_database.SaveChanges();
 				return Ok(location);
-			}
+			}*/
 
 		}
 
@@ -71,15 +73,30 @@ namespace WebDBserverAPI.Controllers
 		[Route("{locationId}")]
 		public async Task<ActionResult<Location>> DeleteLocationAsync([FromRoute] string locationId)
 		{
+			try
+			{
+				Location locationToDelete = await _locationDataRepo.RemoveAsync(locationId);
+				return Ok(locationToDelete);
+			}
+			catch (Exception e)
+			{
+				
+				return StatusCode(500, e.Message);
+			}
+			
+			/*
 			Console.WriteLine($"Attempting to Delete Location {locationId}");
 			Location locationToDelete = await _database.FindAsync<Location>(locationId);
 			if (locationToDelete == null)
 			{
 				return NotFound();
 			}
+			
 			_database.Remove(locationToDelete);
 			await _database.SaveChangesAsync();
 			return Ok(locationToDelete);
+			*/
+			
 		}
 	}
 }
