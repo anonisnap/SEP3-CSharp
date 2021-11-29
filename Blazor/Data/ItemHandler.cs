@@ -19,8 +19,7 @@ namespace Blazor.Data
         public async Task RegisterItem(Item item)
         {
             Console.WriteLine("ItemHandler.RegisterItem");
-            
-            Request putRequest = new Request(RequestType.PUT, typeof(Item).ToString(), item);
+            Request putRequest = new Request(RequestType.PUT, nameof(Item), item);
             
             await _serverCommunication.SendToServer(putRequest);
             Console.WriteLine("just send to server");

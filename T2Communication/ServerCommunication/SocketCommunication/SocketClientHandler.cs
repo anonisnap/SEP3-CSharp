@@ -40,9 +40,9 @@ namespace ServerCommunication.SocketCommunication
         {
             Console.WriteLine("SocketClientHandler.SendObject is called");
             //objectAsJSON? 
-            string spikeAsJSON = JsonSerializer.Serialize(obj,
+            string objAsJson = JsonSerializer.Serialize(obj,
                 new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
-            byte[] bytes = Encoding.ASCII.GetBytes(spikeAsJSON);
+            byte[] bytes = Encoding.ASCII.GetBytes(objAsJson);
 
             _stream.Write(bytes, 0, bytes.Length);
         }
