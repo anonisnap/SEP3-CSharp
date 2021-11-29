@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebDBserverAPI.Controllers
 {
-    public interface LocationControllerI
+    public interface ILocationController
     {
         //TODO: Jeg mangler i astah ;(
         Task<ActionResult> GetLocationAsync(string locationId);

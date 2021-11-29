@@ -9,7 +9,7 @@ namespace WebDBserverAPI.Controllers
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
-	public class ItemController : ControllerBase
+	public class ItemController : ControllerBase, IItemController
 	{
 		private DbContext _database;
 

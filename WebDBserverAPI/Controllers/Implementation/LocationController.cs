@@ -10,7 +10,7 @@ namespace WebDBserverAPI.Controllers
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
-	public class LocationController : ControllerBase, LocationControllerI
+	public class LocationController : ControllerBase, ILocationController
 	{
 		private DbContext _database;
 
