@@ -30,8 +30,9 @@ namespace Blazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<IServerCommunication, SocketClient>();
-            services.AddSingleton<IItemHandler, ItemHandler>();
+            services.AddScoped<IServerCommunication, SocketClient>();
+            services.AddScoped<IItemHandler, ItemHandler>();
+            services.AddScoped<ILocationHandler, LocationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
