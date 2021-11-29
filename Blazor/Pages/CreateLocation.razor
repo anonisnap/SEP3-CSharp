@@ -1,0 +1,46 @@
+﻿@page "/CreateLocation"
+@using Blazor.Data
+@using Entities.Models
+
+@inject ILocationHandler _locationHandler
+@inject NavigationManager _navigationManager
+
+<h3>Create a new Location</h3>
+
+<EditForm Model="@_location" OnValidSubmit="@CreateNewLocation">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <div class="form-group">
+        <table class="border-bottom border-top border-dark m-2">
+            <tr>
+                <td class="p-1">Location</td>
+                <td class="p-1">
+                    <InputText @bind-Value="_location"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <p class="actions">
+        <button class="btn btn-outline-dark btn-primary" type="submit">Create location</button>
+    </p>
+</EditForm>
+
+@code {
+    private Location _location;
+
+    protected override async Task OnInitializedAsync()
+    {
+    //Todo: Missing awaits=?
+        _location = new();
+    }
+
+    private void CreateNewLocation()
+    {
+        _locationHandler.CreateLocation(_location);
+    //hvad skal denne navigate til bagefter så
+    //_navigationManager.NavigateTo("/?");
+    }
+
+}
