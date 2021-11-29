@@ -44,7 +44,7 @@ namespace ServerCommunication.SocketCommunication
 
         private void HandelReceivedObject(Object obj)
         {
-            Console.WriteLine("shit got out of hand");
+            Console.WriteLine($"Recived {obj}");
         }
         
         

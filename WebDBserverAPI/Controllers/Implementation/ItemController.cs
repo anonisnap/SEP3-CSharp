@@ -26,6 +26,7 @@ namespace WebDBserverAPI.Controllers
 			if (returnValue != null)
 			{
 				// Returning Item if found
+				Console.WriteLine($"o {returnValue.ItemName}"); // FIXME
 				return Ok(returnValue);
 			}
 			else
@@ -41,6 +42,7 @@ namespace WebDBserverAPI.Controllers
 			// Adds Item to Database
 			await _database.AddAsync(item);
 			await _database.SaveChangesAsync();
+			Console.WriteLine($"+ {item.ItemName}"); // FIXME
 			// Returns URL of created item, as well as the object itself
 			return Created($"/Item/{item.Id}", item);
 		}
@@ -59,6 +61,7 @@ namespace WebDBserverAPI.Controllers
 
 			// Remove Item
 			_database.Remove(itemToDelete);
+			Console.WriteLine($"- {itemToDelete.ItemName}"); // FIXME
 			// Save Changes done to DB
 			await _database.SaveChangesAsync();
 			// Return deleted item
@@ -77,6 +80,7 @@ namespace WebDBserverAPI.Controllers
 				item.Id = itemId;
 				_database.Add(item);
 				_database.SaveChanges();
+				Console.WriteLine($"+ {item.ItemName}"); // FIXME
 				return Created($"Item/{itemId}", item);
 			}
 			else
@@ -85,6 +89,7 @@ namespace WebDBserverAPI.Controllers
 				item.Id = existingItem.Id; // If Primary Key is different this will cause an error on Value Updates
 				_database.Update(existingItem).CurrentValues.SetValues(item); // Update method allows for tracking of item, meaning everything happens as DB stuff
 				_database.SaveChanges();
+				Console.WriteLine($"o {existingItem.ItemName}"); // FIXME
 				return Ok(item);
 			}
 		}
