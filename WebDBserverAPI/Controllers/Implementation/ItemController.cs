@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using DataBaseAccess.DataRepos;
+using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace WebDBserverAPI.Controllers
 		public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
 		{
 			Item returnValue = await _database.FindAsync<Item>(itemId);
+			
 			if (returnValue != null)
 			{
 				// Returning Item if found
