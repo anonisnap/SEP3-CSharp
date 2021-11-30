@@ -14,19 +14,26 @@ namespace RepoTest
     {
         //https://docs.nunit.org/articles/nunit/writing-tests/setup-teardown/index.html
         //https://www.thereformedprogrammer.net/using-in-memory-databases-for-unit-testing-ef-core-applications/
-        
-        private IDataRepo<Item> _dataRepo;
 
-        [SetUp]
+        private IDataRepo<Item> _dataRepo;
+        private Item _item = new();
+
+            [SetUp]
         public void Setup()
         {
             _dataRepo = new ItemDataRepo();
+            
+            _item.Id = 5;
+            _item.ItemName = "TestItemTest";
+            _item.Length = 6;
+            _item.Width = 7;
+            _item.Height = 8;
+            _item.Weight = 9;
         }
 
         [SetUpAttribute]
         public void AttributeSetup()
         {
-            Item item = new();
         }
 
         [TearDownAttribute]
@@ -38,15 +45,7 @@ namespace RepoTest
         [Test]
         public void Test1()
         {
-            Item item = new();
-            item.Id = 5;
-            item.ItemName = "TestItemTest";
-            item.Length = 6;
-            item.Width = 7;
-            item.Height = 8;
-            item.Weight = 9;
-
-            Console.WriteLine(_dataRepo.Add(item));
+            Console.WriteLine(_dataRepo.AddAsync(_item));
             //Assert.AreEqual();
             //Assert.Pass();
         }
