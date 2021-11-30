@@ -26,8 +26,11 @@ namespace DataBaseAccess.DataRepos.Impl
 			if (locationToRemove != null)
 			{
 				_database.Locations.Remove(locationToRemove);
+				return locationToRemove;
 			}
-			return locationToRemove;
+			// TODO: Implement Custom Exception
+			//throw new LocationFoundException();
+			throw new Exception();
 		}
 
 		public async Task UpdateAsync(string id, Location obj)
