@@ -3,7 +3,7 @@
     public class ItemLocationDB : ItemLocation
     {
         public int ItemId { get; set; }
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
         
     }
 }

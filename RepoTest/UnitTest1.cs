@@ -16,7 +16,7 @@ namespace RepoTest
         //https://docs.nunit.org/articles/nunit/writing-tests/setup-teardown/index.html
         //https://www.thereformedprogrammer.net/using-in-memory-databases-for-unit-testing-ef-core-applications/
 
-        private IDataRepo<Item, int> _dataRepo;
+        private IDataRepo<Item> _dataRepo;
         private Item _item = new();
 
             [SetUp]

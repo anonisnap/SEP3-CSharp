@@ -14,16 +14,16 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController
 	{
-		private IDataRepo<Location, string> _locationRepo;
+		private IDataRepo<Location> _locationRepo;
 
-		public LocationController(IDataRepo<Location, string> locationRepo)
+		public LocationController(IDataRepo<Location> locationRepo)
 		{
 			Console.WriteLine("Location Controller has been instantiated");
 			_locationRepo = locationRepo;
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetLocationAsync(string locationId)
+		public async Task<ActionResult> GetLocationAsync(int locationId)
 		{
 			Location location = await _locationRepo.GetAsync(locationId);
 			return location != null ? Ok(location) : NotFound();
@@ -37,16 +37,16 @@ namespace WebDBserverAPI.Controllers
 		}
 
 		[HttpPost]
-		[Route("{locationId}")]
-		public async Task<ActionResult> PostLocationAsync([FromRoute] string locationId, Location location)
+		[Route("{locationId:int}")]
+		public async Task<ActionResult> PostLocationAsync([FromRoute] int locationId, Location location)
 		{
 			await _locationRepo.UpdateAsync(locationId, location);
 			return Ok(location);
 		}
 
 		[HttpDelete]
-		[Route("{locationId}")]
-		public async Task<ActionResult<Location>> DeleteLocationAsync([FromRoute] string locationId)
+		[Route("{locationId:int}")]
+		public async Task<ActionResult<Location>> DeleteLocationAsync([FromRoute] int locationId)
 		{
 			try
 			{

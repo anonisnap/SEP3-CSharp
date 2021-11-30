@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseAccess.DataRepos.Impl
 {
-	public class ItemDataRepo : IDataRepo<Item, int>
+	public class ItemDataRepo : IItemDataRepo
 	{
 
 		private SEP_DBContext _sepDbContext;

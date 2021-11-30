@@ -13,9 +13,9 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class ItemController : ControllerBase, IItemController
 	{
-		private IDataRepo<Item, int> _itemRepo;
+		private IDataRepo<Item> _itemRepo;
 
-		public ItemController(IDataRepo<Item, int> itemRepo)
+		public ItemController(IDataRepo<Item> itemRepo)
 		{
 			_itemRepo = itemRepo;
 		}
