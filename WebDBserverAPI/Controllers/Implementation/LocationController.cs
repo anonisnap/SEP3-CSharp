@@ -23,11 +23,19 @@ namespace WebDBserverAPI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetLocationAsync(int locationId)
+		public async Task<ActionResult> GetLocationAsync(int? locationId)
 		{
 			try
 			{
-				Location location = await _locationRepo.GetAsync(locationId);
+				object location;
+				if (locationId != null)
+				{
+					location = await _locationRepo.GetAsync((int)locationId);
+				}
+				else
+				{
+					location = await _locationRepo.GetAllAsync();
+				}
 				return location != null ? Ok(location) : NotFound();
 			}
 			catch (Exception)
