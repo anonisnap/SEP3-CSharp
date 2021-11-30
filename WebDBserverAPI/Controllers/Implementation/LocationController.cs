@@ -14,9 +14,9 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController
 	{
-		private LocationDataRepo _locationRepo;
+		private IDataRepo<Location, string> _locationRepo;
 
-		public LocationController(LocationDataRepo locationRepo)
+		public LocationController(IDataRepo<Location, string> locationRepo)
 		{
 			Console.WriteLine("Location Controller has been instantiated");
 			_locationRepo = locationRepo;

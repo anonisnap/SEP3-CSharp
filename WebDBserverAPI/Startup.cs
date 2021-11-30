@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DataBaseAccess;
+using DataBaseAccess.DataRepos;
+using DataBaseAccess.DataRepos.Impl;
+using Entities.Models;
 
 namespace WebDBserverAPI {
 	public class Startup {
@@ -32,6 +35,9 @@ namespace WebDBserverAPI {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
 			services.AddSingleton<DbContext, SEP_DBContext>();
+			services.AddScoped<IDataRepo<Item, int>, ItemDataRepo>();
+			services.AddScoped<IDataRepo<Location, string>, LocationDataRepo>();
+			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

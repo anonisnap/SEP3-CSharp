@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using DataBaseAccess;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
@@ -15,14 +16,14 @@ namespace RepoTest
         //https://docs.nunit.org/articles/nunit/writing-tests/setup-teardown/index.html
         //https://www.thereformedprogrammer.net/using-in-memory-databases-for-unit-testing-ef-core-applications/
 
-        private IDataRepo<Item> _dataRepo;
+        private IDataRepo<Item, int> _dataRepo;
         private Item _item = new();
 
             [SetUp]
         public void Setup()
         {
-            _dataRepo = new ItemDataRepo();
             
+           // _dataRepo = new ItemDataRepo();
             _item.Id = 5;
             _item.ItemName = "TestItemTest";
             _item.Length = 6;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
@@ -6,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseAccess.DataRepos.Impl
 {
-	public class LocationDataRepo : IDataRepo<Location>
+	public class LocationDataRepo : IDataRepo<Location, string>
 	{
 		private SEP_DBContext _database;
 
@@ -21,9 +20,9 @@ namespace DataBaseAccess.DataRepos.Impl
 			await _database.SaveChangesAsync();
 		}
 
-		public async Task<Location> RemoveAsync(object id)
+		public async Task<Location> RemoveAsync(string id)
 		{
-			Location locationToRemove = await _database.Locations.FindAsync((string)id);
+			Location locationToRemove = await _database.Locations.FindAsync(id);
 			if (locationToRemove != null)
 			{
 				_database.Locations.Remove(locationToRemove);
@@ -31,7 +30,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			return locationToRemove;
 		}
 
-		public async Task UpdateAsync(object id, Location obj)
+		public async Task UpdateAsync(string id, Location obj)
 		{
 			await AddAsync(obj);
 			await RemoveAsync(id);
@@ -42,7 +41,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			return await _database.Locations.ToListAsync();
 		}
 
-		public async Task<Location> GetAsync(object locationId)
+		public async Task<Location> GetAsync(string locationId)
 		{
 			return await _database.Locations.FindAsync((string)locationId);
 		}

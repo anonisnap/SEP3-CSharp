@@ -5,7 +5,6 @@ using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
 {
@@ -14,9 +13,9 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class ItemController : ControllerBase, IItemController
 	{
-		private ItemDataRepo _itemRepo;
+		private IDataRepo<Item, int> _itemRepo;
 
-		public ItemController(ItemDataRepo itemRepo)
+		public ItemController(IDataRepo<Item, int> itemRepo)
 		{
 			_itemRepo = itemRepo;
 		}
@@ -69,7 +68,7 @@ namespace WebDBserverAPI.Controllers
 			}
 			catch (Exception e)
 			{
-				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk Tænkepause
+				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk Tï¿½nkepause
 				return StatusCode(500, e.Message);
 			}
 			

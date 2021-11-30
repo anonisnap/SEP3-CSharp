@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseAccess.DataRepos.Impl
 {
-	public class ItemDataRepo : IDataRepo<Item>
+	public class ItemDataRepo : IDataRepo<Item, int>
 	{
 
 		private SEP_DBContext _sepDbContext;
@@ -24,7 +24,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			await _sepDbContext.SaveChangesAsync();
 		}
 
-		public async Task<Item> RemoveAsync(object itemId)
+		public async Task<Item> RemoveAsync(int itemId)
 		{
 			// Find Item which is to be deleted
 			Item itemToDelete = await _sepDbContext.Items.FindAsync((int)itemId);
@@ -43,7 +43,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			return itemToDelete;
 		}
 
-		public async Task UpdateAsync(object id, Item item)
+		public async Task UpdateAsync(int id, Item item)
 		{
 			_sepDbContext.Items.Update(item);
 			await _sepDbContext.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			return await _sepDbContext.Items.ToListAsync();
 		}
 
-		public async Task<Item> GetAsync(object itemId)
+		public async Task<Item> GetAsync(int itemId)
 		{
 			return await _sepDbContext.Items.FindAsync((int)itemId);
 		}
