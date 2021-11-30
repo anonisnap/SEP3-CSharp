@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseAccess", "DataBaseA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "Blazor\Blazor.csproj", "{57C8C879-3237-4F15-9568-FDAD17E04F0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoTest", "RepoTest\RepoTest.csproj", "{13CCAB33-FD1D-471C-93D2-3BED4966A64F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{57C8C879-3237-4F15-9568-FDAD17E04F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C8C879-3237-4F15-9568-FDAD17E04F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57C8C879-3237-4F15-9568-FDAD17E04F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13CCAB33-FD1D-471C-93D2-3BED4966A64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CCAB33-FD1D-471C-93D2-3BED4966A64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CCAB33-FD1D-471C-93D2-3BED4966A64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CCAB33-FD1D-471C-93D2-3BED4966A64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
