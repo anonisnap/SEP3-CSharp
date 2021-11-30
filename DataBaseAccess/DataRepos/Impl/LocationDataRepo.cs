@@ -21,24 +21,13 @@ namespace DataBaseAccess.DataRepos.Impl
 			{
 				await _database.Locations.AddAsync(location);
 				await _database.SaveChangesAsync();
-			} catch (DbUpdateException dbUpdate)
+			}
+			catch (DbUpdateException dbUpdate)
 			{
 				throw new Exception("Location already in Database", dbUpdate);
 			}
 		}
 
-		public async Task<Location> RemoveAsync(int id)
-		{
-			Location locationToRemove = await _database.Locations.FindAsync(id);
-			if (locationToRemove != null)
-			{
-				_database.Locations.Remove(locationToRemove);
-				return locationToRemove;
-			}
-			// TODO: Implement Custom Exception
-			//throw new LocationFoundException();
-			throw new Exception();
-		}
 
 		public async Task UpdateAsync(int id, Location obj)
 		{
@@ -54,6 +43,14 @@ namespace DataBaseAccess.DataRepos.Impl
 		public async Task<Location> GetAsync(int locationId)
 		{
 			return await _database.Locations.FindAsync(locationId);
+		}
+
+		public async Task<Location> RemoveAsync(int id)
+		{
+			Location locationToRemove = await _database.Locations.FirstAsync(l => l.Id == id);
+			// If Location was not found, an Exception should have been thrown on Line Above
+			_database.Locations.Remove(locationToRemove);
+			return locationToRemove;
 		}
 	}
 }
