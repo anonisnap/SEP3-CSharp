@@ -69,7 +69,7 @@ namespace WebDBserverAPI.Controllers
 			}
 			catch (Exception e)
 			{
-				
+				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk Tænkepause
 				return StatusCode(500, e.Message);
 			}
 			
