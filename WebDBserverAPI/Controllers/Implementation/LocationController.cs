@@ -4,8 +4,6 @@ using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers
 {
