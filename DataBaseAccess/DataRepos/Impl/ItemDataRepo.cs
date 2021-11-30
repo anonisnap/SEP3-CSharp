@@ -43,7 +43,7 @@ namespace DataBaseAccess.DataRepos.Impl
 			return itemToDelete;
 		}
 
-		public async Task UpdateAsync(Item item)
+		public async Task UpdateAsync(object id, Item item)
 		{
 			_sepDbContext.Items.Update(item);
 			await _sepDbContext.SaveChangesAsync();

@@ -8,43 +8,43 @@ namespace DataBaseAccess.DataRepos.Impl
 {
 	public class LocationDataRepo : IDataRepo<Location>
 	{
-
-		private SEP_DBContext _sepDbContext;
+		private SEP_DBContext _database;
 
 		public LocationDataRepo(DbContext dbContext)
 		{
-			_sepDbContext = (SEP_DBContext)dbContext;
+			_database = (SEP_DBContext)dbContext;
 		}
-
 
 		public async Task AddAsync(Location location)
 		{
-			await _sepDbContext.Locations.AddAsync(location);
-			await _sepDbContext.SaveChangesAsync();
+			await _database.Locations.AddAsync(location);
+			await _database.SaveChangesAsync();
 		}
 
 		public async Task<Location> RemoveAsync(object id)
 		{
-			Location locationToRemove = await _sepDbContext.Locations.FindAsync((string)id);
-
-			_sepDbContext.Locations.Remove(locationToRemove);
-
+			Location locationToRemove = await _database.Locations.FindAsync((string)id);
+			if (locationToRemove != null)
+			{
+				_database.Locations.Remove(locationToRemove);
+			}
 			return locationToRemove;
 		}
 
-		public async Task UpdateAsync(Location obj)
+		public async Task UpdateAsync(object id, Location obj)
 		{
-			throw new System.NotImplementedException();
+			await AddAsync(obj);
+			await RemoveAsync(id);
 		}
 
 		public async Task<IList<Location>> GetAllAsync()
 		{
-			throw new System.NotImplementedException();
+			return await _database.Locations.ToListAsync();
 		}
 
 		public async Task<Location> GetAsync(object locationId)
 		{
-			return await _sepDbContext.Locations.FindAsync((string)locationId);
+			return await _database.Locations.FindAsync((string)locationId);
 		}
 	}
 }

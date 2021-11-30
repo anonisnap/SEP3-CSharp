@@ -55,14 +55,7 @@ namespace WebDBserverAPI.Controllers
 		public async Task<ActionResult<Item>> DeleteItemAsync([FromRoute] int itemId)
 		{
 			Item itemToDelete = await _itemRepo.RemoveAsync(itemId);
-			
-			if (itemToDelete == null)
-			{
-				return NotFound();
-			}
-
-			return Ok(itemToDelete);
-			
+			return itemToDelete != null ? Ok(itemToDelete) : NotFound();
 		}
 
 		[HttpPost]
@@ -71,7 +64,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			try
 			{
-				await _itemRepo.UpdateAsync(item);
+				await _itemRepo.UpdateAsync(itemId, item);
 				return Ok(item);
 			}
 			catch (Exception e)
