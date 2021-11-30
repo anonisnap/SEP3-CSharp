@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
+using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -13,18 +14,18 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController
 	{
-		private IDataRepo<Location> _locationDataRepo;
+		private LocationDataRepo _locationRepo;
 
-		public LocationController(IDataRepo<Location> locationDataRepo)
+		public LocationController(LocationDataRepo locationRepo)
 		{
 			Console.WriteLine("Location Controller has been instantiated");
-			_locationDataRepo = locationDataRepo;
+			_locationRepo = locationRepo;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult> GetLocationAsync(string locationId)
 		{
-			Location location = await _locationDataRepo.GetAsync(locationId);
+			Location location = await _locationRepo.GetAsync(locationId);
 			if (location == null)
 			{
 				return NotFound();
@@ -36,7 +37,7 @@ namespace WebDBserverAPI.Controllers
 		[HttpPut]
 		public async Task<ActionResult> PutLocationAsync(Location location)
 		{
-			await _locationDataRepo.AddAsync(location);
+			await _locationRepo.AddAsync(location);
 			return Created($"/WarehouseItem/{location.Id}", location);
 		}
 
@@ -75,7 +76,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			try
 			{
-				Location locationToDelete = await _locationDataRepo.RemoveAsync(locationId);
+				Location locationToDelete = await _locationRepo.RemoveAsync(locationId);
 				return Ok(locationToDelete);
 			}
 			catch (Exception e)

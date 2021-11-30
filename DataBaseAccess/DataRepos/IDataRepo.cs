@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 
 namespace DataBaseAccess.DataRepos
 {
-    public interface IDataRepo<T>
-    {
-        Task AddAsync(T obj);
-        
-        Task<T> RemoveAsync(Object id);
-        
-        Task UpdateAsync(T obj);
-        
-        Task<IList<T>> GetAllAsync();
+	public interface IDataRepo<T>
+	{
+		Task AddAsync(T obj);
 
-        Task<T> GetAsync(Object obj);
+		Task<T> RemoveAsync(object id);
 
-    }
+		Task UpdateAsync(T obj);
+
+		Task<IList<T>> GetAllAsync();
+
+		Task<T> GetAsync(object obj);
+
+	}
 }

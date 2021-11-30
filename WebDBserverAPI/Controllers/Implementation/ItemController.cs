@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
+using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,18 +14,18 @@ namespace WebDBserverAPI.Controllers
 	[Route("[controller]")]
 	public class ItemController : ControllerBase, IItemController
 	{
-		private IDataRepo<Item> _itemDataRepo;
+		private ItemDataRepo _itemRepo;
 
-		public ItemController(IDataRepo<Item> itemDataRepo)
+		public ItemController(ItemDataRepo itemRepo)
 		{
-			_itemDataRepo = itemDataRepo;
+			_itemRepo = itemRepo;
 		}
 
 		[HttpGet]
 		[Route("{itemId:int}")]
 		public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
 		{
-			Item item = await _itemDataRepo.GetAsync(itemId);
+			Item item = await _itemRepo.GetAsync(itemId);
 			
 			if (item == null) return NotFound();
 			
@@ -35,7 +36,7 @@ namespace WebDBserverAPI.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IList<Item>>> GetItemsAsync()
 		{
-			IList<Item> items = await _itemDataRepo.GetAllAsync();
+			IList<Item> items = await _itemRepo.GetAllAsync();
 			
 			return Ok(items);
 			
@@ -45,7 +46,7 @@ namespace WebDBserverAPI.Controllers
 		[HttpPut]
 		public async Task<ActionResult> PutItemAsync([FromBody] Item item)
 		{
-			await _itemDataRepo.AddAsync(item);
+			await _itemRepo.AddAsync(item);
 			return Created($"/Item/{item.Id}", item);
 		}
 
@@ -53,7 +54,7 @@ namespace WebDBserverAPI.Controllers
 		[Route("{itemId:int}")]
 		public async Task<ActionResult<Item>> DeleteItemAsync([FromRoute] int itemId)
 		{
-			Item itemToDelete = await _itemDataRepo.RemoveAsync(itemId);
+			Item itemToDelete = await _itemRepo.RemoveAsync(itemId);
 			
 			if (itemToDelete == null)
 			{
@@ -70,7 +71,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			try
 			{
-				await _itemDataRepo.UpdateAsync(item);
+				await _itemRepo.UpdateAsync(item);
 				return Ok(item);
 			}
 			catch (Exception e)
