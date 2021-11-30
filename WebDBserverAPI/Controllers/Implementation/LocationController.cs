@@ -48,7 +48,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			try
 			{
-				Location locationToDelete = await _locationRepo.RemoveAsync(locationId);
+				Location locationToDelete = await _locationRepo.RemoveAsync(locationId); // TODO: Exception thrown if Object is Null
 				return locationToDelete != null ? Ok(locationToDelete) : NotFound();
 			}
 			catch (Exception e)
