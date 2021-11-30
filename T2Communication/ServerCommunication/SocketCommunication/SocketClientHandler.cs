@@ -12,7 +12,7 @@ namespace ServerCommunication.SocketCommunication
         private NetworkStream _stream;
         private TcpClient _tcpClient;
 
-        public Action<Object> ReceivedFromServer { get; set; }
+        public Action<string> ReceivedFromServer { get; set; }
 
         public SocketClientHandler(TcpClient tcpClient)
         {
@@ -26,7 +26,7 @@ namespace ServerCommunication.SocketCommunication
             while (true)
             {
                 Console.WriteLine("im a socket Thread");
-                Object receiveObject = ReceiveObject();
+                string receiveObject = ReceiveObject().Result;
                 ReceivedFromServer?.Invoke(receiveObject);
             }
 

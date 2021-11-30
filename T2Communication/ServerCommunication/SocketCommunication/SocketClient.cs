@@ -24,7 +24,7 @@ namespace ServerCommunication.SocketCommunication
             TcpClient tcpClient = new TcpClient("localhost", 1235);
             socketClientHandler = new SocketClientHandler(tcpClient);
             // observing with "HandelReceivedObject" on action "ReceivedFromServer" 
-            socketClientHandler.ReceivedFromServer += HandelReceivedObject;
+            socketClientHandler.ReceivedFromServer += HandleReceivedObject;
             Thread t = new Thread(() => socketClientHandler.Run());
             t.Start();
             
@@ -42,13 +42,9 @@ namespace ServerCommunication.SocketCommunication
         }
 
 
-        private void HandelReceivedObject(Object obj)
+        private void HandleReceivedObject(string obj)
         {
             Console.WriteLine($"Recived {obj}");
         }
-        
-        
-        
     }
-    
 }

@@ -17,8 +17,14 @@ namespace DataBaseAccess.DataRepos.Impl
 
 		public async Task AddAsync(Location location)
 		{
-			await _database.Locations.AddAsync(location);
-			await _database.SaveChangesAsync();
+			try
+			{
+				await _database.Locations.AddAsync(location);
+				await _database.SaveChangesAsync();
+			} catch (DbUpdateException dbUpdate)
+			{
+				throw new Exception("Location already in Database", dbUpdate);
+			}
 		}
 
 		public async Task<Location> RemoveAsync(int id)

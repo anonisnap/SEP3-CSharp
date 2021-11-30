@@ -25,15 +25,35 @@ namespace WebDBserverAPI.Controllers
 		[HttpGet]
 		public async Task<ActionResult> GetLocationAsync(int locationId)
 		{
-			Location location = await _locationRepo.GetAsync(locationId);
-			return location != null ? Ok(location) : NotFound();
+			try
+			{
+				Location location = await _locationRepo.GetAsync(locationId);
+				return location != null ? Ok(location) : NotFound();
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
 		}
 
 		[HttpPut]
 		public async Task<ActionResult> PutLocationAsync(Location location)
 		{
-			await _locationRepo.AddAsync(location);
-			return Created($"/WarehouseItem/{location.Id}", location);
+			try
+			{
+				await _locationRepo.AddAsync(location);
+				Console.WriteLine($"+ Location {location.Description}");
+				return Created($"/Location/{location.Id}", location);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("!! Error in Put Location");
+				if (ex.Message.Equals("Location already in Database"))
+				{
+					return BadRequest(ex.Message);
+				}
+				return BadRequest();
+			}
 		}
 
 		[HttpPost]
