@@ -16,10 +16,10 @@ namespace WebDBserverAPI.Controllers
 	{
 		private LocationDataRepo _locationRepo;
 
-		public LocationController(LocationDataRepo locationRepo)
+		public LocationController(IDataRepo<Location> locationRepo)
 		{
 			Console.WriteLine("Location Controller has been instantiated");
-			_locationRepo = locationRepo;
+			_locationRepo = (LocationDataRepo)locationRepo;
 		}
 
 		[HttpGet]
