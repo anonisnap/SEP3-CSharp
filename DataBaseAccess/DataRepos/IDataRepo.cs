@@ -1,19 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DataBaseAccess.DataRepos
 {
-    public interface IDataRepo<T>
-    {
-        Task<T> Add(T obj);
-        
-        Task<T> Remove(T obj);
-        
-        Task<T> Update(T obj);
-        
-        Task<IList<T>> GetAll(T obj);
+	public interface IDataRepo<T>
+	{
+		Task AddAsync(T obj);
 
-        Task<T> Get(T obj);
+		Task<T> RemoveAsync(object id);
 
-    }
+		Task UpdateAsync(T obj);
+
+		Task<IList<T>> GetAllAsync();
+
+		Task<T> GetAsync(object obj);
+
+	}
 }
