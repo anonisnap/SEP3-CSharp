@@ -36,7 +36,7 @@ namespace ServerCommunication.SocketCommunication
         }
 
 
-        public async Task SendObject(Object obj)
+        public async Task SendObject(object obj)
         {
             Console.WriteLine("SocketClientHandler.SendObject is called");
             //objectAsJSON? 

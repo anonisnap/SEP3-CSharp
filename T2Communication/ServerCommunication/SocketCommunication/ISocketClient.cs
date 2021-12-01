@@ -1,9 +1,5 @@
-﻿namespace ServerCommunication.SocketCommunication
-{
-    public interface ISocketClient : IServerCommunication
-    {
-        void CreateClientHandler();
-        
-        
-    }
+﻿namespace ServerCommunication.SocketCommunication {
+	public interface ISocketClient : IServerCommunication {
+		void CreateClientHandler( );
+	}
 }

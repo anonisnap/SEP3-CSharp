@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseAccess", "DataBaseA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "Blazor\Blazor.csproj", "{57C8C879-3237-4F15-9568-FDAD17E04F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoTest", "RepoTest\RepoTest.csproj", "{13CCAB33-FD1D-471C-93D2-3BED4966A64F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoTest", "RepoTest\RepoTest.csproj", "{13CCAB33-FD1D-471C-93D2-3BED4966A64F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
