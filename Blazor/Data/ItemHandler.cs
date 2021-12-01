@@ -42,5 +42,10 @@ namespace Blazor.Data {
 
 			//throw new System.NotImplementedException( );
 		}
+
+		public void Update(string jsonEntity)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
