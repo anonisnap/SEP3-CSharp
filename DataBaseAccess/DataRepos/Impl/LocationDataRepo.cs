@@ -28,10 +28,11 @@ namespace DataBaseAccess.DataRepos.Impl
 			}
 		}
 
-		public async Task UpdateAsync(int id, Location obj)
+
+		public async Task UpdateAsync(Location obj)
 		{
-			await AddAsync(obj);
-			await RemoveAsync(id);
+			_database.Locations.Update(obj);
+			await _database.SaveChangesAsync();
 		}
 
 		public async Task<IList<Location>> GetAllAsync()
