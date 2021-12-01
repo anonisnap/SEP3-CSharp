@@ -38,6 +38,8 @@ namespace Blazor.Data {
 			Console.WriteLine($"Template Item Type {templateItem.GetType().Name}");
 			await _serverCommunication.SendToServer(this, "get", templateItem);
 
+
+			return null;
 			//return JsonSerializer.Deserialize<Item>(jsonObject);
 
 			//throw new System.NotImplementedException( );

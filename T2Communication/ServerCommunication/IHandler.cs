@@ -1,6 +1,6 @@
 using System;
 
-namespace Blazor.Data
+namespace ServerCommunication
 {
     public interface IHandler
     {

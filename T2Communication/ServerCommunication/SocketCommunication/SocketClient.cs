@@ -31,13 +31,13 @@ namespace ServerCommunication.SocketCommunication {
 
 		}
 
-		public async Task SendToServer(IHandler callingHandler, string action, Object obj) {
+		public async Task SendToServer(IHandler callingHandler, string action, object obj) {
 			// Create Request
-			Console.WriteLine($"> Generating a {action.ToUpper()}-request with arg: {obj.GetType().Name}");
+			Console.WriteLine($"> Generating a {action.ToUpper( )}-request with arg: {obj.GetType( ).Name}");
 			Request request = generateRequest(action, obj);
 
 			// Map Handler to Request ID
-			Console.WriteLine($"> Attempting to add {callingHandler.GetType().Name} to Handler Dictionary");
+			Console.WriteLine($"> Attempting to add {callingHandler.GetType( ).Name} to Handler Dictionary");
 			_handlerDict.Add(request.Id, callingHandler);
 
 			// Send Request to Server
@@ -56,17 +56,18 @@ namespace ServerCommunication.SocketCommunication {
 			_handlerDict.TryGetValue(id, out IHandler handler);
 
 			// Give (Class Type & [?]) Argument to Handler
-			handler.Update(serverReply.Arg);
+			Console.WriteLine($"Updating {handler.GetType( ).Name} with {(string) serverReply.Arg}");
+			handler.Update((string) serverReply.Arg);
 
 			_jsonObject = obj;
 			Console.WriteLine($"\t<!!> Recived {obj}");
 		}
 
-		private Request generateRequest(string action, Object obj) {
+		private Request generateRequest(string action, object obj) {
 			int requestId = new Random( ).Next( );
 			RequestType type;
 			Enum.TryParse<RequestType>(action, true, out type);
-			Request req = new Request(type, requestId, obj.GetType().Name, obj);
+			Request req = new Request(type, requestId, obj.GetType( ).Name, obj);
 
 			return req;
 		}
