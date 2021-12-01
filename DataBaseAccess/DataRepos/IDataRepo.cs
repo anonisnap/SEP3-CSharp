@@ -14,7 +14,7 @@ namespace DataBaseAccess.DataRepos
 
 		Task<IList<Entity>> GetAllAsync();
 
-		Task<Entity> GetAsync(int obj);
+		Task<Entity> GetAsync(int id);
 
 	}
 }
