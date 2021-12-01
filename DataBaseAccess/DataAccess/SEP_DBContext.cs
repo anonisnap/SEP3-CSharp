@@ -1,7 +1,5 @@
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using SEP3_WebServerClient.Models;
 
 
 namespace DataBaseAccess

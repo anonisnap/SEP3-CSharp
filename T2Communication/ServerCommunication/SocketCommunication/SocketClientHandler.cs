@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using SEP3_WebServerClient.Models;
 
 namespace ServerCommunication.SocketCommunication
 {
@@ -29,8 +28,7 @@ namespace ServerCommunication.SocketCommunication
                 string receiveObject = ReceiveObject().Result;
                 ReceivedFromServer?.Invoke(receiveObject);
             }
-
-
+            
             _stream.Close();
             _tcpClient.Close();
         }
