@@ -9,7 +9,6 @@ namespace ServerCommunication.SocketCommunication {
 	public class SocketClient : ISocketClient {
 		private SocketClientHandler _socketClientHandler;
 		private Dictionary<int, IHandler> _handlerDict; // Dictionary<string, object> [?]
-		private string _jsonObject;
 
 		public SocketClient( ) {
 			Console.WriteLine("Creating a SocketClient");
@@ -53,7 +52,6 @@ namespace ServerCommunication.SocketCommunication {
 			TcpClient tcpClient = new TcpClient("localhost", 1235);
 			SocketClientHandler requestReplySocketClientHandler = new SocketClientHandler(tcpClient);
 
-			
 			// Create Request
 			Console.WriteLine($"> Generating a {action.ToUpper( )}-request with arg: {obj.GetType( ).Name}");
 			Request request = generateRequest(action, obj);
@@ -66,22 +64,29 @@ namespace ServerCommunication.SocketCommunication {
 			Console.WriteLine($"> Contacting Server using {requestReplySocketClientHandler}");
 			await requestReplySocketClientHandler.SendObject(request);
 
-			// Waiting for reply from server
-			Console.WriteLine("> reply socket handler waiting for reply");
-			string jsonObj = await requestReplySocketClientHandler.ReceiveObject();
-			Console.WriteLine($"> reply socket handler received an reply for the {request.Type} {request.ClassName}: {jsonObj}");
-			
-			RequestReply serverReply = JsonSerializer.Deserialize<RequestReply>(jsonObj, 
-				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
-			
+			// Wait for Server Reply
+			RequestReply serverReply = await WaitForReplyAsync(requestReplySocketClientHandler );
+
+			// Cut connection
+			requestReplySocketClientHandler.Kill();
+
 			return serverReply?.Arg;
 		}
 		
-		
-		
-		private void HandleReceivedObject(string obj) {
+		private async Task<RequestReply> WaitForReplyAsync(SocketClientHandler serverSocket ) {
+
+			Console.WriteLine("> Reply Socket Handler is waiting for Server Reply");
+			string jsonObj = await serverSocket.ReceiveObject( );
+
+			RequestReply reply = JsonSerializer.Deserialize<RequestReply>(jsonObj,
+				new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+			return reply;
+		}
+
+		private void HandleReceivedObject(string broadcast) {
 			// Retrieve Reply
-			RequestReply serverReply = JsonSerializer.Deserialize<RequestReply>(obj);
+			RequestReply serverReply = JsonSerializer.Deserialize<RequestReply>(broadcast);
 
 			// Get ID from Reply
 			int id = serverReply.Id;
@@ -93,8 +98,7 @@ namespace ServerCommunication.SocketCommunication {
 			Console.WriteLine($"Updating {handler.GetType( ).Name} with {(string) serverReply.Arg}");
 			handler.Update((string) serverReply.Arg);
 
-			_jsonObject = obj;
-			Console.WriteLine($"\t<!!> Recived {obj}");
+			Console.WriteLine($"\t<!!> Recived {broadcast}");
 		}
 
 		private Request generateRequest(string action, object obj) {
