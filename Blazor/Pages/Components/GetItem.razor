@@ -1,0 +1,39 @@
+
+@using Blazor.Data
+@using Entities.Models
+
+@inject IItemHandler _itemHandler;
+
+<h4>Get Item</h4>
+<div class="d-inline-flex">
+    <div class="">
+        <input @bind-value="searchItemid"/>
+        <br/>
+        <button class="btn btn-outline-dark m-1" @onclick="@(() => GetItemAsync())">Find Item</button>
+    </div>
+    <div class="border-left border-dark m-1 p-1">
+        <p>
+            @currentlyShownItem
+            @currentlyShownItem.ItemName
+            @currentlyShownItem.Id
+        </p>
+    </div>
+</div>
+
+
+@code {
+    public Item currentlyShownItem;
+    public int searchItemid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentlyShownItem = new Item();
+    }
+
+    public async void GetItemAsync()
+    {
+        Console.WriteLine($"Attempting to retrieve item id: {searchItemid}");
+        currentlyShownItem = await _itemHandler.GetItem(searchItemid);
+    }
+
+}

@@ -26,6 +26,7 @@ namespace ServerCommunication.SocketCommunication
             {
                 Console.WriteLine("im a socket Thread");
                 string receiveObject = ReceiveObject().Result;
+                Console.WriteLine("> Running thread SocketClientHandler received an object");
                 ReceivedFromServer?.Invoke(receiveObject);
             }
             

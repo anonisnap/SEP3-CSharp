@@ -36,6 +36,16 @@ namespace Blazor.Data {
 			//await _serverCommunication.GetItem(itemId);
 			Item templateItem = new Item() { Id = itemId };
 			Console.WriteLine($"Template Item Type {templateItem.GetType().Name}");
+			
+			JsonElement itemJson =  (JsonElement) await _serverCommunication.SendToServerReturn(this, "get", templateItem);
+			
+			Item item = JsonSerializer.Deserialize<Item>( itemJson.ToString(), 
+				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+
+			
+			Console.WriteLine($"> item handler resived {item.Id} {item.GetType()} ");
+
+			return item;
 			await _serverCommunication.SendToServer(this, "get", templateItem);
 
 
