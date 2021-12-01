@@ -16,10 +16,5 @@ namespace ServerCommunication
             ClassName = className;
             Arg = arg;
         }
-        
-        
-        
-        
-        
     }
 }

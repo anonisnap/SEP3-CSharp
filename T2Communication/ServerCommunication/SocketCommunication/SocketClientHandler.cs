@@ -29,8 +29,7 @@ namespace ServerCommunication.SocketCommunication
                 string receiveObject = ReceiveObject().Result;
                 ReceivedFromServer?.Invoke(receiveObject);
             }
-
-
+            
             _stream.Close();
             _tcpClient.Close();
         }
