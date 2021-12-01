@@ -6,11 +6,11 @@ namespace DataBaseAccess.DataRepos
 {
 	public interface IDataRepo<Entity>
 	{
-		Task AddAsync(Entity obj);
+		Task<Entity> AddAsync(Entity obj);
 
 		Task<Entity> RemoveAsync(int id);
 
-		Task UpdateAsync(Entity obj);
+		Task<Entity> UpdateAsync(Entity obj);
 
 		Task<IList<Entity>> GetAllAsync();
 
