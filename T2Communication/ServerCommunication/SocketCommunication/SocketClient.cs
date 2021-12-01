@@ -66,7 +66,7 @@ namespace ServerCommunication.SocketCommunication {
 			Console.WriteLine($"> Contacting Server using {requestReplySocketClientHandler}");
 			await requestReplySocketClientHandler.SendObject(request);
 
-			// waiting for reply from server
+			// Waiting for reply from server
 			Console.WriteLine("> reply socket handler waiting for reply");
 			string jsonObj = await requestReplySocketClientHandler.ReceiveObject();
 			Console.WriteLine($"> reply socket handler received an reply for the {request.Type} {request.ClassName}: {jsonObj}");
