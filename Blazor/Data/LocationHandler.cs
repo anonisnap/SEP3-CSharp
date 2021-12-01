@@ -18,5 +18,10 @@ namespace Blazor.Data
 			await _serverCommunication.SendToServer(putRequest);
 			//throw new System.NotImplementedException();
 		}
+
+		public void Update(string jsonEntity)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

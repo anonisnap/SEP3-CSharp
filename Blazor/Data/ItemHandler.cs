@@ -43,5 +43,10 @@ namespace Blazor.Data {
 			return JsonSerializer.Deserialize<Item>(jsonObject);
 			//throw new System.NotImplementedException();
 		}
+
+		public void Update(string jsonEntity)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

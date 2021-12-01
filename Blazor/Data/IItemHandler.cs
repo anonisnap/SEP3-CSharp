@@ -4,7 +4,7 @@ using Entities.Models;
 
 namespace Blazor.Data
 {
-    public interface IItemHandler
+    public interface IItemHandler : IHandler
     {
         //TODO: Jeg mangler i astah ;(
         Task RegisterItem(Item item);

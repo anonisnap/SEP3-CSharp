@@ -3,7 +3,7 @@ using Entities.Models;
 
 namespace Blazor.Data
 {
-    public interface ILocationHandler
+    public interface ILocationHandler : IHandler
     {
         Task CreateLocation(Location location);
     }
