@@ -4,15 +4,18 @@ using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using SEP3_WebServerClient.Models;
 
 namespace ServerCommunication.SocketCommunication {
 	public class SocketClient : ISocketClient {
-		private SocketClientHandler socketClientHandler;
-		string _jsonObject;
+		private SocketClientHandler _socketClientHandler;
+		private Dictionary<int, IHandler> _handlerDict; // Dictionary<string, object> [?]
+		private string _jsonObject;
 
 		public SocketClient( ) {
 			Console.WriteLine("Creating a SocketClient");
+
+			_handlerDict = new Dictionary<int, IHandler>( );
+
 			CreateClientHandler( );
 		}
 
@@ -20,58 +23,50 @@ namespace ServerCommunication.SocketCommunication {
 
 			//TODO: TcpClient --> nye ports for nye clienter
 			TcpClient tcpClient = new TcpClient("localhost", 1235);
-			socketClientHandler = new SocketClientHandler(tcpClient);
+			_socketClientHandler = new SocketClientHandler(tcpClient);
 			// observing with "HandelReceivedObject" on action "ReceivedFromServer" 
-			socketClientHandler.ReceivedFromServer += HandleReceivedObject;
-			Thread t = new Thread(( ) => socketClientHandler.Run( ));
+			_socketClientHandler.ReceivedFromServer += HandleReceivedObject;
+			Thread t = new Thread(( ) => _socketClientHandler.Run( ));
 			t.Start( );
 
 		}
 
-		public async Task SendToServer(string action, object obj) {
+		public async Task SendToServer(IHandler callingHandler, string action, Object obj) {
 			// Create Request
+			Console.WriteLine($"> Generating a {action.ToUpper()}-request with arg: {obj.GetType().Name}");
 			Request request = generateRequest(action, obj);
+
 			// Map Handler to Request ID
+			Console.WriteLine($"> Attempting to add {callingHandler.GetType().Name} to Handler Dictionary");
+			_handlerDict.Add(request.Id, callingHandler);
 
 			// Send Request to Server
-
-			Console.WriteLine($"I am trying to sendToServer via {socketClientHandler}");
-			await socketClientHandler.SendObject(request);
+			Console.WriteLine($"> Contacting Server using {_socketClientHandler}");
+			await _socketClientHandler.SendObject(request);
 		}
-
-		// Deprecated? Should  this be removed?
-		//public async Task<string> GetFromServer( ) {
-		//	while (_jsonObject == null) {
-		//		Console.WriteLine($"Waiting for _jsonObject to not be null\n\t> {_jsonObject}");
-		//		Thread.Sleep(500);
-		//	}
-		//	string tmp = _jsonObject;
-		//	_jsonObject = null;
-		//	return tmp;
-
-		//	//throw new NotImplementedException( );
-		//}
-
 
 		private void HandleReceivedObject(string obj) {
 			// Retrieve Reply
+			RequestReply serverReply = JsonSerializer.Deserialize<RequestReply>(obj);
 
 			// Get ID from Reply
+			int id = serverReply.Id;
 
 			// Find Handler in Map using Id
+			_handlerDict.TryGetValue(id, out IHandler handler);
 
 			// Give (Class Type & [?]) Argument to Handler
-
-
+			handler.Update(serverReply.Arg);
 
 			_jsonObject = obj;
-			Console.WriteLine($"Recived {obj}");
+			Console.WriteLine($"\t<!!> Recived {obj}");
 		}
 
-		private Request generateRequest(string action, object obj) {
+		private Request generateRequest(string action, Object obj) {
 			int requestId = new Random( ).Next( );
-			RequestType type = Enum.TryParse<RequestType>(action, true, out);
-			Request req = new Request(type, requestId, nameof(obj),obj );
+			RequestType type;
+			Enum.TryParse<RequestType>(action, true, out type);
+			Request req = new Request(type, requestId, obj.GetType().Name, obj);
 
 			return req;
 		}

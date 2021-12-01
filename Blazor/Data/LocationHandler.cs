@@ -14,9 +14,9 @@ namespace Blazor.Data
 		}
 		public async Task CreateLocation(Location location)
 		{
-			Request putRequest = new(RequestType.PUT, nameof(Location), location);
-			await _serverCommunication.SendToServer(putRequest);
-			//throw new System.NotImplementedException();
+			//Request putRequest = new(RequestType.PUT, nameof(Location), location);
+			//await _serverCommunication.SendToServer(putRequest);
+			throw new System.NotImplementedException( );
 		}
 	}
 }
