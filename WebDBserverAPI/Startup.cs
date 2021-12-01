@@ -48,14 +48,14 @@ namespace WebDBserverAPI {
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebDBserverAPI v1"));
 			}
 
-			app.UseHttpsRedirection( );
+			app.UseHttpsRedirection();
 
-			app.UseRouting( );
+			app.UseRouting();
 
-			app.UseAuthorization( );
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapControllers( );
+				endpoints.MapControllers();
 			});
 		}
 	}

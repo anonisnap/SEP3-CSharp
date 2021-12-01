@@ -37,7 +37,7 @@ namespace ServerCommunication.SocketCommunication
         public async Task SendObject(object obj)
         {
             Console.WriteLine("SocketClientHandler.SendObject is called");
-            //objectAsJSON? 
+            //objectAsJSON?
             string objAsJson = JsonSerializer.Serialize(obj,
                 new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
             byte[] bytes = Encoding.ASCII.GetBytes(objAsJson);
