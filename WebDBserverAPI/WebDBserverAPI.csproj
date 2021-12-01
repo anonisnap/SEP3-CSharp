@@ -10,8 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataBaseAccess\DataBaseAccess.csproj" />
-    <ProjectReference Include="..\Entities\Entities.csproj" />
+    <ProjectReference Include="..\ServiceConfigurator\ServiceConfigurator.csproj" />
   </ItemGroup>
 
 

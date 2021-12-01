@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
-using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +14,7 @@ namespace WebDBserverAPI.Controllers
 	{
 		private IDataRepo<Item> _itemRepo;
 
-		public ItemController(IDataRepo<Item> itemRepo)
+		public ItemController(IItemDataRepo itemRepo)
 		{
 			_itemRepo = itemRepo;
 		}

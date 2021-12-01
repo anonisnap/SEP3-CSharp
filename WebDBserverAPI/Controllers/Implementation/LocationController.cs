@@ -1,20 +1,19 @@
 using System;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
-using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
 
-namespace WebDBserverAPI.Controllers {
+namespace WebDBserverAPI.Controllers
+{
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
-	public class LocationController : ControllerBase, ILocationController {
+	public class LocationController : ControllerBase, ILocationController
+	{
 		private IDataRepo<Location> _locationRepo;
 
-		public LocationController(IDataRepo<Location> locationRepo) {
+		public LocationController(ILocationDataRepo locationRepo) {
 			_locationRepo = locationRepo;
 		}
 

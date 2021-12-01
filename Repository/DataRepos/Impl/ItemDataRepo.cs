@@ -27,7 +27,7 @@ namespace DataBaseAccess.DataRepos.Impl
 		public async Task<Item> RemoveAsync(int itemId)
 		{
 			// Find Item which is to be deleted
-			Item itemToDelete = await _sepDbContext.Items.FindAsync((int)itemId);
+			Item itemToDelete = await _sepDbContext.Items.FindAsync(itemId);
 			if (itemToDelete == null)
 			{
 				// If Item was not found, return 404 not found
@@ -56,7 +56,7 @@ namespace DataBaseAccess.DataRepos.Impl
 
 		public async Task<Item> GetAsync(int itemId)
 		{
-			return await _sepDbContext.Items.FindAsync((int)itemId);
+			return await _sepDbContext.Items.FindAsync(itemId);
 		}
 
 	}
