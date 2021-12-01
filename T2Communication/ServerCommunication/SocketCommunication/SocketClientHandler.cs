@@ -44,7 +44,7 @@ namespace ServerCommunication.SocketCommunication {
 		}
 
 		public async Task<string> ReceiveObject( ) {
-			byte[ ] fromServer = new byte[1024];
+			byte[ ] fromServer = new byte[65536];
 			int bytesRead = _stream.Read(fromServer, 0, fromServer.Length);
 			string response = Encoding.ASCII.GetString(fromServer, 0, bytesRead);
 			return response;

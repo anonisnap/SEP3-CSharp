@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
@@ -19,20 +20,31 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpGet]
+		[Route("{locationId:int}")]
 		public async Task<ActionResult> GetLocationAsync(int? locationId) {
 			try {
-				object location;
-				if (locationId != null) {
-					location = await _locationRepo.GetAsync((int) locationId);
-				} else {
-					location = await _locationRepo.GetAllAsync( );
-				}
+				
+				Location location = await _locationRepo.GetAsync((int) locationId);
+
 				return location != null ? Ok(location) : NotFound( );
 			} catch (Exception) {
 				return NotFound( );
 			}
 		}
-
+		
+		[HttpGet]
+		public async Task<ActionResult> GetLocationsAsync() {
+			try {
+				
+				IList<Location> locations = await _locationRepo.GetAllAsync( );
+				
+				return locations != null ? Ok(locations) : NotFound( );
+			} catch (Exception) {
+				return NotFound( );
+			}
+		}
+		
+		
 		[HttpPut]
 		public async Task<ActionResult> PutLocationAsync(Location location) {
 			try {

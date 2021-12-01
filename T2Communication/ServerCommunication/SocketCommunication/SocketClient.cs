@@ -80,6 +80,9 @@ namespace ServerCommunication.SocketCommunication {
 			if (jsonObj.Contains("Error")) {
 				HandleError(jsonObj);
 			}
+
+			Console.WriteLine($">recived json string: {jsonObj }");
+			
 			RequestReply reply = JsonSerializer.Deserialize<RequestReply>(jsonObj,
 				new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
@@ -110,8 +113,8 @@ namespace ServerCommunication.SocketCommunication {
 
 		private Request generateRequest(string action, object obj) {
 			int requestId = new Random( ).Next( );
-			RequestType type;
-			Enum.TryParse<RequestType>(action, true, out type);
+			
+			Enum.TryParse(action, true, out RequestType type);
 			Request req = new Request(type, requestId, obj.GetType( ).Name, obj);
 
 			return req;

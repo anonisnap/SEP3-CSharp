@@ -26,10 +26,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			Item item = await _itemRepo.GetAsync(itemId);
 			
-			if (item == null) return NotFound();
-			
-			return Ok(item);
-			
+			return item != null ? Ok(item) : NotFound( );
 		}
 		
 		[HttpGet]
@@ -37,8 +34,7 @@ namespace WebDBserverAPI.Controllers
 		{
 			IList<Item> items = await _itemRepo.GetAllAsync();
 			
-			return Ok(items);
-			
+			return items != null ? Ok(items) : NotFound( );
 		}
 
 		

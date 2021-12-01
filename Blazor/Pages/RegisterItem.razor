@@ -31,9 +31,10 @@
         _item = new();
     }
 
-    private void AddNewItem()
+    private async Task AddNewItem()
     {
-        _itemsHandler.RegisterItem(_item);
+        await _itemsHandler.RegisterItem(_item);
+        
     //Navigate to specific Item created instead?
         _navigationManager.NavigateTo("/Items");
     }
