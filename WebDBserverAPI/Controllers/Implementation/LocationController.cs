@@ -9,7 +9,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebDBserverAPI.Controllers {
-	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController {

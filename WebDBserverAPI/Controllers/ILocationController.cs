@@ -6,7 +6,6 @@ namespace WebDBserverAPI.Controllers
 {
 	public interface ILocationController
 	{
-		//TODO: Jeg mangler i astah ;(
 		Task<ActionResult> GetLocationAsync(int? locationId);
 		Task<ActionResult> PutLocationAsync(Location location); //FIXME: Giver det mening?
 		Task<ActionResult> PostLocationAsync(int locationId, Location location); //Tjek om location eksisterer og så ændrer

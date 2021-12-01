@@ -7,7 +7,6 @@ namespace WebDBserverAPI.Controllers
 {
     public interface IItemController
     {
-        //TODO: Jeg mangler i astah ;(
         Task<ActionResult> GetItemAsync(int itemId);
 
         Task<ActionResult<IList<Item>>> GetItemsAsync();

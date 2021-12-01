@@ -28,7 +28,6 @@ namespace DataBaseAccess.DataRepos.Impl
 			}
 		}
 
-
 		public async Task UpdateAsync(int id, Location obj)
 		{
 			await AddAsync(obj);
