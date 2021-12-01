@@ -47,6 +47,7 @@
 
 	public async void GetItemAsync() {
 		Console.WriteLine($"Attempting to retrieve item id: {searchItemid}");
-		currentlyShownItem = await _itemHandler.GetItem(searchItemid);
+		//currentlyShownItem = await _itemHandler.GetItem(searchItemid);
+		await _itemHandler.GetItem(searchItemid);
 	}
 }

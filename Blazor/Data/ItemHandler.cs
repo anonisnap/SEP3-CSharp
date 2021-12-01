@@ -16,18 +16,16 @@ namespace Blazor.Data {
 
 		public async Task RegisterItem(Item item) {
 			Console.WriteLine("ItemHandler.RegisterItem");
-			Request putRequest = new Request(RequestType.PUT, nameof(Item), item);
 
-			await _serverCommunication.SendToServer(putRequest);
+			await _serverCommunication.SendToServer(this, "put", item);
 			Console.WriteLine("just send to server");
 		}
 
 		public async Task<IList<Item>> GetItems( ) {
 			//FIXME: Do I like correct and beautiful? - No idea --> arg?
-			Request getRequest = new Request(RequestType.GET, nameof(Item), new List<Item>());
-			await _serverCommunication.SendToServer(getRequest);
-			string jsonObject = await _serverCommunication.GetFromServer( );
-			return JsonSerializer.Deserialize<List<Item>>(jsonObject);
+			await _serverCommunication.SendToServer(this, "get", null);
+			
+			//return JsonSerializer.Deserialize<List<Item>>(jsonObject);
 
 			//await _serverCommunication.GetItems();
 			throw new System.NotImplementedException( );
@@ -36,11 +34,20 @@ namespace Blazor.Data {
 		public async Task<Item> GetItem(int itemId) {
 			//TODO: MAKE ME PLEASE
 			//await _serverCommunication.GetItem(itemId);
-			Request getRequest = new Request(RequestType.GET, nameof(Item), new Item( ) { Id = itemId });
-			await _serverCommunication.SendToServer(getRequest);
-			string jsonObject = await _serverCommunication.GetFromServer( );
-			return JsonSerializer.Deserialize<Item>(jsonObject);
-			//throw new System.NotImplementedException();
+			Item templateItem = new Item() { Id = itemId };
+			Console.WriteLine($"Template Item Type {templateItem.GetType().Name}");
+			await _serverCommunication.SendToServer(this, "get", templateItem);
+
+
+			return null;
+			//return JsonSerializer.Deserialize<Item>(jsonObject);
+
+			//throw new System.NotImplementedException( );
+		}
+
+		public void Update(string jsonEntity)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

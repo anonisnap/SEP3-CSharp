@@ -10,7 +10,6 @@
 <EditForm Model="@_item" OnValidSubmit="@AddNewItem">
     <DataAnnotationsValidator/> <ValidationSummary/>
     <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_item.ItemName"/> </div>
-    <div class="form-group"> Id:<br/> <InputNumber @bind-Value="_item.Id"/> </div>
     <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_item.Height"/> </div>
     <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_item.Length"/> </div>
     <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_item.Width"/> </div>
