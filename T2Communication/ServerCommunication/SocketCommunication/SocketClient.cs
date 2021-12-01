@@ -77,11 +77,18 @@ namespace ServerCommunication.SocketCommunication {
 
 			Console.WriteLine("> Reply Socket Handler is waiting for Server Reply");
 			string jsonObj = await serverSocket.ReceiveObject( );
-
+			if (jsonObj.Contains("Error")) {
+				HandleError(jsonObj);
+			}
 			RequestReply reply = JsonSerializer.Deserialize<RequestReply>(jsonObj,
 				new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 			return reply;
+		}
+
+		private void HandleError(string jsonObj) {
+			Console.WriteLine(jsonObj.Split("Error", 2)[^1]);
+			throw new Exception(jsonObj);
 		}
 
 		private void HandleReceivedObject(string broadcast) {
