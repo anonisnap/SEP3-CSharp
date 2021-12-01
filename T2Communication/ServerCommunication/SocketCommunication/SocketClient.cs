@@ -49,5 +49,6 @@ namespace ServerCommunication.SocketCommunication {
 			_jsonObject = obj;
 			Console.WriteLine($"Recived {obj}");
 		}
+		
 	}
 }

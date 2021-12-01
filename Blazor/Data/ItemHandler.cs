@@ -26,6 +26,7 @@ namespace Blazor.Data {
 			//FIXME: Do I like correct and beautiful? - No idea --> arg?
 			Request getRequest = new Request(RequestType.GET, nameof(Item), new List<Item>());
 			await _serverCommunication.SendToServer(getRequest);
+			
 			string jsonObject = await _serverCommunication.GetFromServer( );
 			return JsonSerializer.Deserialize<List<Item>>(jsonObject);
 
