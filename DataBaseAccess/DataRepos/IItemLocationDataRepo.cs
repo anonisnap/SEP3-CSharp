@@ -4,12 +4,12 @@ using Entities.Models;
 
 namespace DataBaseAccess.DataRepos.Impl
 {
-    public interface IItemLocationDataRepo : IDataRepo<ItemLocationDB>
+    public interface IItemLocationDataRepo : IDataRepo<ItemLocation>
     {
         
-        Task<List<ItemLocationDB>> GetByItemIdAsync(int itemId);
+        Task<IList<ItemLocation>> GetByItemIdAsync(int itemId);
         
-        Task<List<ItemLocationDB>> GetByLocationIdAsync(int locationId);
+        Task<IList<ItemLocation>> GetByLocationIdAsync(int locationId);
         
     }
 }

@@ -20,53 +20,53 @@ namespace WebDBserverAPI.Controllers
         
         [HttpGet]
         [Route("{entityId:int}")]
-        public async Task<ActionResult<ItemLocationDB>> GetAsync(int entityId)
+        public async Task<ActionResult<ItemLocation>> GetAsync(int entityId)
         {
-            ItemLocationDB itemLocation= await _itemLocationDataRepo.GetAsync(entityId);
+            ItemLocation itemLocation = await _itemLocationDataRepo.GetAsync(entityId);
             return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
         
         [HttpGet]
         [Route("itemId/{itemId:int}")]
-        public async Task<ActionResult<IList<ItemLocationDB>>> GetByItemIdAsync(int itemId)
+        public async Task<ActionResult<IList<ItemLocation>>> GetByItemIdAsync(int itemId)
         {
-            IList<ItemLocationDB> itemLocationDb= await _itemLocationDataRepo.GetByItemIdAsync(itemId);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            IList<ItemLocation> itemLocation= await _itemLocationDataRepo.GetByItemIdAsync(itemId);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
         
         [HttpGet]
         [Route("locationId/{locationId:int}")]
-        public async Task<ActionResult<IList<ItemLocationDB>>> GetByLocationIdAsync(int locationId)
+        public async Task<ActionResult<IList<ItemLocation>>> GetByLocationIdAsync(int locationId)
         {
-            IList<ItemLocationDB> itemLocationDb = await _itemLocationDataRepo.GetByLocationIdAsync(locationId);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            IList<ItemLocation> itemLocation = await _itemLocationDataRepo.GetByLocationIdAsync(locationId);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
         
         [HttpGet]
-        public async Task<ActionResult<IList<ItemLocationDB>>> GetAllAsync()
+        public async Task<ActionResult<IList<ItemLocation>>> GetAllAsync()
         {
-            IList<ItemLocationDB> itemLocationDbs = await _itemLocationDataRepo.GetAllAsync();
-            return itemLocationDbs != null ? Ok(itemLocationDbs) : NotFound( );
+            IList<ItemLocation> itemLocations = await _itemLocationDataRepo.GetAllAsync();
+            return itemLocations != null ? Ok(itemLocations) : NotFound( );
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutAsync(ItemLocationDB entity)
+        public async Task<ActionResult> PutAsync(ItemLocation entity)
         {
-            ItemLocationDB itemLocation = await _itemLocationDataRepo.AddAsync(entity);
+            ItemLocation itemLocation = await _itemLocationDataRepo.AddAsync(entity);
             return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
 
         [HttpDelete]
-        public async Task<ActionResult<ItemLocationDB>> DeleteAsync(int entityId)
+        public async Task<ActionResult<ItemLocation>> DeleteAsync(int entityId)
         {
-            ItemLocationDB itemLocation = await _itemLocationDataRepo.RemoveAsync(entityId);
+            ItemLocation itemLocation = await _itemLocationDataRepo.RemoveAsync(entityId);
             return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(ItemLocationDB entity)
+        public async Task<ActionResult> PostAsync(ItemLocation entity)
         {
-            ItemLocationDB itemLocation = await _itemLocationDataRepo.UpdateAsync(entity);
+            ItemLocation itemLocation = await _itemLocationDataRepo.UpdateAsync(entity);
             return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
     }

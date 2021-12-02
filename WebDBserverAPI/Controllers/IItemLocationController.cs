@@ -1,11 +1,9 @@
 using Entities.Models;
 
-namespace WebDBserverAPI.Controllers
-{
-    public interface IItemLocationController: IController<ItemLocationDB>
-    {
+namespace WebDBserverAPI.Controllers {
+	public interface IItemLocationController : IController<ItemLocation> {
 
-        
-        
-    }
+
+
+	}
 }
