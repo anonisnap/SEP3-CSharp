@@ -1,0 +1,96 @@
+﻿@page "/RegisteredItems"
+@using Blazor.Data
+@using Entities.Models
+
+@inject IItemHandler _itemsHandler
+@inject NavigationManager _navigationManager
+
+<h3>Registered Items</h3>
+
+@*@if (_items == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_items.Any())
+{
+    <p>
+        <em>No Spike items exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id:</th>
+            <th>Item Name:</th>
+            <th>Lenght:</th>
+            <th>Width:</th>
+            <th>Height:</th>
+            <th>Weight:</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in _items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ItemName</td>
+                <td>@item.Length</td>
+                <td>@item.Width</td>
+                <td>@item.Height</td>
+                <td>@item.Weight</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}*@
+
+@if (_registeredItems == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_registeredItems.Any())
+{
+    <p>
+        <em>No Adults exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <RadzenDataGrid Data="@_registeredItems" TItem="Item" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    LogicalFilterOperator="LogicalFilterOperator.Or"
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+        <Columns>
+            <RadzenDataGridColumn TItem="Item" Property="Id" Title="Item ID"/>
+            <RadzenDataGridColumn TItem="Item" Property="ItemName" Title="Item Name"/>
+            <RadzenDataGridColumn TItem="Item" Property="Length" Title="Length"/>
+            <RadzenDataGridColumn TItem="Item" Property="Width" Title="Width"/>
+            <RadzenDataGridColumn TItem="Item" Property="Height" Title="Height"/>
+            <RadzenDataGridColumn TItem="Item" Property="Weight" Title="Weight"/>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+@code {
+    //TODO: Jeg mangler i astah ;( - Og lav mig
+
+    private IList<Item> _registeredItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _registeredItems = await _itemsHandler.GetItems();
+
+        foreach (var item in _registeredItems)
+        {
+            Console.WriteLine(item?.ItemName);
+        }
+    }
+
+}
