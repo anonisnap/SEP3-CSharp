@@ -60,6 +60,8 @@ namespace DataBaseAccess.Migrations
 
                     b.HasKey("ItemId", "LocationId");
 
+                    b.HasIndex("LocationId");
+
                     b.ToTable("ItemLocationsDb");
                 });
 
@@ -81,6 +83,25 @@ namespace DataBaseAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
+                {
+                    b.HasOne("Entities.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
         }
