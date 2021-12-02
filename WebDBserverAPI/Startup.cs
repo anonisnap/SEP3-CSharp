@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DataBaseAccess;
+using DataBaseAccess.DataAccess.DbContextImpl;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
@@ -35,8 +36,8 @@ namespace WebDBserverAPI {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
 			services.AddSingleton<DbContext, SEP_DBContext>();
-			services.AddScoped<IDataRepo<Item>, ItemDataRepo>();
-			services.AddScoped<IDataRepo<Location>, LocationDataRepo>();
+			services.AddScoped<IItemDataRepo, ItemDataRepo>();
+			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
 			
 		}
 

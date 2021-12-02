@@ -3,15 +3,17 @@ using DataBaseAccess;
 using DataBaseAccess.DataAccess.DbContextImpl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataBaseAccess.Migrations
 {
     [DbContext(typeof(SEP_DBContext))]
-    partial class SEP_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211130123139_1_Initial")]
+    partial class _1_Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -17,18 +17,19 @@ namespace Blazor.Data {
 		public async Task RegisterItem(Item item) {
 			Console.WriteLine("ItemHandler.RegisterItem");
 
-			await _serverCommunication.SendToServer(this, "put", item);
+			await _serverCommunication.SendToServerReturn(this, "put", item);
+			
 			Console.WriteLine("just send to server");
 		}
 
 		public async Task<IList<Item>> GetItems( ) {
-			//FIXME: Do I like correct and beautiful? - No idea --> arg?
-			await _serverCommunication.SendToServer(this, "get", null);
 			
-			//return JsonSerializer.Deserialize<List<Item>>(jsonObject);
-
-			//await _serverCommunication.GetItems();
-			throw new System.NotImplementedException( );
+			//FIXME: Do I like correct and beautiful? - No idea --> arg?
+			JsonElement jsonObject = (JsonElement) await _serverCommunication.SendToServerReturn(this, "getall", new Item());
+			
+			return JsonSerializer.Deserialize<List<Item>>(jsonObject.ToString(), 
+				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+			
 		}
 
 		public async Task<Item> GetItem(int itemId) {
@@ -36,13 +37,16 @@ namespace Blazor.Data {
 			//await _serverCommunication.GetItem(itemId);
 			Item templateItem = new Item() { Id = itemId };
 			Console.WriteLine($"Template Item Type {templateItem.GetType().Name}");
-			await _serverCommunication.SendToServer(this, "get", templateItem);
+			
+			JsonElement itemJson =  (JsonElement) await _serverCommunication.SendToServerReturn(this, "get", templateItem);
+			
+			Item item = JsonSerializer.Deserialize<Item>( itemJson.ToString(), 
+				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+			
+			Console.WriteLine($"> item handler resived {item.Id} {item.GetType()} ");
 
-
-			return null;
-			//return JsonSerializer.Deserialize<Item>(jsonObject);
-
-			//throw new System.NotImplementedException( );
+			return item;
+			
 		}
 
 		public void Update(string jsonEntity)

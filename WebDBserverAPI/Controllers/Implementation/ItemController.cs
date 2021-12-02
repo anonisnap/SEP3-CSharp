@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebDBserverAPI.Controllers
 {
+	
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
@@ -22,28 +23,24 @@ namespace WebDBserverAPI.Controllers
 
 		[HttpGet]
 		[Route("{itemId:int}")]
-		public async Task<ActionResult> GetItemAsync([FromRoute] int itemId)
+		public async Task<ActionResult<Item>> GetAsync([FromRoute] int itemId)
 		{
 			Item item = await _itemRepo.GetAsync(itemId);
 			
-			if (item == null) return NotFound();
-			
-			return Ok(item);
-			
+			return item != null ? Ok(item) : NotFound( );
 		}
 		
 		[HttpGet]
-		public async Task<ActionResult<IList<Item>>> GetItemsAsync()
+		public async Task<ActionResult<IList<Item>>> GetAllAsync()
 		{
 			IList<Item> items = await _itemRepo.GetAllAsync();
 			
-			return Ok(items);
-			
+			return items != null ? Ok(items) : NotFound( );
 		}
 
 		
 		[HttpPut]
-		public async Task<ActionResult> PutItemAsync([FromBody] Item item)
+		public async Task<ActionResult> PutAsync([FromBody] Item item)
 		{
 			await _itemRepo.AddAsync(item);
 			return Created($"/Item/{item.Id}", item);
@@ -51,19 +48,18 @@ namespace WebDBserverAPI.Controllers
 
 		[HttpDelete]
 		[Route("{itemId:int}")]
-		public async Task<ActionResult<Item>> DeleteItemAsync([FromRoute] int itemId)
+		public async Task<ActionResult<Item>> DeleteAsync([FromRoute] int itemId)
 		{
 			Item itemToDelete = await _itemRepo.RemoveAsync(itemId);
 			return itemToDelete != null ? Ok(itemToDelete) : NotFound();
 		}
 
 		[HttpPost]
-		[Route("{itemId:int}")]
-		public async Task<ActionResult> PostItemAsync([FromRoute] int itemId, [FromBody] Item item)
+		public async Task<ActionResult> PostAsync([FromBody] Item item)
 		{
 			try
 			{
-				await _itemRepo.UpdateAsync(itemId, item);
+				await _itemRepo.UpdateAsync(item);
 				return Ok(item);
 			}
 			catch (Exception e)
@@ -72,28 +68,6 @@ namespace WebDBserverAPI.Controllers
 				return StatusCode(500, e.Message);
 			}
 			
-			
-			/*
-			// Look for item with given ItemId
-			Item existingItem = await _database.FindAsync<Item>(itemId);
-			if (existingItem == null)
-			{
-				// If Item was not found. Create the item in the Database
-				item.Id = itemId;
-				_database.Add(item);
-				_database.SaveChanges();
-				Console.WriteLine($"+ {item.ItemName}"); // FIXME
-				return Created($"Item/{itemId}", item);
-			}
-			else
-			{
-				// If Item was found. Update the values of the item
-				item.Id = existingItem.Id; // If Primary Key is different this will cause an error on Value Updates
-				_database.Update(existingItem).CurrentValues.SetValues(item); // Update method allows for tracking of item, meaning everything happens as DB stuff
-				_database.SaveChanges();
-				Console.WriteLine($"o {existingItem.ItemName}"); // FIXME
-				return Ok(item);
-			}*/
 			
 		}
 	}

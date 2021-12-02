@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
-using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
 
-namespace WebDBserverAPI.Controllers {
+
+namespace WebDBserverAPI.Controllers 
+{
+	
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
@@ -19,22 +20,35 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetLocationAsync(int? locationId) {
+		[Route("{locationId:int}")]
+		public async Task<ActionResult<Location>> GetAsync(int locationId) {
 			try {
-				object location;
-				if (locationId != null) {
-					location = await _locationRepo.GetAsync((int) locationId);
-				} else {
-					location = await _locationRepo.GetAllAsync( );
-				}
+				
+				Location location = await _locationRepo.GetAsync(locationId);
+
 				return location != null ? Ok(location) : NotFound( );
 			} catch (Exception) {
 				return NotFound( );
 			}
 		}
 
+		
+
+		[HttpGet]
+		public async Task<ActionResult<IList<Location>>> GetAllAsync() {
+			try {
+				
+				IList<Location> locations = await _locationRepo.GetAllAsync( );
+				
+				return locations != null ? Ok(locations) : NotFound( );
+			} catch (Exception) {
+				return NotFound( );
+			}
+		}
+		
+		
 		[HttpPut]
-		public async Task<ActionResult> PutLocationAsync(Location location) {
+		public async Task<ActionResult> PutAsync(Location location) {
 			try {
 				await _locationRepo.AddAsync(location);
 				Console.WriteLine($"+ Location {location.Description}");
@@ -49,15 +63,14 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpPost]
-		[Route("{locationId:int}")]
-		public async Task<ActionResult> PostLocationAsync([FromRoute] int locationId, Location location) {
-			await _locationRepo.UpdateAsync(locationId, location);
+		public async Task<ActionResult> PostAsync(Location location) {
+			await _locationRepo.UpdateAsync(location);
 			return Ok(location);
 		}
 
 		[HttpDelete]
 		[Route("{locationId:int}")]
-		public async Task<ActionResult<Location>> DeleteLocationAsync([FromRoute] int locationId) {
+		public async Task<ActionResult<Location>> DeleteAsync([FromRoute] int locationId) {
 			try {
 				Location locationToDelete = await _locationRepo.RemoveAsync(locationId); // TODO: Exception thrown if Object is Null
 				return Ok(locationToDelete);

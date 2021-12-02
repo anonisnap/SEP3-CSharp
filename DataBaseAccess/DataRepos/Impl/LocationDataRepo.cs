@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataBaseAccess.DataAccess.DbContextImpl;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,19 +9,20 @@ namespace DataBaseAccess.DataRepos.Impl
 {
 	public class LocationDataRepo : ILocationDataRepo
 	{
-		private SEP_DBContext _database;
+		private WarehouseDbContext _database;
 
 		public LocationDataRepo(DbContext dbContext)
 		{
-			_database = (SEP_DBContext)dbContext;
+			_database = (WarehouseDbContext) dbContext;
 		}
 
-		public async Task AddAsync(Location location)
+		public async Task<Location> AddAsync(Location location)
 		{
 			try
 			{
-				await _database.Locations.AddAsync(location);
+				var entityEntry = await _database.Locations.AddAsync(location);
 				await _database.SaveChangesAsync();
+				return entityEntry.Entity;
 			}
 			catch (DbUpdateException dbUpdate)
 			{
@@ -29,10 +31,11 @@ namespace DataBaseAccess.DataRepos.Impl
 		}
 
 
-		public async Task UpdateAsync(int id, Location obj)
+		public async Task<Location> UpdateAsync(Location obj)
 		{
-			await AddAsync(obj);
-			await RemoveAsync(id);
+			var entityEntry = _database.Locations.Update(obj);
+			await _database.SaveChangesAsync();
+			return entityEntry.Entity;
 		}
 
 		public async Task<IList<Location>> GetAllAsync()

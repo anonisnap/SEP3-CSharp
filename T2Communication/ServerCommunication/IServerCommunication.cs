@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 
 
 namespace ServerCommunication {
@@ -7,7 +8,8 @@ namespace ServerCommunication {
 		//WarehouseItems, Locations, and so on.
 
 		Task SendToServer(IHandler callingHandler, string action, object obj);
-
+		Task<object> SendToServerReturn(IHandler callingHandler, string action, object obj);
+		
 		//Task<string> GetFromServer( );
 	}
 }
