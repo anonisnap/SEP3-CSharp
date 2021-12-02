@@ -62,6 +62,8 @@
 
     void OnChange(object value, string name)
     {
+        Console.WriteLine($"value is: {value}");
+        Console.WriteLine($"name is: {name}");
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>) value) : value;
 
         Console.WriteLine($"{name} value changed to {str}");

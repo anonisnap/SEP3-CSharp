@@ -22,8 +22,11 @@ namespace Entities.Models
         public double Height { get; set; }
         [Range(0.1, double.MaxValue, ErrorMessage = "Please enter a value bigger than {0.1]")]
         public double Weight { get; set; }
-        
-        
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, ItemName: {ItemName}, Length: {Length}, Width: {Width}, Height: {Height}, Weight: {Weight}";
+        }
     }
     
 }
