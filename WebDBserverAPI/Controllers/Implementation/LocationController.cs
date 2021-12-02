@@ -15,7 +15,7 @@ namespace WebDBserverAPI.Controllers
 	public class LocationController : ControllerBase, ILocationController {
 		private IDataRepo<Location> _locationRepo;
 
-		public LocationController(IDataRepo<Location> locationRepo) {
+		public LocationController(ILocationDataRepo locationRepo) {
 			_locationRepo = locationRepo;
 		}
 
