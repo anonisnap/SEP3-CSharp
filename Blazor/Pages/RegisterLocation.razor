@@ -61,8 +61,6 @@
 
 	private void RegisterNewLocation( ) {
 		_locationHandler.CreateLocation(_location);
-		_navigationManager.NavigateTo("/");
-		//hvad skal denne navigate til bagefter så
-		//_navigationManager.NavigateTo("/?");
+		_navigationManager.NavigateTo("/RegisteredLocations");
 	}
 }
