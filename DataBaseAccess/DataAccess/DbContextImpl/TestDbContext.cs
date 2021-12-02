@@ -1,4 +1,3 @@
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseAccess.DataAccess.DbContextImpl

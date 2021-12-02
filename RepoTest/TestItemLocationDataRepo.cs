@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using DataBaseAccess.DataAccess.DbContextImpl;
-using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
-using Entities.Models;
 using NUnit.Framework;
 
 namespace RepoTest

@@ -1,14 +1,9 @@
-using System;
-using System.Collections;
 using System.Threading.Tasks;
-using DataBaseAccess;
 using DataBaseAccess.DataAccess.DbContextImpl;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WebDBserverAPI.Controllers;
 
 namespace RepoTest
 {
