@@ -25,10 +25,10 @@ namespace DataBaseAccess.DataRepos.Impl
 
         public async Task<ItemLocationDB> RemoveAsync(int id)
         {
-            ItemLocationDB locationDb = await _warehouseDbContext.ItemLocationsDb.FindAsync(id);
-            _warehouseDbContext.ItemLocationsDb.Remove(locationDb);
+            ItemLocationDB location = await _warehouseDbContext.ItemLocationsDb.FindAsync(id);
+            _warehouseDbContext.ItemLocationsDb.Remove(location);
             await _warehouseDbContext.SaveChangesAsync();
-            return locationDb;
+            return location;
         }
 
         public async Task<ItemLocationDB> UpdateAsync(ItemLocationDB obj)

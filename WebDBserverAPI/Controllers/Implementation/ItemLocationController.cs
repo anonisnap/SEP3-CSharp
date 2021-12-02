@@ -22,8 +22,8 @@ namespace WebDBserverAPI.Controllers
         [Route("{entityId:int}")]
         public async Task<ActionResult<ItemLocationDB>> GetAsync(int entityId)
         {
-            ItemLocationDB itemLocationDb= await _itemLocationDataRepo.GetAsync(entityId);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            ItemLocationDB itemLocation= await _itemLocationDataRepo.GetAsync(entityId);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
         
         [HttpGet]
@@ -52,22 +52,22 @@ namespace WebDBserverAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> PutAsync(ItemLocationDB entity)
         {
-            ItemLocationDB itemLocationDb = await _itemLocationDataRepo.AddAsync(entity);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            ItemLocationDB itemLocation = await _itemLocationDataRepo.AddAsync(entity);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
 
         [HttpDelete]
         public async Task<ActionResult<ItemLocationDB>> DeleteAsync(int entityId)
         {
-            ItemLocationDB itemLocationDb = await _itemLocationDataRepo.RemoveAsync(entityId);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            ItemLocationDB itemLocation = await _itemLocationDataRepo.RemoveAsync(entityId);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
 
         [HttpPost]
         public async Task<ActionResult> PostAsync(ItemLocationDB entity)
         {
-            ItemLocationDB itemLocationDb = await _itemLocationDataRepo.UpdateAsync(entity);
-            return itemLocationDb != null ? Ok(itemLocationDb) : NotFound( );
+            ItemLocationDB itemLocation = await _itemLocationDataRepo.UpdateAsync(entity);
+            return itemLocation != null ? Ok(itemLocation) : NotFound( );
         }
     }
 }

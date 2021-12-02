@@ -10,7 +10,7 @@ namespace Entities.Models
 
         public override string ToString()
         {
-            return $"Id: {Id}, Description: {Description}";
+            return $"Id: {Id} \n Description: {Description}";
         }
     }
 }

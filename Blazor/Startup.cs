@@ -27,6 +27,7 @@ namespace Blazor
             services.AddScoped<IServerCommunication, SocketClient>();
             services.AddScoped<IItemHandler, ItemHandler>();
             services.AddScoped<ILocationHandler, LocationHandler>();
+            services.AddScoped<IItemLocationHandler, ItemLocationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

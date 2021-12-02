@@ -4,6 +4,7 @@
 
 @inject IItemHandler _itemsHandler
 @inject ILocationHandler _locationsHandler
+@inject IItemLocationHandler _itemLocationHandler
 @inject NavigationManager _navigationManager
 
 <h3>AddItem</h3>
@@ -35,8 +36,8 @@
                 </RadzenDropDownDataGrid>
             </div>
         </div>
-        <RadzenNumeric TValue="int" style="width: 80%;" @bind-Value="_itemLocationDb.Amount"></RadzenNumeric>
-        <RadzenButton Click="@OnClick" Text="Save"/>
+        <RadzenNumeric TValue="int" style="width: 80%;" @bind-Value="_itemLocation.Amount"></RadzenNumeric>
+        <RadzenButton Click="@Save" Text="Save"/>
     </div>
 </div>
 
@@ -44,25 +45,23 @@
 
     private IList<Item> _items;
     private IList<Location> _locations;
-
-    //Er det ItemLocationDB eller ItemLocation der skal bruges
-    private ItemLocationDB _itemLocationDb;
+    
+    private ItemLocation _itemLocation;
 
     protected override async Task OnInitializedAsync()
     {
         _items = await _itemsHandler.GetItems();
         _locations = await _locationsHandler.GetLocations();
-        _itemLocationDb = new();
+        _itemLocation = new();
     }
 
-    void OnClick()
+    private async Task Save()
     {
-    //Send Location
+        await _itemLocationHandler.AddItemLocation(_itemLocation);
         
-    //Send Item
+        Console.WriteLine($"Printing Location: /n {_itemLocation}");
         
-    //Send Amount
-        Console.WriteLine(_itemLocationDb);
+        _navigationManager.NavigateTo("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     }
 
     void OnChange(object value, string name)
@@ -77,14 +76,13 @@
         {
             Item item = (Item) value;
 
-            _itemLocationDb.ItemId = item.Id;
+            _itemLocation.Item = item;
         }
         else if (name.Equals("Location"))
         {
             Location location = (Location) value;
-            _itemLocationDb.LocationId = location.Id;
+            _itemLocation.Location = location;
         }
-        
     }
 
 }
