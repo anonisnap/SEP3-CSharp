@@ -7,7 +7,7 @@
 
 <h3>RegisteredLocations</h3>
 
-@if (_locations == null)
+@*@if (_locations == null)
 {
     <p>
         <em>Loading...</em>
@@ -39,6 +39,31 @@ else
         }
         </tbody>
     </table>
+}*@
+
+@if (_locations == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_locations.Any())
+{
+    <p>
+        <em>No Adults exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <RadzenDataGrid Data="@_locations" TItem="Location" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    LogicalFilterOperator="LogicalFilterOperator.Or"
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+        <Columns>
+            <RadzenDataGridColumn TItem="Location" Property="Id" Title="Location ID"/>
+            <RadzenDataGridColumn TItem="Location" Property="Description" Title="Description"/>
+        </Columns>
+    </RadzenDataGrid>
 }
 
 @code {
@@ -48,7 +73,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-         _locations = await _locationsHandler.GetLocations();
+        _locations = await _locationsHandler.GetLocations();
     }
 
 }
