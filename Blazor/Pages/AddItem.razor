@@ -15,7 +15,7 @@
                 <h5>Registered Items</h5>
                 <RadzenDropDownDataGrid TValue="Item" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
                                         AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_items"
-                                        TextProperty="ItemName" Change=@(args => OnChange(args, "")) Style="width:100%">
+                                        TextProperty="ItemName" Change=@(args => OnChange(args, "Item")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Item Id"/>
                         <RadzenDropDownDataGridColumn Property="ItemName" Title="Item Name"/>
@@ -27,7 +27,7 @@
                 <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
 
                                         AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_locations"
-                                        TextProperty="Description" Change=@(args => OnChange(args, "")) Style="width:100%">
+                                        TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
                         <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
@@ -57,7 +57,12 @@
 
     void OnClick()
     {
-    //
+    //Send Location
+        
+    //Send Item
+        
+    //Send Amount
+        Console.WriteLine(_itemLocationDb);
     }
 
     void OnChange(object value, string name)
@@ -67,6 +72,18 @@
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>) value) : value;
 
         Console.WriteLine($"{name} value changed to {str}");
+
+        if (name.Equals("Item"))
+        {
+            Item item = (Item) value;
+
+            _itemLocationDb.ItemId = item.Id;
+        }
+        else if (name.Equals("Location"))
+        {
+            Location location = (Location) value;
+            _itemLocationDb.LocationId = location.Id;
+        }
         
     }
 
