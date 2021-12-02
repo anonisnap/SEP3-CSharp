@@ -16,7 +16,7 @@ namespace WebDBserverAPI.Controllers
 	{
 		private IDataRepo<Item> _itemRepo;
 
-		public ItemController(IDataRepo<Item> itemRepo)
+		public ItemController(IItemDataRepo itemRepo)
 		{
 			_itemRepo = itemRepo;
 		}
