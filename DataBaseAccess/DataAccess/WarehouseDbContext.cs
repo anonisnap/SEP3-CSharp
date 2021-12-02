@@ -7,7 +7,7 @@ namespace DataBaseAccess
     {
         public DbSet<Location> Locations { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<ItemLocationDB> ItemLocationsDB { get; set; }
+        public DbSet<ItemLocationDB> ItemLocationsDb { get; set; }
         
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

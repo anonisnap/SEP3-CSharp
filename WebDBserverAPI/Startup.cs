@@ -35,10 +35,11 @@ namespace WebDBserverAPI {
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
-			services.AddSingleton<DbContext, SEP_DBContext>();
+			services.AddSingleton<WarehouseDbContext, SEP_DBContext>();
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
-			
+			services.AddScoped<IItemLocationDataRepo, ItemLocationDataRepo>();
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +47,8 @@ namespace WebDBserverAPI {
 			if (env.IsDevelopment( )) {
 				app.UseDeveloperExceptionPage( );
 				app.UseSwagger( );
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebDBserverAPI v1"));
+				app.UseSwaggerUI(c => 
+					c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebDBserverAPI v1"));
 			}
 
 			app.UseHttpsRedirection();

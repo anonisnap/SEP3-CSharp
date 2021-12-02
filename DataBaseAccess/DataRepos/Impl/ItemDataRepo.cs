@@ -9,15 +9,13 @@ namespace DataBaseAccess.DataRepos.Impl
 {
 	public class ItemDataRepo : IItemDataRepo
 	{
-
 		private WarehouseDbContext _warehouseDbContext;
-
-		public ItemDataRepo(DbContext dbContext)
+		
+		public ItemDataRepo(WarehouseDbContext dbContext)
 		{
-			_warehouseDbContext = (WarehouseDbContext) dbContext;
+			_warehouseDbContext =  dbContext;
 		}
-
-
+		
 		public async Task<Item> AddAsync(Item item)
 		{
 			// Adds Item to Database
@@ -59,8 +57,9 @@ namespace DataBaseAccess.DataRepos.Impl
 
 		public async Task<Item> GetAsync(int itemId)
 		{
-			return await _warehouseDbContext.Items.FindAsync((int)itemId);
+			return await _warehouseDbContext.Items.FindAsync(itemId);
 		}
 
+		
 	}
 }
