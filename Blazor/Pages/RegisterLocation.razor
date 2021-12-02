@@ -1,0 +1,66 @@
+﻿@page "/CreateLocation"
+@using Blazor.Data
+@using Entities.Models
+
+@inject ILocationHandler _locationHandler
+@inject NavigationManager _navigationManager
+
+<h3>Register a new Location</h3>
+
+@*<div class="p-3">
+	<EditForm Model="@_location" OnValidSubmit="@RegisterNewLocation">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
+		<div class="form-group">
+			<table class="border-bottom border-top border-dark m-2">
+				<tr>
+					<td class="p-1">Location</td>
+					<td class="p-1">
+						<InputText @bind-Value="_location.Description" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="actions">
+			<button class="btn btn-outline-dark btn-primary" type="submit">Create location</button>
+		</p>
+	</EditForm>
+</div>*@
+
+<EditForm class="RegisterForm" Model="@_location" OnValidSubmit="@RegisterNewLocation">
+    <DataAnnotationsValidator/><ValidationSummary/>
+    <div class="row">
+        <div class="col-md-5">
+            <RadzenFieldset Text="Item Information">
+	            <div class="row">
+		            <div class="col-md-4 align-items-center d-flex">
+			            <RadzenLabel Text="Location"/>
+		            </div>
+		            <div class="col-md-8">
+			            <RadzenTextBox style="width: 80%;" Name="Name" @bind-Value="_location.Description"/>
+		            </div>
+	            </div>
+	            
+	            <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</EditForm>
+
+
+@code {
+	private Location _location;
+
+	protected override async Task OnInitializedAsync( ) {
+		//Todo: Missing awaits=?
+		_location = new( );
+	}
+
+	private void RegisterNewLocation( ) {
+		_locationHandler.CreateLocation(_location);
+		_navigationManager.NavigateTo("/RegisteredLocations");
+	}
+}

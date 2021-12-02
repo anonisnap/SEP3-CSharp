@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataBaseAccess.DataAccess.DbContextImpl;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +10,9 @@ namespace DataBaseAccess.DataRepos.Impl
 	{
 		private WarehouseDbContext _database;
 
-		public LocationDataRepo(DbContext dbContext)
+		public LocationDataRepo(WarehouseDbContext dbContext)
 		{
-			_database = (WarehouseDbContext) dbContext;
+			_database = dbContext;
 		}
 
 		public async Task<Location> AddAsync(Location location)

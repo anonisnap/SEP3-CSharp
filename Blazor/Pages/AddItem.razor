@@ -1,0 +1,71 @@
+﻿@page "/AddItem"
+@using Entities.Models
+@using Blazor.Data
+
+@inject IItemHandler _itemsHandler
+@inject ILocationHandler _locationsHandler
+@inject NavigationManager _navigationManager
+
+<h3>AddItem</h3>
+
+<div class="row">
+    <div class="col-xl-10">
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h5>Registered Items</h5>
+                <RadzenDropDownDataGrid TValue="Item" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_items"
+                                        TextProperty="ItemName" Change=@(args => OnChange(args, "")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Item Id"/>
+                        <RadzenDropDownDataGridColumn Property="ItemName" Title="Item Name"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+            <div class="col-xl-6 mb-5">
+                <h5>Registered Locations</h5>
+                <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_locations"
+                                        TextProperty="Description" Change=@(args => OnChange(args, "")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
+                        <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+        </div>
+        <RadzenNumeric TValue="int" style="width: 80%;" @bind-Value="_itemLocationDb.Amount"></RadzenNumeric>
+        <RadzenButton Click="@OnClick" Text="Save"/>
+    </div>
+</div>
+
+@code {
+
+    private IList<Item> _items;
+    private IList<Location> _locations;
+
+    //Er det ItemLocationDB eller ItemLocation der skal bruges
+    private ItemLocationDB _itemLocationDb;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _items = await _itemsHandler.GetItems();
+        _locations = await _locationsHandler.GetLocations();
+        _itemLocationDb = new();
+    }
+
+    void OnClick()
+    {
+    //
+    }
+
+    void OnChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>) value) : value;
+
+        Console.WriteLine($"{name} value changed to {str}");
+        
+    }
+
+}
