@@ -1,0 +1,23 @@
+﻿@page "/Items"
+@using Blazor.Data
+@using Entities.Models
+<h3>Items</h3>
+
+@inject IItemHandler _itemsHandler
+
+
+
+
+@code {
+    private IList<Item> _registeredItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _registeredItems = await _itemsHandler.GetItems();
+
+        foreach (var item in _registeredItems)
+        {
+            Console.WriteLine(item?.ItemName);
+        }
+    }
+}
