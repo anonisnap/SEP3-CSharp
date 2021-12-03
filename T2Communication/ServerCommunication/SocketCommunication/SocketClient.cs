@@ -68,7 +68,7 @@ namespace ServerCommunication.SocketCommunication {
 			RequestReply serverReply = await WaitForReplyAsync(requestReplySocketClientHandler );
 
 			// Cut connection
-			requestReplySocketClientHandler.Kill();
+			//requestReplySocketClientHandler.Kill();
 
 			return serverReply?.Arg;
 		}
