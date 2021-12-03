@@ -10,7 +10,8 @@
 			return new ItemLocation {Id = Id, Item = Item, Location = Location, Amount = Amount };
 		}
 		public override string ToString( ) {
-			return $"ItemId: {ItemId}" +
+			return $"Location: {Id}" +
+			       $"\nItemId: {ItemId}" +
 			       $"\nlocationId: {LocationId}" +
 			       $"\nAmount: {Amount}";
 		}

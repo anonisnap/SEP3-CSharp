@@ -33,6 +33,14 @@ namespace Blazor.Data
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
 
+        public async Task UpdateItemLocation(ItemLocation itemLocation)
+        {
+            Console.WriteLine("ItemLocationHandler.UpdateItemLocation");
+
+            await _serverCommunication.SendToServerReturn(this, "post", itemLocation);
+            
+            Console.WriteLine("just send to server please");
+        }
 
         public void Update(string jsonEntity)
         {

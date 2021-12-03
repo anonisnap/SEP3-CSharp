@@ -19,8 +19,10 @@
                                         Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
+                        <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
                         <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
                         <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Id"/>
                     </Columns>
                 </RadzenDropDownDataGrid>
             </div>
@@ -62,37 +64,56 @@
 
 @code {
     private IList<Location> _locations;
-
     private IList<ItemLocation> _itemLocations;
 
+    private ItemLocation _newItemLocation;
+    private ItemLocation _oldItemLocation;
+
+    
     protected override async Task OnInitializedAsync()
     {
         _locations = await _locationsHandler.GetLocations();
         _itemLocations = await _itemLocationHandler.GetItemLocations();
+
+        _newItemLocation = new();
+        _oldItemLocation = new();
     }
 
     private async Task Save()
     {
-    //
+        Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
+        
+        await _itemLocationHandler.UpdateItemLocation(_newItemLocation);
+        
+        
+
+        //_navigationManager.NavigateTo("/");
     }
 
     void OnChange(object value, string name)
     {
     //Kig i AddItem page for hvordan det er gjort der
-        /*Console.WriteLine($"value is: {value}");
+        
+        Console.WriteLine($"value is: {value}");
         Console.WriteLine($"name is: {name}");
 
-        if (name.Equals("Item"))
+        if (name.Equals("ItemLocation"))
         {
-            Item item = (Item) value;
+            _oldItemLocation = (ItemLocation) value;
+            Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
+            Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
+            Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
+            _newItemLocation.Item = _oldItemLocation.Item;
+            _newItemLocation.Amount = _oldItemLocation.Amount;
+            _newItemLocation.Id = _oldItemLocation.Id;
 
-            _itemLocations.Item = item;
+            Console.WriteLine($"++++ NewItemLocation.Id - {_newItemLocation.Id}");
         }
         else if (name.Equals("Location"))
         {
             Location location = (Location) value;
-            _itemLocations.Location = location;
-        }*/
+            _newItemLocation.Location = location;
+        }
     }
 
 }

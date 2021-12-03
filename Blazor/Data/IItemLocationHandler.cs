@@ -10,5 +10,7 @@ namespace Blazor.Data
         Task AddItemLocation(ItemLocation itemLocation);
 
         Task<IList<ItemLocation>> GetItemLocations();
+
+        Task UpdateItemLocation(ItemLocation itemLocation);
     }
 }

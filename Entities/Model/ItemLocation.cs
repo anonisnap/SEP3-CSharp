@@ -10,7 +10,8 @@
 
         public override string ToString()
         {
-            return $"Location: {Location} " +
+            return $"LocationID: {Id}" +
+                   $"\nLocation: {Location} " +
                    $"\nItem: {Item} " +
                    $"\nAmount: {Amount}";
         }
