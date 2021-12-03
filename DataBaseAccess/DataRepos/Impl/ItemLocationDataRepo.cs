@@ -15,7 +15,7 @@ namespace DataBaseAccess.DataRepos.Impl {
 
 
 		public async Task<ItemLocation> AddAsync(ItemLocation obj) {
-			ItemLocationDB db = await FixItemLocationForDatabaseAsync(obj);
+			ItemLocationDB db = await GenerateItemLocationDbAsync(obj);
 
 			EntityEntry<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb.AddAsync(db);
 			
@@ -31,10 +31,20 @@ namespace DataBaseAccess.DataRepos.Impl {
 			return entity.Entity.GetItemLocation();
 		}
 
-		public async Task<ItemLocation> UpdateAsync(ItemLocation obj) {
-			ItemLocationDB db = await FixItemLocationForDatabaseAsync(obj);
-
-			EntityEntry<ItemLocationDB> entity = _warehouseDbContext.ItemLocationsDb.Update(db);
+		public async Task<ItemLocation> UpdateAsync(ItemLocation itemLocation)
+		{
+			ItemLocationDB generatedItemLocationDb = await GenerateItemLocationDbAsync(itemLocation);
+			
+			// find the old item location db object 
+			ItemLocationDB oldItemLocationDb =
+				 await _warehouseDbContext.ItemLocationsDb
+					 .Include(iLDb => iLDb.Item)
+					 .Include(iLDb => iLDb.Location)
+					 .Where(iLDb => iLDb.Id == itemLocation.Id)
+					 .FirstAsync();
+			
+			EntityEntry<ItemLocationDB> entity = _warehouseDbContext.ItemLocationsDb.Update(oldItemLocationDb);
+			entity.CurrentValues.SetValues(generatedItemLocationDb);
 			
 			await _warehouseDbContext.SaveChangesAsync( );
 			return entity.Entity.GetItemLocation();
@@ -71,14 +81,14 @@ namespace DataBaseAccess.DataRepos.Impl {
 			return result;
 		}
 
-		private async Task<ItemLocationDB> FixItemLocationForDatabaseAsync(ItemLocation itemLocation) {
+		private async Task<ItemLocationDB> GenerateItemLocationDbAsync(ItemLocation itemLocation) {
 			// Retrieve Item and Location from _warehouseDbContext
 			Item objItem = await _warehouseDbContext.Items.FirstOrDefaultAsync(x => x.Id == itemLocation.Item.Id);
 			Location objLocation = await _warehouseDbContext.Locations.FirstOrDefaultAsync(x => x.Id == itemLocation.Location.Id);
 
 			_warehouseDbContext.ChangeTracker.AcceptAllChanges();
 			// Create DB Specific Class with Item and Location from before
-			return new ItemLocationDB( ) { Amount = itemLocation.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
+			return new ItemLocationDB( ) {Id = itemLocation.Id, Amount = itemLocation.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
 		}
 	}
 }

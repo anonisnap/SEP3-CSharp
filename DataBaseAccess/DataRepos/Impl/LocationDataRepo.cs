@@ -30,9 +30,9 @@ namespace DataBaseAccess.DataRepos.Impl
 		}
 
 
-		public async Task<Location> UpdateAsync(Location obj)
+		public async Task<Location> UpdateAsync(Location itemLocation)
 		{
-			var entityEntry = _database.Locations.Update(obj);
+			var entityEntry = _database.Locations.Update(itemLocation);
 			await _database.SaveChangesAsync();
 			return entityEntry.Entity;
 		}

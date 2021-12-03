@@ -4,7 +4,7 @@ namespace Entities.Models
 {
     public class Location
     {
-        public int Id { get; set; }
+        public int Id { get; set;}
         [Required, MaxLength(256)]
         public string Description { get; set; }
 

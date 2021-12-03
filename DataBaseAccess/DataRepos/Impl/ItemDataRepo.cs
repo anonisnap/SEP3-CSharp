@@ -42,11 +42,11 @@ namespace DataBaseAccess.DataRepos.Impl
 			return itemToDelete;
 		}
 
-		public async Task<Item> UpdateAsync( Item item)
+		public async Task<Item> UpdateAsync( Item itemLocation)
 		{
-			_warehouseDbContext.Items.Update(item);
+			_warehouseDbContext.Items.Update(itemLocation);
 			await _warehouseDbContext.SaveChangesAsync();
-			return item;
+			return itemLocation;
 		}
 
 		public async Task<IList<Item>> GetAllAsync()

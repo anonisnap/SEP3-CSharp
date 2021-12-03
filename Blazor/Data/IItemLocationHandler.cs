@@ -7,5 +7,8 @@ namespace Blazor.Data
     public interface IItemLocationHandler : IHandler
     {
         Task AddItemLocation(ItemLocation itemLocation);
+        
+        
+        
     }
 }

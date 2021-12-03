@@ -2,6 +2,7 @@
 {
     public class ItemLocation
     {
+        public int Id { get; set; }
         public Location Location { get; set; }
         public Item Item { get; set; }
         
