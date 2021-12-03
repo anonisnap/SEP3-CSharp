@@ -7,6 +7,9 @@
 @inject IItemLocationHandler _itemLocationHandler
 @inject NavigationManager _navigationManager
 
+@inject DialogService DialogService
+
+
 <h3>AddItem</h3>
 
 <div class="row">
@@ -44,7 +47,7 @@
             </div>
             <div class="col-md-4 mb-5">
                 <h5>Add to location</h5>
-                <RadzenButton Click="@Save" Icon="save" Text="Save"/>
+                <RadzenButton Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to add this item to this location?", "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
             </div>
         </div>
 
@@ -63,6 +66,16 @@
         _items = await _itemsHandler.GetItems();
         _locations = await _locationsHandler.GetLocations();
         _itemLocation = new();
+
+        DialogService.OnOpen += Open;
+        DialogService.OnClose += CloseConfirmAdd;
+    }
+
+    public void Dispose()
+    {
+    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
+        DialogService.OnOpen -= Open;
+        DialogService.OnClose -= CloseConfirmAdd;
     }
 
     private async Task Save()
@@ -94,5 +107,23 @@
             _itemLocation.Location = location;
         }
     }
+    
+    void CloseConfirmAdd(dynamic result)
+    {
+        if (result != null) // if the user hits the x near the top right null is returned
+        {
+    // result is false if the user clicks no
+            if ((bool) result) Save();
+        }
+    }
 
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+        Console.WriteLine("Dialog opened");
+    }
+
+    void Close(dynamic result)
+    {
+        Console.WriteLine($"Dialog closed {result}");
+    }
 }
