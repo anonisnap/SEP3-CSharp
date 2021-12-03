@@ -2,15 +2,17 @@
 using DataBaseAccess.DataAccess.DbContextImpl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataBaseAccess.Migrations
 {
     [DbContext(typeof(SEP_DBContext))]
-    partial class SEP_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211202122744_updatedItemLocationDb")]
+    partial class updatedItemLocationDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,26 +51,16 @@ namespace DataBaseAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("ItemId", "LocationId")
-                        .IsUnique();
+                    b.HasKey("ItemId", "LocationId");
 
                     b.ToTable("ItemLocationsDb");
                 });
@@ -91,25 +83,6 @@ namespace DataBaseAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
-                {
-                    b.HasOne("Entities.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
         }

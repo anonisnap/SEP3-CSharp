@@ -45,20 +45,27 @@ namespace DataBaseAccess.Migrations.TestDb
 
             modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ItemId", "LocationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("ItemLocationsDB");
+                    b.HasIndex("ItemId", "LocationId")
+                        .IsUnique();
+
+                    b.ToTable("ItemLocationsDb");
                 });
 
             modelBuilder.Entity("Entities.Models.Location", b =>

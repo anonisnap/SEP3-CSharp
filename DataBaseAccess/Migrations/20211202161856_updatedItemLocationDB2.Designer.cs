@@ -2,15 +2,17 @@
 using DataBaseAccess.DataAccess.DbContextImpl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataBaseAccess.Migrations
 {
     [DbContext(typeof(SEP_DBContext))]
-    partial class SEP_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211202161856_updatedItemLocationDB2")]
+    partial class updatedItemLocationDB2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,26 +51,18 @@ namespace DataBaseAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ItemId", "LocationId");
 
                     b.HasIndex("LocationId");
-
-                    b.HasIndex("ItemId", "LocationId")
-                        .IsUnique();
 
                     b.ToTable("ItemLocationsDb");
                 });

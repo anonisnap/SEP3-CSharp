@@ -9,7 +9,9 @@
 
         public override string ToString()
         {
-            return $"Location: {Location} \nItem: {Item}, \nAmount: {Amount}";
+            return $"Location: {Location} " +
+                   $"\nItem: {Item} " +
+                   $"\nAmount: {Amount}";
         }
     }
 }
