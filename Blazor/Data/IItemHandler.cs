@@ -5,11 +5,8 @@ using ServerCommunication;
 
 namespace Blazor.Data
 {
-    public interface IItemHandler : IHandler
+    public interface IItemHandler : IEntityManager<Item>,IHandler
     {
-        //TODO: Jeg mangler i astah ;(
-        Task RegisterItem(Item item);
-        Task<IList<Item>> GetItems();
-        Task<Item> GetItem(int itemId);
+        
     }
 }

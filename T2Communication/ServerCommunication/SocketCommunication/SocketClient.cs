@@ -46,7 +46,7 @@ namespace ServerCommunication.SocketCommunication {
 			await _socketClientHandler.SendObject(request);
 		}
 
-		public async Task<object> SendToServerReturn(IHandler callingHandler, string action, object obj) {
+		public async Task<object> SendToServerReturn(string action, object obj) {
 
 			Console.WriteLine("> Creating new socket to send request and receive reply");
 			TcpClient tcpClient = new TcpClient("localhost", 1235);
@@ -55,10 +55,7 @@ namespace ServerCommunication.SocketCommunication {
 			// Create Request
 			Console.WriteLine($"> Generating a {action.ToUpper( )}-request with arg: {obj.GetType( ).Name}");
 			Request request = generateRequest(action, obj);
-
-			// Map Handler to Request ID
-			Console.WriteLine($"> Attempting to add {callingHandler.GetType( ).Name} to Handler Dictionary");
-			_handlerDict.Add(request.Id, callingHandler);
+			
 
 			// Send Request to Server
 			Console.WriteLine($"> Contacting Server using {requestReplySocketClientHandler}");
@@ -68,8 +65,7 @@ namespace ServerCommunication.SocketCommunication {
 			RequestReply serverReply = await WaitForReplyAsync(requestReplySocketClientHandler );
 
 			// Cut connection
-			//requestReplySocketClientHandler.Kill();
-
+			requestReplySocketClientHandler.Kill();
 			return serverReply?.Arg;
 		}
 		
@@ -106,7 +102,7 @@ namespace ServerCommunication.SocketCommunication {
 
 			// Give (Class Type & [?]) Argument to Handler
 			Console.WriteLine($"Updating {handler.GetType( ).Name} with {(string) serverReply.Arg}");
-			handler.Update((string) serverReply.Arg);
+			handler.CallBackBroardcast((string) serverReply.Arg);
 
 			Console.WriteLine($"\t<!!> Recived {broadcast}");
 		}

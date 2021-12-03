@@ -87,7 +87,7 @@
 
     private async Task AddNewItem()
     {
-        await _itemsHandler.RegisterItem(_item);
+        await _itemsHandler.GetAllAsync();
 
     //Navigate to specific Item created instead?
         _navigationManager.NavigateTo("/RegisteredItems");

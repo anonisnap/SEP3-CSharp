@@ -7,7 +7,7 @@ namespace ServerCommunication {
 		//WarehouseItems, Locations, and so on.
 
 		Task SendToServer(IHandler callingHandler, string action, object obj);
-		Task<object> SendToServerReturn(IHandler callingHandler, string action, object obj);
+		Task<object> SendToServerReturn(string action, object obj);
 		
 		//Task<string> GetFromServer( );
 	}

@@ -63,8 +63,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _items = await _itemsHandler.GetItems();
-        _locations = await _locationsHandler.GetLocations();
+        _items = await _itemsHandler.GetAllAsync();
+        _locations = await _locationsHandler.GetAllAsync();
         _itemLocation = new();
 
         DialogService.OnOpen += Open;
@@ -80,7 +80,7 @@
 
     private async Task Save()
     {
-        await _itemLocationHandler.AddItemLocation(_itemLocation);
+        await _itemLocationHandler.RegisterAsync(_itemLocation);
 
         Console.WriteLine($"Printing Location: /n {_itemLocation}");
 

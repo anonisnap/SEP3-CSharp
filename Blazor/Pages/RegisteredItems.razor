@@ -82,7 +82,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _registeredItems = await _itemsHandler.GetItems();
+        _registeredItems = await _itemsHandler.GetAllAsync();
 
         /*foreach (var item in _registeredItems)
         {

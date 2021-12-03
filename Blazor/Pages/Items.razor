@@ -31,7 +31,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _registeredItems = await _itemsHandler.GetItems();
+        _registeredItems = await _itemsHandler.GetAllAsync();
     }
 
     async Task OpenOrder(int orderId)

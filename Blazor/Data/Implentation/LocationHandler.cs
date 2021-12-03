@@ -3,39 +3,47 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
 using ServerCommunication;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor.Data
 {
-	public class LocationHandler : ILocationHandler
-	{
-		private IServerCommunication _serverCommunication;
+    public class LocationHandler : ILocationHandler
+    {
+        private ILocationDataServerComm _locationDataServerComm;
 
-		public LocationHandler(IServerCommunication serverCommunication)
-		{
-			_serverCommunication = serverCommunication;
-		}
-		public async Task CreateLocation(Location location)
-		{
-			await _serverCommunication.SendToServerReturn(this,"put",location);
-		}
+        public LocationHandler(ILocationDataServerComm locationDataServerComm)
+        {
+            _locationDataServerComm = locationDataServerComm;
+        }
 
-		public async Task<IList<Location>> GetLocations()
-		{
-			JsonElement jsonObject = (JsonElement) await _serverCommunication.SendToServerReturn(this, "getall", new Location());
-			
-			return JsonSerializer.Deserialize<List<Location>>(jsonObject.ToString(), 
-				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
-			 
-		}
+        public void CallBackBroardcast(object jsonEntity)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<Location> GetLocation(int locationId)
-		{
-			throw new System.NotImplementedException();
-		}
+        public async Task<Location> RegisterAsync(Location location)
+        {
+            return await _locationDataServerComm.RegisterAsync(location);
+        }
 
-		public void Update(string jsonEntity)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<Location> RemoveAsync(Location location)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Location> UpdateAsync(Location location)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IList<Location>> GetAllAsync()
+        {
+            return await _locationDataServerComm.GetAllAsync();
+        }
+
+        public async Task<Location> GetAsync(Location location)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

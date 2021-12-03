@@ -73,7 +73,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _locations = await _locationsHandler.GetLocations();
+        _locations = await _locationsHandler.GetAllAsync();
     }
 
 }

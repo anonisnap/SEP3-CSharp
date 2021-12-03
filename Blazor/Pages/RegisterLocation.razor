@@ -60,7 +60,7 @@
 	}
 
 	private void RegisterNewLocation( ) {
-		_locationHandler.CreateLocation(_location);
+		_locationHandler.RegisterAsync(_location);
 		_navigationManager.NavigateTo("/RegisteredLocations");
 	}
 }

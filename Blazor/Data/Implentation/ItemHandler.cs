@@ -4,54 +4,47 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
 using ServerCommunication;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor.Data {
 	public class ItemHandler : IItemHandler {
 		//TODO: Jeg mangler i astah ;(
-		private IServerCommunication _serverCommunication;
+		
+		private IItemDataServerComm _itemDataServerComm;
 
-		public ItemHandler(IServerCommunication serverCommunication) {
-			_serverCommunication = serverCommunication;
+		public ItemHandler(IItemDataServerComm itemDataServerComm) {
+			_itemDataServerComm = itemDataServerComm;
 		}
 
-		public async Task RegisterItem(Item item) {
-			Console.WriteLine("ItemHandler.RegisterItem");
-
-			await _serverCommunication.SendToServerReturn(this, "put", item);
-			
-			Console.WriteLine("just send to server");
-		}
-
-		public async Task<IList<Item>> GetItems( ) {
-			
-			//FIXME: Do I like correct and beautiful? - No idea --> arg?
-			JsonElement jsonObject = (JsonElement) await _serverCommunication.SendToServerReturn(this, "getall", new Item());
-			
-			return JsonSerializer.Deserialize<List<Item>>(jsonObject.ToString(), 
-				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
-			
-		}
-
-		public async Task<Item> GetItem(int itemId) {
-			//TODO: MAKE ME PLEASE
-			//await _serverCommunication.GetItem(itemId);
-			Item templateItem = new Item() { Id = itemId };
-			Console.WriteLine($"Template Item Type {templateItem.GetType().Name}");
-			
-			JsonElement itemJson =  (JsonElement) await _serverCommunication.SendToServerReturn(this, "get", templateItem);
-			
-			Item item = JsonSerializer.Deserialize<Item>( itemJson.ToString(), 
-				new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
-			
-			Console.WriteLine($"> item handler resived {item.Id} {item.GetType()} ");
-
-			return item;
-			
-		}
-
-		public void Update(string jsonEntity)
+		
+		public void CallBackBroardcast(object item)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<Item> RegisterAsync(Item item)
+		{
+			return await _itemDataServerComm.RegisterAsync(item);
+		}
+
+		public Task<Item> RemoveAsync(Item item)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<Item> UpdateAsync(Item item)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<IList<Item>> GetAllAsync()
+		{
+			return await _itemDataServerComm.GetAllAsync();
+		}
+
+		public async Task<Item> GetAsync(Item item)
+		{
+			return await _itemDataServerComm.GetAsync(item);
 		}
 	}
 }

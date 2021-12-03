@@ -4,45 +4,46 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
 using ServerCommunication;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor.Data
 {
     public class ItemLocationHandler : IItemLocationHandler
     {
-        private IServerCommunication _serverCommunication;
+        private IItemLocationDataServerComm _itemLocationDataServerComm;
 
-        public ItemLocationHandler(IServerCommunication serverCommunication)
+        public ItemLocationHandler(IItemLocationDataServerComm itemLocationDataServerComm)
         {
-            _serverCommunication = serverCommunication;
+            _itemLocationDataServerComm = itemLocationDataServerComm;
         }
         
-        public async Task AddItemLocation(ItemLocation itemLocation)
+        
+        public async void CallBackBroardcast(object itemLocation)
         {
-            Console.WriteLine("ItemLocationHandler.AddItemLocation");
-
-            await _serverCommunication.SendToServerReturn(this, "put", itemLocation);
             
-            Console.WriteLine("just send to server please");
         }
 
-        public async Task<IList<ItemLocation>> GetItemLocations()
+        public async Task<ItemLocation> RegisterAsync(ItemLocation itemLocation)
         {
-            JsonElement jsonObject = (JsonElement) await _serverCommunication.SendToServerReturn(this, "getall", new ItemLocation());
-			
-            return JsonSerializer.Deserialize<List<ItemLocation>>(jsonObject.ToString(), 
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+            return await _itemLocationDataServerComm.RegisterAsync(itemLocation);
         }
 
-        public async Task UpdateItemLocation(ItemLocation itemLocation)
+        public Task<ItemLocation> RemoveAsync(ItemLocation entity)
         {
-            Console.WriteLine("ItemLocationHandler.UpdateItemLocation");
-
-            await _serverCommunication.SendToServerReturn(this, "post", itemLocation);
-            
-            Console.WriteLine("just send to server please");
+            throw new NotImplementedException();
         }
 
-        public void Update(string jsonEntity)
+        public async Task<ItemLocation> UpdateAsync(ItemLocation itemLocation)
+        {
+            return await _itemLocationDataServerComm.UpdateAsync(itemLocation);
+        }
+
+        public async Task<IList<ItemLocation>> GetAllAsync()
+        {
+            return await _itemLocationDataServerComm.GetAllAsync();
+        }
+
+        public async Task<ItemLocation> GetAsync(ItemLocation entity)
         {
             throw new NotImplementedException();
         }

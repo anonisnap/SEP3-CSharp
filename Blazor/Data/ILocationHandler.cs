@@ -5,12 +5,8 @@ using ServerCommunication;
 
 namespace Blazor.Data
 {
-    public interface ILocationHandler : IHandler
+    public interface ILocationHandler : IEntityManager<Location>, IHandler
     {
-        Task CreateLocation(Location location);
-        
-        Task<IList<Location>> GetLocations();
-        Task<Location> GetLocation(int locationId);
-        
+      
     }
 }

@@ -4,7 +4,7 @@ namespace ServerCommunication
     public interface IHandler
     {
 
-        void Update(string jsonEntity);
+        void CallBackBroardcast(object jsonEntity);
 
     }
 }

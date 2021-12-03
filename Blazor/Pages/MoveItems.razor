@@ -72,8 +72,10 @@
     
     protected override async Task OnInitializedAsync()
     {
-        _locations = await _locationsHandler.GetLocations();
-        _itemLocations = await _itemLocationHandler.GetItemLocations();
+        _itemLocations = await _itemLocationHandler.GetAllAsync();
+        _locations = await _locationsHandler.GetAllAsync();
+        
+        Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
 
         _newItemLocation = new();
         _oldItemLocation = new();
@@ -83,7 +85,7 @@
     {
         Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
         
-        await _itemLocationHandler.UpdateItemLocation(_newItemLocation);
+        await _itemLocationHandler.UpdateAsync(_newItemLocation);
         
         
 
