@@ -15,20 +15,21 @@
             <div class="col-xl-6 mb-5">
                 <h5>Registered Items</h5>
                 <RadzenDropDownDataGrid TValue="Item" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_items"
-                                        TextProperty="ItemName" Change=@(args => OnChange(args, "Item")) Style="width:100%">
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_items" TextProperty="ItemName" Change=@(args => OnChange(args, "Item")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Item Id"/>
                         <RadzenDropDownDataGridColumn Property="ItemName" Title="Item Name"/>
                     </Columns>
                 </RadzenDropDownDataGrid>
             </div>
+        </div>
+        <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Registered Locations</h5>
                 <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Data="@_locations"
-                                        TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
                         <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
@@ -36,8 +37,17 @@
                 </RadzenDropDownDataGrid>
             </div>
         </div>
-        <RadzenNumeric TValue="int" style="width: 80%;" @bind-Value="_itemLocation.Amount"></RadzenNumeric>
-        <RadzenButton Click="@Save" Text="Save"/>
+        <div class="row">
+            <div class="col-md-2 mb-5">
+                <h5>Amount</h5>
+                <RadzenNumeric TValue="int" @bind-Value="_itemLocation.Amount"></RadzenNumeric>
+            </div>
+            <div class="col-md-4 mb-5">
+                <h5>Add to location</h5>
+                <RadzenButton Click="@Save" Icon="save" Text="Save"/>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -45,7 +55,7 @@
 
     private IList<Item> _items;
     private IList<Location> _locations;
-    
+
     private ItemLocation _itemLocation;
 
     protected override async Task OnInitializedAsync()
@@ -58,9 +68,9 @@
     private async Task Save()
     {
         await _itemLocationHandler.AddItemLocation(_itemLocation);
-        
+
         Console.WriteLine($"Printing Location: /n {_itemLocation}");
-        
+
         _navigationManager.NavigateTo("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     }
 
