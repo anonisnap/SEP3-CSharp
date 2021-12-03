@@ -1,0 +1,30 @@
+﻿@page "/LocationsCard"
+
+@inject DialogService DialogService
+
+@*<h3>OrderID: @OrderID</h3>
+
+<RadzenCard Style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Item Details</h3>
+            <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        Data="@(orderDetails.Where(o => o.OrderID == OrderID))" TItem="OrderDetail" ColumnWidth="200px">
+                <Columns>
+                    <RadzenDataGridColumn TItem="OrderDetail" Property="Quantity" Title="Quantity" />
+                    <RadzenDataGridColumn TItem="OrderDetail" Property="Order.OrderDate" Title="OrderDate" />
+                    <RadzenDataGridColumn TItem="OrderDetail" Property="Discount" Title="Discount" FormatString="{0:P}" />
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+</RadzenCard>*@
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        //hvad skal den bruge
+    }
+
+}
