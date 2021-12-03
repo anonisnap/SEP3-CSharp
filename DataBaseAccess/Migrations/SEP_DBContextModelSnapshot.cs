@@ -49,18 +49,26 @@ namespace DataBaseAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ItemId", "LocationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("ItemId", "LocationId")
+                        .IsUnique();
 
                     b.ToTable("ItemLocationsDb");
                 });

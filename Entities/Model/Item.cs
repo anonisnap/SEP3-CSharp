@@ -20,8 +20,12 @@ namespace Entities.Models
 
         public override string ToString()
         {
-            return $"Id: {Id} \nItemName: {ItemName} \nLength: {Length} " +
-                   $"\nWidth: {Width} \nHeight: {Height} \nWeight: {Weight}";
+            return $"Id: {Id} " +
+                   $"\nItemName: {ItemName} " +
+                   $"\nLength: {Length} " +
+                   $"\nWidth: {Width} " +
+                   $"\nHeight: {Height} " +
+                   $"\nWeight: {Weight}";
         }
     }
     

@@ -12,7 +12,7 @@ namespace DataBaseAccess
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItemLocationDB>().HasKey(locations => new {locations.ItemId, locations.LocationId});
+            modelBuilder.Entity<ItemLocationDB>().HasIndex(locations => new {locations.ItemId, locations.LocationId}).IsUnique();
             modelBuilder.Entity<Location>().HasIndex(l => l.Description).IsUnique();
         }
         
