@@ -1,0 +1,98 @@
+﻿@page "/MoveItems"
+@using Blazor.Data
+@using Entities.Models
+
+@inject ILocationHandler _locationsHandler
+@inject IItemLocationHandler _itemLocationHandler
+@inject NavigationManager _navigationManager
+
+
+<h3>MoveItems</h3>
+
+<div class="row">
+    <div class="col-xl-10">
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h5>Item and location id</h5>
+                <RadzenDropDownDataGrid TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
+                        <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
+                        <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h5>Registered Locations</h5>
+                <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
+                        <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-5">
+                <h5>Add to location</h5>
+                <RadzenButton Icon="save" Text="Save" Click="@Save"/>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*
+<RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                LogicalFilterOperator="LogicalFilterOperator.Or"
+                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item"/>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
+    </Columns>
+</RadzenDataGrid>*@
+
+@code {
+    private IList<Location> _locations;
+
+    private IList<ItemLocation> _itemLocations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _locations = await _locationsHandler.GetLocations();
+        _itemLocations = await _itemLocationHandler.GetItemLocations();
+    }
+
+    private async Task Save()
+    {
+    //
+    }
+
+    void OnChange(object value, string name)
+    {
+    //Kig i AddItem page for hvordan det er gjort der
+        /*Console.WriteLine($"value is: {value}");
+        Console.WriteLine($"name is: {name}");
+
+        if (name.Equals("Item"))
+        {
+            Item item = (Item) value;
+
+            _itemLocations.Item = item;
+        }
+        else if (name.Equals("Location"))
+        {
+            Location location = (Location) value;
+            _itemLocations.Location = location;
+        }*/
+    }
+
+}
