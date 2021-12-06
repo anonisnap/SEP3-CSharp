@@ -27,13 +27,13 @@ namespace GrpcClient.Clients {
 
 			// Send Call Request to Server and store reply
 			var reply = await _client.RegisterItemAsync(g);
-
+			
 			// Disconnect from Server
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
 			Item item = ConvertGItemToItem(reply);
-
+		
 			// Return Item to User
 			return item;
 		}
@@ -72,7 +72,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.Item item = ConvertGItemToItem(reply);
+			Item item = ConvertGItemToItem(reply);
 
 			// Return Item to User
 			return item;
@@ -93,7 +93,7 @@ namespace GrpcClient.Clients {
 
 			// Generate Lists to read from, and fill in
 			ICollection<gItem> gItems = reply.Item;
-			List<Entities.Models.Item> items = new( ) { };
+			List<Item> items = new( ) { };
 
 			// Loop Through Collection of gItems
 			foreach(var g in gItems) {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
 using Entities.Models;
@@ -34,8 +35,11 @@ namespace WebDBserverAPI.Controllers {
 
 		[HttpPut]
 		public async Task<ActionResult> PutAsync([FromBody] Item item) {
-			Item itemAdded = await _itemRepo.AddAsync(item);
 			
+			Console.WriteLine("enter put "+Thread.CurrentThread.Name);
+			Console.WriteLine("Putcalled called for item " + item.ItemName + " " + item.Id);
+			Item itemAdded = await _itemRepo.AddAsync(item);
+			Console.WriteLine("Before return "+Thread.CurrentThread.Name);
 			return Created($"/Item/{item.Id}", itemAdded);
 		}
 
@@ -50,6 +54,7 @@ namespace WebDBserverAPI.Controllers {
 		[HttpPost]
 		public async Task<ActionResult> PostAsync([FromBody] Item item) {
 			try {
+				
 				return item.Id == 0 ? Ok(await _itemRepo.AddAsync(item)) : Ok(await _itemRepo.UpdateAsync(item));
 				//await _itemRepo.UpdateAsync(item);
 				//return Ok(item);
