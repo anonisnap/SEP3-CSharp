@@ -125,7 +125,7 @@ namespace GrpcClient.Clients {
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			gItemLocationList reply = await _client.GetAllItemLocationAsync(template);
+			gItemLocationList reply = await _client.GetAllItemLocationsAsync(template);
 
 			// Disconnect from Server
 			await Disconnect( );

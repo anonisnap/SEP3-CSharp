@@ -22,7 +22,7 @@ message gItemList {
 service Item {
   rpc RegisterItem(gItem) returns (gItem);
   rpc GetItem(gItem) returns (gItem);
-  rpc GetAllItem(gItem) returns (gItemList);
+  rpc GetAllItems(gItem) returns (gItemList);
   rpc UpdateItem(gItem) returns (gItem);
   rpc RemoveItem(gItem) returns (gItem);
 }

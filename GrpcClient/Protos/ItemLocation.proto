@@ -24,7 +24,7 @@ service ItemLocation{
 
   rpc RegisterItemLocation(gItemLocation) returns (gItemLocation);
   rpc GetItemLocation(gItemLocation) returns (gItemLocation);
-  rpc GetAllItemLocation(gItemLocation) returns (gItemLocationList);
+  rpc GetAllItemLocations(gItemLocation) returns (gItemLocationList);
   rpc UpdateItemLocation(gItemLocation) returns (gItemLocation);
   rpc RemoveItemLocation(gItemLocation) returns (gItemLocation);
   rpc GetByItemId(gItemLocation) returns (gItemLocationList);
