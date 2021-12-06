@@ -26,7 +26,7 @@ namespace Entities.Models {
 		}
 
 		public override bool Equals(object obj) {
-			return (obj?.GetType( ) == typeof(Item)) && ItemName == ((Item) obj).ItemName && Height == ((Item) obj).Height && Length == ((Item) obj).Length && Width == ((Item) obj).Width && Weight == ((Item) obj).Weight;
+			return (obj?.GetType( ) == typeof(Item)) && Id == ((Item) obj).Id && ItemName == ((Item) obj).ItemName && Height == ((Item) obj).Height && Length == ((Item) obj).Length && Width == ((Item) obj).Width && Weight == ((Item) obj).Weight;
 		}
 	}
 

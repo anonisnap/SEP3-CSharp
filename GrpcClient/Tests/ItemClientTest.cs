@@ -15,14 +15,14 @@ namespace GrpcClient.Tests {
 		private IEntityManager<Item> _client;
 		private Item _testItem1, _testItem2;
 
-		[TestInitialize()]
+		[TestInitialize( )]
 		public void Setup( ) {
 			_client = new GrpcItemClient("http://localhost:9090");
 			_testItem1 = new( ) { Id = 0, ItemName = "The Answer to Life, The Universe, and Everything", Height = 420, Length = 69, Width = 727, Weight = 15 };
 			_testItem2 = new( ) { Id = 0, ItemName = "Couch", Height = 74, Length = 84, Width = 35, Weight = 100 };
 		}
 
-		[TestCleanup()]
+		[TestCleanup( )]
 		public async Task TearDown( ) {
 			Console.WriteLine($"Removing Item ID : {_testItem1.Id}");
 			await _client.RemoveAsync(_testItem1);
@@ -33,17 +33,14 @@ namespace GrpcClient.Tests {
 		[TestMethod("Register Item")] // Registering an Item | IMPLEMENTED : Register Item -> Check received Item = Input Item
 		public async Task RegisterItemAsync( ) {
 			var result = await _client.RegisterAsync(_testItem1);
-
-			Console.WriteLine($"Result from Server: {result}");
-
-			_testItem2 = result;
+			_testItem1.Id = result.Id;
 			Assert.IsNotNull(result);
 			Assert.IsTrue(_testItem1.Equals(result));
 		}
 
 		[TestMethod("Update Item")] // Updating an Item | IMPLEMENTED : Register Item -> Change Weight of Item -> Update Item -> Check Item received = Input Item
 		public async Task UpdateItemAsync( ) {
-			await _client.RegisterAsync(_testItem1);
+			_testItem1 = await _client.RegisterAsync(_testItem1);
 			_testItem2.Id = _testItem1.Id;
 			var result = await _client.UpdateAsync(_testItem2);
 
@@ -62,7 +59,7 @@ namespace GrpcClient.Tests {
 
 		[TestMethod("Get Item")] // Getting a Single Item | IMPLEMENTED : Register Item -> Get Item -> Check Item received = Input Item
 		public async Task GetItemAsync( ) {
-			await _client.RegisterAsync(_testItem1);
+			_testItem1 = await _client.RegisterAsync(_testItem1);
 			var result = await _client.GetAsync(_testItem1);
 
 			Assert.IsTrue(_testItem1.Equals(result));
@@ -75,13 +72,14 @@ namespace GrpcClient.Tests {
 			Assert.IsTrue(_testItem2.Equals(result));
 		}
 
-		[TestMethod("Remove Item")] // Removing an Item | IMPLEMENTED : Register Item -> Remove Item -> Check Item received = Input Item
+		[TestMethod("Remove Item")] // Removing an Item | IMPLEMENTED : Register Item -> Remove Item -> Check Item List does not contain Item
 		public async Task RemoveItemAsync( ) {
-			await _client.RegisterAsync(_testItem1);
-			var result = await _client.RemoveAsync(_testItem1);
+			_testItem1 = await _client.RegisterAsync(_testItem1);
+			await _client.RemoveAsync(_testItem1);
 
-			Assert.IsTrue(_testItem1.Equals(result));
+			var result = await _client.GetAllAsync();
+
+			Assert.IsFalse(result.Contains(_testItem1));
 		}
-
 	}
 }

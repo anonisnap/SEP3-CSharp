@@ -6,7 +6,6 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebDBserverAPI.Controllers {
-
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
@@ -36,6 +35,7 @@ namespace WebDBserverAPI.Controllers {
 		[HttpPut]
 		public async Task<ActionResult> PutAsync([FromBody] Item item) {
 			Item itemAdded = await _itemRepo.AddAsync(item);
+			
 			return Created($"/Item/{item.Id}", itemAdded);
 		}
 
@@ -43,6 +43,7 @@ namespace WebDBserverAPI.Controllers {
 		[Route("{itemId:int}")]
 		public async Task<ActionResult<Item>> DeleteAsync([FromRoute] int itemId) {
 			Item itemToDelete = await _itemRepo.RemoveAsync(itemId);
+			
 			return itemToDelete != null ? Ok(itemToDelete) : NotFound( );
 		}
 
@@ -56,8 +57,6 @@ namespace WebDBserverAPI.Controllers {
 				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);
 			}
-
-
 		}
 	}
 }

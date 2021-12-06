@@ -4,38 +4,32 @@ using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataBaseAccess.DataRepos.Impl
-{
-	public class ItemDataRepo : IItemDataRepo
-	{
+namespace DataBaseAccess.DataRepos.Impl {
+	public class ItemDataRepo : IItemDataRepo {
 		private WarehouseDbContext _warehouseDbContext;
-		
-		public ItemDataRepo(WarehouseDbContext dbContext)
-		{
-			_warehouseDbContext =  dbContext;
+
+		public ItemDataRepo(WarehouseDbContext dbContext) {
+			_warehouseDbContext = dbContext;
 		}
-		
-		public async Task<Item> AddAsync(Item item)
-		{
+
+		public async Task<Item> AddAsync(Item item) {
 			Console.WriteLine($"Attempting to add {item.ItemName} to Database");
-			
+
 			// Adds Item to Database
 			var entityEntry = await _warehouseDbContext.Items.AddAsync(item);
-			await _warehouseDbContext.SaveChangesAsync();
+			await _warehouseDbContext.SaveChangesAsync( );
 
 			Console.WriteLine($"{entityEntry.Entity.ItemName} was added with the Id: {entityEntry.Entity.Id}");
 
 			return entityEntry.Entity;
 		}
 
-		public async Task<Item> RemoveAsync(int itemId)
-		{
+		public async Task<Item> RemoveAsync(int itemId) {
 			Console.WriteLine($"Attempting to remove Item with ID : {itemId}");
 
 			// Find Item which is to be deleted
 			Item itemToDelete = await _warehouseDbContext.Items.FindAsync(itemId);
-			if (itemToDelete == null)
-			{
+			if (itemToDelete == null) {
 				// If Item was not found, return 404 not found
 				return null;
 			}
@@ -44,29 +38,26 @@ namespace DataBaseAccess.DataRepos.Impl
 			_warehouseDbContext.Items.Remove(itemToDelete);
 			Console.WriteLine($"- {itemToDelete.ItemName}"); // FIXME
 															 // Save Changes done to DB
-			await _warehouseDbContext.SaveChangesAsync();
+			await _warehouseDbContext.SaveChangesAsync( );
 			// Return deleted item
 			return itemToDelete;
 		}
 
-		public async Task<Item> UpdateAsync( Item itemLocation)
-		{
-			_warehouseDbContext.Items.Update(itemLocation);
-			await _warehouseDbContext.SaveChangesAsync();
-			return itemLocation;
+		public async Task<Item> UpdateAsync(Item item) {
+			_warehouseDbContext.Items.Update(item);
+			await _warehouseDbContext.SaveChangesAsync( );
+			return item;
 		}
 
-		public async Task<IList<Item>> GetAllAsync()
-		{
-			Console.WriteLine($"Returning a list of all items to the user\n{_warehouseDbContext.Items.ToListAsync().Result}");
-			return await _warehouseDbContext.Items.ToListAsync();
+		public async Task<IList<Item>> GetAllAsync( ) {
+			Console.WriteLine($"Returning a list of all items to the user\n{_warehouseDbContext.Items.ToListAsync( ).Result}");
+			return await _warehouseDbContext.Items.ToListAsync( );
 		}
 
-		public async Task<Item> GetAsync(int itemId)
-		{
+		public async Task<Item> GetAsync(int itemId) {
 			return await _warehouseDbContext.Items.FindAsync(itemId);
 		}
 
-		
+
 	}
 }

@@ -1,19 +1,16 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace WebDBserverAPI.Controllers 
-{
-	
+namespace WebDBserverAPI.Controllers {
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController {
-		private IDataRepo<Location> _locationRepo;
+		private ILocationDataRepo _locationRepo;
 
 		public LocationController(ILocationDataRepo locationRepo) {
 			_locationRepo = locationRepo;
@@ -22,59 +19,42 @@ namespace WebDBserverAPI.Controllers
 		[HttpGet]
 		[Route("{locationId:int}")]
 		public async Task<ActionResult<Location>> GetAsync(int locationId) {
-			try {
-				
-				Location location = await _locationRepo.GetAsync(locationId);
+			Location location = await _locationRepo.GetAsync(locationId);
 
-				return location != null ? Ok(location) : NotFound( );
-			} catch (Exception) {
-				return NotFound( );
-			}
+			return location != null ? Ok(location) : NotFound( );
 		}
-
-		
 
 		[HttpGet]
-		public async Task<ActionResult<IList<Location>>> GetAllAsync() {
-			try {
-				
-				IList<Location> locations = await _locationRepo.GetAllAsync( );
-				
-				return locations != null ? Ok(locations) : NotFound( );
-			} catch (Exception) {
-				return NotFound( );
-			}
-		}
-		
-		
-		[HttpPut]
-		public async Task<ActionResult> PutAsync(Location location) {
-			try {
-				await _locationRepo.AddAsync(location);
-				Console.WriteLine($"+ Location {location.Description}");
-				return Created($"/Location/{location.Id}", location);
-			} catch (Exception ex) {
-				Console.WriteLine("!! Error in Put Location");
-				if (ex.Message.Equals("Location already in Database")) {
-					return BadRequest(ex.Message);
-				}
-				return BadRequest( );
-			}
+		public async Task<ActionResult<IList<Location>>> GetAllAsync( ) {
+			IList<Location> locations = await _locationRepo.GetAllAsync( );
+
+			return locations != null ? Ok(locations) : NotFound( );
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> PostAsync(Location location) {
-			await _locationRepo.UpdateAsync(location);
-			return Ok(location);
+		[HttpPut]
+		public async Task<ActionResult> PutAsync(Location location) {
+			await _locationRepo.AddAsync(location);
+
+			return Created($"/Location/{location.Id}", location);
 		}
+
 
 		[HttpDelete]
 		[Route("{locationId:int}")]
 		public async Task<ActionResult<Location>> DeleteAsync([FromRoute] int locationId) {
+			Location locationToDelete = await _locationRepo.RemoveAsync(locationId); // TODO: Exception thrown if Object is Null
+			
+			return locationToDelete != null ? Ok(locationToDelete) : NotFound( );
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> PostAsync(Location location) {
 			try {
-				Location locationToDelete = await _locationRepo.RemoveAsync(locationId); // TODO: Exception thrown if Object is Null
-				return Ok(locationToDelete);
+				return location.Id == 0 ? Ok(await _locationRepo.AddAsync(location)) : Ok(await _locationRepo.UpdateAsync(location));
+				//await _itemRepo.UpdateAsync(item);
+				//return Ok(item);
 			} catch (Exception e) {
+				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);
 			}
 		}
