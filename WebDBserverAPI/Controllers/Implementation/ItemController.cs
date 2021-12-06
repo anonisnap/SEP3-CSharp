@@ -41,7 +41,8 @@ namespace WebDBserverAPI.Controllers
 		[HttpPut]
 		public async Task<ActionResult> PutAsync([FromBody] Item item)
 		{
-			await _itemRepo.AddAsync(item);
+			Item itemAdded = await _itemRepo.AddAsync(item);
+			Console.WriteLine(itemAdded.Equals(item));
 			return Created($"/Item/{item.Id}", item);
 		}
 

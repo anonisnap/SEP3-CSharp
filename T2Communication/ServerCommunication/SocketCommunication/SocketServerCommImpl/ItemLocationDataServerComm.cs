@@ -22,7 +22,11 @@ namespace ServerCommunication
             Console.WriteLine("ItemLocationHandler.AddItemLocation");
             
             Console.WriteLine("just send to server please");
-            return (ItemLocation) await _serverCommunication.SendToServerReturn("put", itemLocation);
+            
+            JsonElement jsonElement = (JsonElement) await _serverCommunication.SendToServerReturn("put", itemLocation);
+
+            return JsonSerializer.Deserialize<ItemLocation>(jsonElement.ToString(),
+                new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
         }
 
         public Task<ItemLocation> RemoveAsync(ItemLocation itemLocation)
@@ -34,15 +38,17 @@ namespace ServerCommunication
         {
             Console.WriteLine("ItemLocationHandler.UpdateItemLocation");
             Console.WriteLine("just send to server please");
-            return (ItemLocation) await _serverCommunication.SendToServerReturn("post", itemLocation);
+            JsonElement jsonElement =  (JsonElement) await _serverCommunication.SendToServerReturn("post", itemLocation);
             
+            return JsonSerializer.Deserialize<ItemLocation>(jsonElement.ToString(),
+                new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
         }
 
         public async Task<IList<ItemLocation>> GetAllAsync()
         {
-            JsonElement jsonObject = (JsonElement) await _serverCommunication.SendToServerReturn( "getall", new ItemLocation());
+            JsonElement jsonElement =  (JsonElement) await _serverCommunication.SendToServerReturn( "getall", new ItemLocation());
 			
-            return JsonSerializer.Deserialize<List<ItemLocation>>(jsonObject.ToString(), 
+            return JsonSerializer.Deserialize<List<ItemLocation>>(jsonElement.ToString(), 
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
 

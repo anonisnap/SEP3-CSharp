@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Item and location id</h5>
-                <RadzenDropDownDataGrid TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                <RadzenDropDownDataGrid PageSize="20" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="false" Placeholder="Select"
                                         Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
@@ -30,8 +30,8 @@
         <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Registered Locations</h5>
-                <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                <RadzenDropDownDataGrid PageSize="15" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="false" Placeholder="Select"
                                         Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
