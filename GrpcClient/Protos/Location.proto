@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "grpc.protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message gLocation {
+  int32 Id = 1;
+  string Description = 2;
+}
+
+message gLocationList{
+  repeated gLocation location = 1;
+
+}
+
+service Location{
+  rpc RegisterLocation(gLocation) returns (gLocation);
+  rpc GetLocation(gLocation) returns (gLocation);
+  rpc GetAllLocation(gLocation) returns (gLocationList);
+  rpc UpdateLocation(gLocation) returns (gLocation);
+  rpc RemoveLocation(gLocation) returns (gLocation);
+}

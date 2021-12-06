@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "grpc.protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message gItem {
+  int32 Id = 1;
+  string itemName = 2;
+  double length = 3;
+  double width = 4;
+  double height = 5;
+  double weight = 6;
+}
+
+message gItemList {
+  repeated gItem item = 1;
+}
+
+
+service Item {
+  rpc RegisterItem(gItem) returns (gItem);
+  rpc GetItem(gItem) returns (gItem);
+  rpc GetAllItem(gItem) returns (gItemList);
+  rpc UpdateItem(gItem) returns (gItem);
+  rpc RemoveItem(gItem) returns (gItem);
+}

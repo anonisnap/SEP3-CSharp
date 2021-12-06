@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>dll</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+	  <PackageReference Include="Grpc.Net.Client" Version="2.40.0" />
+	  <PackageReference Include="Grpc.Tools" Version="2.42.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+	  <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+	  <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\SEP 3\SEP3_DB_Server\Entities\Entities.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Protos" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Protobuf Include="Protos\Item.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\Location.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\ItemLocation.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+	</ItemGroup>
+	
+</Project>

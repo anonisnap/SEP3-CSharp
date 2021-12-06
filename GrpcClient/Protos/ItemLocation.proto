@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "Protos/Item.proto";
+import "Protos/Location.proto";
+
+option java_package = "grpc.protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message gItemLocation{
+  gItem item = 1;
+  gLocation location = 2;
+  int32 id = 3;
+  int32 amount = 4;
+}
+
+message gItemLocationList{
+  repeated gItemLocation itemLocations = 1;
+}
+
+
+service ItemLocation{
+
+  rpc RegisterItemLocation(gItemLocation) returns (gItemLocation);
+  rpc GetItemLocation(gItemLocation) returns (gItemLocation);
+  rpc GetAllItemLocation(gItemLocation) returns (gItemLocationList);
+  rpc UpdateItemLocation(gItemLocation) returns (gItemLocation);
+  rpc RemoveItemLocation(gItemLocation) returns (gItemLocation);
+  rpc GetByItemId(gItemLocation) returns (gItemLocationList);
+  rpc GetByLocationId(gItemLocation) returns (gItemLocationList);
+
+}
+
