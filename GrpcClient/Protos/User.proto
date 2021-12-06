@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "grpc.protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message UserDetails {
+  int32 id = 1;
+  string username = 2;
+  string password = 3;
+}
+
+message Confirmation {
+  bool confirmed = 1;
+}
+
+service User {
+  rpc login (UserDetails) returns (Confirmation);
+  rpc logout (UserDetails) returns (Confirmation);
+}

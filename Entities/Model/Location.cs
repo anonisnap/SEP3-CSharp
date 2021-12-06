@@ -12,7 +12,7 @@ namespace Entities.Models {
 		}
 
 		public override bool Equals(object obj) {
-			return (obj?.GetType( ) == typeof(Location)) && Id == ((Location) obj).Id && Description == ((Location) obj).Description;
+			return (obj?.GetType( ) == typeof(Location)) && Description == ((Location) obj).Description;
 		}
 	}
 }

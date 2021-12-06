@@ -25,6 +25,8 @@ namespace DataBaseAccess.DataRepos.Impl
 
 		public async Task<Item> RemoveAsync(int itemId)
 		{
+			Console.WriteLine($"Attempting to remove Item with ID : {itemId}");
+
 			// Find Item which is to be deleted
 			Item itemToDelete = await _warehouseDbContext.Items.FindAsync(itemId);
 			if (itemToDelete == null)
@@ -51,6 +53,7 @@ namespace DataBaseAccess.DataRepos.Impl
 
 		public async Task<IList<Item>> GetAllAsync()
 		{
+			Console.WriteLine($"Returning a list of all items to the user\n{_warehouseDbContext.Items.ToListAsync().Result}");
 			return await _warehouseDbContext.Items.ToListAsync();
 		}
 

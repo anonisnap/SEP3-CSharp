@@ -13,7 +13,7 @@
 				   $"\nAmount: {Amount}";
 		}
 		public override bool Equals(object obj) {
-			return (obj?.GetType( ) == typeof(ItemLocation)) && Id == ((ItemLocation) obj).Id && Amount == ((ItemLocation) obj).Amount && Item.Equals(((ItemLocation) obj).Item) && Location.Equals(((ItemLocation) obj).Location);
+			return (obj?.GetType( ) == typeof(ItemLocation)) && Amount == ((ItemLocation) obj).Amount && Item.Equals(((ItemLocation) obj).Item) && Location.Equals(((ItemLocation) obj).Location);
 		}
 
 	}
