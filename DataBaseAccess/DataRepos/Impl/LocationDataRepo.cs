@@ -17,36 +17,56 @@ namespace DataBaseAccess.DataRepos.Impl {
 
 			// Adds Location to Database
 			var entityEntry = await _warehouseDbContext.Locations.AddAsync(Location);
-			await _warehouseDbContext.SaveChangesAsync( );
+			var returnVal = entityEntry.Entity;
 
-			Console.WriteLine($"{entityEntry.Entity.Description} was added with the Id: {entityEntry.Entity.Id}");
+			try {
 
-			return entityEntry.Entity;
+				int updatedEntries = _warehouseDbContext.SaveChanges( );
+
+				_warehouseDbContext.ChangeTracker.CascadeChanges();
+
+				Console.WriteLine($"Amount of Entries Updated in DB : {updatedEntries}");
+			} catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
+
+			foreach (var x in _warehouseDbContext.ChangeTracker.Entries( )) {
+				Console.WriteLine($"Entry : {x}");
+			}
+
+
+
+
+			Console.WriteLine($"{returnVal.Description} was added with the Id: {returnVal.Id}");
+
+			return returnVal;
 		}
 
 		public async Task<Location> RemoveAsync(int LocationId) {
 			Console.WriteLine($"Attempting to remove Location with ID : {LocationId}");
 
 			// Find Location which is to be deleted
-			Location LocationToDelete = await _warehouseDbContext.Locations.FindAsync(LocationId);
-			if (LocationToDelete == null) {
+			Location locationToDelete = await _warehouseDbContext.Locations.FindAsync(LocationId);
+
+			Console.WriteLine($"Location to delete : {(locationToDelete == null ? "Location not found" : locationToDelete)}");
+
+			if (locationToDelete == null) {
 				// If Location was not found, return 404 not found
 				return null;
 			}
 
 			// Remove Location
-			_warehouseDbContext.Locations.Remove(LocationToDelete);
-			Console.WriteLine($"- {LocationToDelete.Description}"); // FIXME
+			var entityEntry = _warehouseDbContext.Locations.Remove(locationToDelete);
+			Console.WriteLine($"- Removed : {entityEntry.Entity}"); // FIXME
 																	// Save Changes done to DB
 			await _warehouseDbContext.SaveChangesAsync( );
 			// Return deleted Location
-			return LocationToDelete;
+			return entityEntry.Entity;
 		}
 
 		public async Task<Location> UpdateAsync(Location location) {
-			_warehouseDbContext.Locations.Update(location);
+			var entityEntry = _warehouseDbContext.Locations.Update(location);
+			entityEntry.CurrentValues.SetValues(location);
 			await _warehouseDbContext.SaveChangesAsync( );
-			return location;
+			return entityEntry.Entity;
 		}
 
 		public async Task<IList<Location>> GetAllAsync( ) {

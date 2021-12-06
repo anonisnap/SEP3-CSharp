@@ -53,6 +53,8 @@ namespace GrpcClient.Clients {
 			// Send Call Request to Server and store reply
 			var reply = await _client.RegisterLocationAsync(g);
 
+			Console.WriteLine($"Reply to Client : {reply.Id}");
+
 			// Disconnect from Server
 			await Disconnect( );
 
