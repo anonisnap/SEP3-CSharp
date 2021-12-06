@@ -9,14 +9,13 @@
 
 @inject DialogService DialogService
 
-
 <h3>AddItem</h3>
 
 <div class="row">
     <div class="col-xl-10">
         <div class="row">
             <div class="col-xl-6 mb-5">
-                <h5>Registered Items</h5>
+                <h5>Items</h5>
                 <RadzenDropDownDataGrid TValue="Item" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
                                         AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
                                         Data="@_items" TextProperty="ItemName" Change=@(args => OnChange(args, "Item")) Style="width:100%">

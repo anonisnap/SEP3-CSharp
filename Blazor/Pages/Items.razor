@@ -1,24 +1,26 @@
 ﻿@page "/Items"
 @using Blazor.Data
+@using Blazor.Pages.Components
 @using Entities.Models
 
-@inject IItemHandler _itemsHandler
+@inject IItemLocationHandler _itemLocationHandler
 @inject DialogService DialogService
 
 <h3>Items</h3>
 <h3>Den kan ikke vise locations for en item endnu - help</h3>
 
-<RadzenDataGrid Data="@_registeredItems" TItem="Item" AllowFiltering="true" FilterMode="FilterMode.Simple"
+<RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
     <Columns>
-        <RadzenDataGridColumn TItem="Item" Property="Id" Title="Item ID">
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenOrder(data.Id)) Text="@data.Id.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenOrder(data.Item.Id)) Text="@data.Item.Id.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="Item" Property="ItemName" Title="Item Name"/>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Locations"/>
     </Columns>
 </RadzenDataGrid>
 
@@ -26,19 +28,31 @@
 @code {
     //Todo: Skal laves færdig, der skal vel noget itemlocation med
     
-    
-    private IList<Item> _registeredItems;
+    private IList<ItemLocation> _itemLocations;
 
     protected override async Task OnInitializedAsync()
     {
-        _registeredItems = await _itemsHandler.GetAllAsync();
+        _itemLocations = await _itemLocationHandler.GetAllAsync();
+        
+        DialogService.OnOpen += Open;
+        DialogService.OnClose += Close;
     }
 
-    async Task OpenOrder(int orderId)
+    async Task OpenOrder(int id)
     {
-    /*await DialogService.OpenAsync<DialogCardPage>($"Order {orderId}",
-            new Dictionary<string, object>() { { "OrderID", orderId } },
-            new DialogOptions() { Width = "700px", Height = "530px" });*/
+    await DialogService.OpenAsync<LocationsCard>($"Item Id {id}",
+            new Dictionary<string, object>() { { "Id", id } },
+            new DialogOptions() { Width = "700px", Height = "530px" });
     }
 
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+        Console.WriteLine("Dialog Opened");
+    }
+
+    void Close(dynamic result)
+    {
+        Console.WriteLine("Dialog closed");
+    }
+    
 }

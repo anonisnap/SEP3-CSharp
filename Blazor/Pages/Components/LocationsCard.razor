@@ -1,30 +1,34 @@
-﻿@page "/LocationsCard"
+﻿@page "/LocationsCard/{Id}"
+@using Blazor.Data
+@using Entities.Models
 
 @inject DialogService DialogService
-
-@*<h3>OrderID: @OrderID</h3>
+@inject IItemLocationHandler _itemLocationHandler
 
 <RadzenCard Style="margin-bottom: 20px;">
     <div class="row">
         <div class="col-md-12">
             <h3>Item Details</h3>
             <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        Data="@(orderDetails.Where(o => o.OrderID == OrderID))" TItem="OrderDetail" ColumnWidth="200px">
+                            Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
                 <Columns>
-                    <RadzenDataGridColumn TItem="OrderDetail" Property="Quantity" Title="Quantity" />
-                    <RadzenDataGridColumn TItem="OrderDetail" Property="Order.OrderDate" Title="OrderDate" />
-                    <RadzenDataGridColumn TItem="OrderDetail" Property="Discount" Title="Discount" FormatString="{0:P}" />
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
                 </Columns>
             </RadzenDataGrid>
         </div>
     </div>
-</RadzenCard>*@
+</RadzenCard>
 
 @code {
+    private IList<ItemLocation> _itemLocations;
 
-    protected override void OnInitialized()
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async void OnInitialized()
     {
-        //hvad skal den bruge
+        _itemLocations = await _itemLocationHandler.GetAllAsync();
     }
 
 }
