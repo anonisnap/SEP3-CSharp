@@ -51,8 +51,6 @@ namespace WebDBserverAPI.Controllers {
 		public async Task<ActionResult> PostAsync(Location location) {
 			try {
 				return location.Id == 0 ? Ok(await _locationRepo.AddAsync(location)) : Ok(await _locationRepo.UpdateAsync(location));
-				//await _itemRepo.UpdateAsync(item);
-				//return Ok(item);
 			} catch (Exception e) {
 				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);

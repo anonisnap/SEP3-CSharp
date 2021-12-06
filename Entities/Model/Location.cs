@@ -8,7 +8,7 @@ namespace Entities.Models {
 
 		public override string ToString( ) {
 			return $"Id: {Id} " +
-				   $"\n Description: {Description}";
+				   $"\tDescription: {Description}";
 		}
 
 		public override bool Equals(object obj) {

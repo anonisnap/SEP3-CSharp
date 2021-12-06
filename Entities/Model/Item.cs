@@ -18,11 +18,11 @@ namespace Entities.Models {
 
 		public override string ToString( ) {
 			return $"Id: {Id} " +
-				   $"\nItemName: {ItemName} " +
-				   $"\nLength: {Length} " +
-				   $"\nWidth: {Width} " +
-				   $"\nHeight: {Height} " +
-				   $"\nWeight: {Weight}";
+				   $"\tItemName: {ItemName} " +
+				   $"\tLength: {Length} " +
+				   $"\tWidth: {Width} " +
+				   $"\tHeight: {Height} " +
+				   $"\tWeight: {Weight}";
 		}
 
 		public override bool Equals(object obj) {

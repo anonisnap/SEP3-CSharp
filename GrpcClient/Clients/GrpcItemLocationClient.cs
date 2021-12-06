@@ -47,15 +47,11 @@ namespace GrpcClient.Clients {
 		}
 
 		private void Connect( ) {
-			Console.WriteLine("+ Connecting to Server");
-
 			_channel = GrpcChannel.ForAddress(_address);
 			_client = new ItemLocation.ItemLocationClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
-			Console.WriteLine("- Disconnecting from Server");
-
 			await _channel.ShutdownAsync( );
 			_client = null;
 		}

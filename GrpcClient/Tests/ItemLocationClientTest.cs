@@ -37,65 +37,79 @@ namespace GrpcClient.Tests {
 			var cItem = new GrpcItemClient(grpcConnStr);
 			await cItem.RemoveAsync(_i1);
 			await cItem.RemoveAsync(_i2 );
-			var cLocation = new GrpcLocationClient(grpcConnStr); 
-			await cLocation.RemoveAsync(_l1);
-			await cLocation.RemoveAsync(_l2);
+			var cItemLocation = new GrpcLocationClient(grpcConnStr); 
+			await cItemLocation.RemoveAsync(_l1);
+			await cItemLocation.RemoveAsync(_l2);
 
 			await _client.RemoveAsync(_testItemLocation1);
 			await _client.RemoveAsync(_testItemLocation2);
 		}
 
-		[TestMethod] // Registering an ItemLocation | IMPLEMENTED : Register ItemLocation -> Check received ItemLocation = Input ItemLocation
+		[TestMethod("Register ItemLocation")] // Registering an ItemLocation | IMPLEMENTED : Register ItemLocation -> Check received ItemLocation = Input ItemLocation
 		public async Task RegisterItemLocationAsync( ) {
 			var result = await _client.RegisterAsync(_testItemLocation1);
+			_testItemLocation1.Item.Id = result.Item.Id;
+			_testItemLocation1.Location.Id = result.Location.Id;
+			_testItemLocation1.Id = result.Id;
+			
 			Assert.IsNotNull(result);
+			System.Console.WriteLine($"ItemLocation Id : {_testItemLocation1.Id}\nResult Id   : {result.Id}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
+			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod] // Updating an ItemLocation | IMPLEMENTED : Register ItemLocation -> Change Weight of ItemLocation -> Update ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Update ItemLocation")] // Updating an ItemLocation | IMPLEMENTED : Register ItemLocation -> Change Weight of ItemLocation -> Update ItemLocation -> Check ItemLocation received = Input ItemLocation
 		public async Task UpdateItemLocationAsync( ) {
-			await _client.RegisterAsync(_testItemLocation1);
-			_testItemLocation2.Id = _testItemLocation1.Id;
-			var result = await _client.UpdateAsync(_testItemLocation2);
+			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
+			System.Console.WriteLine($"Returned ItemLocation : {_testItemLocation1}");
+			_testItemLocation1.Amount = 5;
+			var result = await _client.UpdateAsync(_testItemLocation1);
 
-			Assert.IsTrue(_testItemLocation2.Equals(result));
+			System.Console.WriteLine($"ItemLocation Id : {_testItemLocation1.Id}\nResult Id   : {result.Id}");
+			Assert.IsTrue(_testItemLocation1.Equals(result));
+			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod] // Getting an ItemLocationlist | IMPLEMENTED : Register ItemLocations -> Get ItemLocation List -> Check ItemLocationlist contains Input ItemLocations
+		[TestMethod("Get All ItemLocations")] // Getting an ItemLocationlist | IMPLEMENTED : Register ItemLocations -> Get ItemLocation List -> Check ItemLocationlist contains Input ItemLocations
 		public async Task GetAllItemLocationsAsync( ) {
-			var x = await _client.RegisterAsync(_testItemLocation1);
-			var y = await _client.RegisterAsync(_testItemLocation2);
+			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
+			System.Console.WriteLine($"{_testItemLocation1} has been registered");
+			_testItemLocation2 = await _client.RegisterAsync(_testItemLocation2);
+			System.Console.WriteLine($"{_testItemLocation2} has been registered");
 			var result = await _client.GetAllAsync( );
 
-			
-
-			Assert.IsTrue(result.Contains(x));
-			Assert.IsTrue(result.Contains(y));
+			Assert.IsTrue(result.Contains(_testItemLocation1));
+			Assert.IsTrue(result.Contains(_testItemLocation2));
+			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod] // Getting a Single ItemLocation | IMPLEMENTED : Register ItemLocation -> Get ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Get ItemLocation")] // Getting a Single ItemLocation | IMPLEMENTED : Register ItemLocation -> Get ItemLocation -> Check ItemLocation received = Input ItemLocation
 		public async Task GetItemLocationAsync( ) {
-			await _client.RegisterAsync(_testItemLocation1);
+			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 			var result = await _client.GetAsync(_testItemLocation1);
 
+			System.Console.WriteLine($"ItemLocation Id : {_testItemLocation1.Id}\nResult Id   : {result.Id}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
+			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod] // Echoing ItemLocation | IMPLEMENTED : Get ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Echo Get ItemLocation")] // Echoing ItemLocation | IMPLEMENTED : Get ItemLocation -> Check ItemLocation received = Input ItemLocation
 		public async Task EchoGetItemLocationAsync( ) {
 			var result = await _client.GetAsync(_testItemLocation2);
 
 			Assert.IsTrue(_testItemLocation2.Equals(result));
 		}
 
-		[TestMethod] // Removing an ItemLocation | IMPLEMENTED : Register ItemLocation -> Remove ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Remove ItemLocation")] // Removing an ItemLocation | IMPLEMENTED : Register ItemLocation -> Remove ItemLocation -> Check ItemLocation List does not contain ItemLocation
 		public async Task RemoveItemLocationAsync( ) {
-			await _client.RegisterAsync(_testItemLocation1);
-			var result = await _client.RemoveAsync(_testItemLocation1);
+			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
+			await _client.RemoveAsync(_testItemLocation1);
 
-			Assert.IsTrue(_testItemLocation1.Equals(result));
+			var result = await _client.GetAllAsync( );
+
+			Assert.IsFalse(result.Contains(_testItemLocation1));
+			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
-
 	}
 }
 
