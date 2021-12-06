@@ -3,59 +3,42 @@
 @using Entities.Models
 
 @inject IItemHandler _itemsHandler
-@inject NavigationManager _navigationManager
+@inject DialogService DialogService
 
-<h3>Item List</h3>
+<h3>Items</h3>
+<h3>Den kan ikke vise locations for en item endnu - help</h3>
 
-@if (_items == null)
-{
-    <p>
-        <em>Loading...</em>
-    </p>
-}
-else if (!_items.Any())
-{
-    <p>
-        <em>No Spike items exist. Please add some.</em>
-    </p>
-}
-else
-{
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id:</th>
-            <th>Item Name:</th>
-            <th>Lenght:</th>
-            <th>Width:</th>
-            <th>Height:</th>
-            <th>Weight:</th>
-        </tr>
-        </thead>
-        <tbody>
+<RadzenDataGrid Data="@_registeredItems" TItem="Item" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                LogicalFilterOperator="LogicalFilterOperator.Or"
+                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="Item" Property="Id" Title="Item ID">
+            <Template Context="data">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenOrder(data.Id)) Text="@data.Id.ToString()"/>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Item" Property="ItemName" Title="Item Name"/>
+    </Columns>
+</RadzenDataGrid>
 
-        @foreach (var item in _items)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.ItemName</td>
-                <td>@item.Length</td>
-                <td>@item.Width</td>
-                <td>@item.Height</td>
-                <td>@item.Weight</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
 
 @code {
-    //TODO: Jeg mangler i astah ;( - Og lav mig
-
-    private IList<Item> _items;
+    //Todo: Skal laves færdig, der skal vel noget itemlocation med
+    
+    
+    private IList<Item> _registeredItems;
 
     protected override async Task OnInitializedAsync()
     {
-        //_items = await _itemsHandler.GetItems();
+        _registeredItems = await _itemsHandler.GetAllAsync();
     }
+
+    async Task OpenOrder(int orderId)
+    {
+    /*await DialogService.OpenAsync<DialogCardPage>($"Order {orderId}",
+            new Dictionary<string, object>() { { "OrderID", orderId } },
+            new DialogOptions() { Width = "700px", Height = "530px" });*/
+    }
+
 }

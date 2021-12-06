@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entities.Models
-{
-    public class Location
-    {
-        public int Id { get; set; }
-        [Required, MaxLength(256)]
-        public string Description { get; set; }
-    }
+namespace Entities.Models {
+	public class Location {
+		public int Id { get; set; }
+		[Required, MaxLength(256)]
+		public string Description { get; set; }
+
+		public override string ToString( ) {
+			return $"Id: {Id} " +
+				   $"\n Description: {Description}";
+		}
+
+		public override bool Equals(object obj) {
+			return (obj?.GetType( ) == typeof(Location)) && Id == ((Location) obj).Id && Description == ((Location) obj).Description;
+		}
+	}
 }

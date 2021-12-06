@@ -1,0 +1,129 @@
+﻿@page "/AddItem"
+@using Entities.Models
+@using Blazor.Data
+
+@inject IItemHandler _itemsHandler
+@inject ILocationHandler _locationsHandler
+@inject IItemLocationHandler _itemLocationHandler
+@inject NavigationManager _navigationManager
+
+@inject DialogService DialogService
+
+
+<h3>AddItem</h3>
+
+<div class="row">
+    <div class="col-xl-10">
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h5>Registered Items</h5>
+                <RadzenDropDownDataGrid TValue="Item" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_items" TextProperty="ItemName" Change=@(args => OnChange(args, "Item")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Item Id"/>
+                        <RadzenDropDownDataGridColumn Property="ItemName" Title="Item Name"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h5>Registered Locations</h5>
+                <RadzenDropDownDataGrid TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="true" Placeholder="Select"
+                                        Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
+                        <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 mb-5">
+                <h5>Amount</h5>
+                <RadzenNumeric TValue="int" @bind-Value="_itemLocation.Amount"></RadzenNumeric>
+            </div>
+            <div class="col-md-4 mb-5">
+                <h5>Add to location</h5>
+                <RadzenButton Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to add this item to this location?", "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+    private IList<Item> _items;
+    private IList<Location> _locations;
+
+    private ItemLocation _itemLocation;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _items = await _itemsHandler.GetAllAsync();
+        _locations = await _locationsHandler.GetAllAsync();
+        _itemLocation = new();
+
+        DialogService.OnOpen += Open;
+        DialogService.OnClose += CloseConfirmAdd;
+    }
+
+    public void Dispose()
+    {
+    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
+        DialogService.OnOpen -= Open;
+        DialogService.OnClose -= CloseConfirmAdd;
+    }
+
+    private async Task Save()
+    {
+        await _itemLocationHandler.RegisterAsync(_itemLocation);
+
+        Console.WriteLine($"Printing Location: /n {_itemLocation}");
+
+        _navigationManager.NavigateTo("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    }
+
+    void OnChange(object value, string name)
+    {
+        Console.WriteLine($"value is: {value}");
+        Console.WriteLine($"name is: {name}");
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>) value) : value;
+
+        Console.WriteLine($"{name} value changed to {str}");
+
+        if (name.Equals("Item"))
+        {
+            Item item = (Item) value;
+
+            _itemLocation.Item = item;
+        }
+        else if (name.Equals("Location"))
+        {
+            Location location = (Location) value;
+            _itemLocation.Location = location;
+        }
+    }
+    
+    void CloseConfirmAdd(dynamic result)
+    {
+        if (result != null) // if the user hits the x near the top right null is returned
+        {
+    // result is false if the user clicks no
+            if ((bool) result) Save();
+        }
+    }
+
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+        Console.WriteLine("Dialog opened");
+    }
+
+    void Close(dynamic result)
+    {
+        Console.WriteLine($"Dialog closed {result}");
+    }
+}

@@ -1,6 +1,7 @@
 ﻿@page "/itemTest"
 @using Blazor.Data
-@using Entities.Models
+@using Blazor.Pages.Components
+
 
 @inject IItemHandler _itemHandler;
 
@@ -9,20 +10,7 @@
 </div>
 
 <div class="border border-dark p-2 m-2">
-	<h4>Get Item</h4>
-	<div class="d-inline-flex">
-		<div class="">
-			<input @bind-value="searchItemid" />
-			<br />
-			<button class="btn btn-outline-dark m-1" @onclick="@(() => GetItemAsync())">Find Item</button>
-		</div>
-		<div class="border-left border-dark m-1 p-1">
-			<p>
-				Test paragraph for checking Flex and Columns
-			</p>
-		</div>
-	</div>
-
+	<GetItem />
 </div>
 
 <div class="border border-dark p-2 m-2">
@@ -38,15 +26,5 @@
 </div>
 
 @code {
-	public Item currentlyShownItem;
-	public int searchItemid;
 
-	protected override async Task OnInitializedAsync( ) {
-
-	}
-
-	public async void GetItemAsync() {
-		Console.WriteLine($"Attempting to retrieve item id: {searchItemid}");
-		currentlyShownItem = await _itemHandler.GetItem(searchItemid);
-	}
 }

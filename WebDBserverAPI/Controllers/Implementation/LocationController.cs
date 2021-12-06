@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
+using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,10 @@ namespace WebDBserverAPI.Controllers
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
-	public class LocationController : ControllerBase, ILocationController
-	{
+	public class LocationController : ControllerBase, ILocationController {
 		private IDataRepo<Location> _locationRepo;
 
-		public LocationController(ILocationDataRepo locationRepo) {
+		public LocationController(IDataRepo<Location> locationRepo) {
 			_locationRepo = locationRepo;
 		}
 
@@ -32,6 +32,21 @@ namespace WebDBserverAPI.Controllers
 			}
 		}
 
+		
+
+		[HttpGet]
+		public async Task<ActionResult<IList<Location>>> GetAllAsync() {
+			try {
+				
+				IList<Location> locations = await _locationRepo.GetAllAsync( );
+				
+				return locations != null ? Ok(locations) : NotFound( );
+			} catch (Exception) {
+				return NotFound( );
+			}
+		}
+		
+		
 		[HttpPut]
 		public async Task<ActionResult> PutLocationAsync(Location location) {
 			try {

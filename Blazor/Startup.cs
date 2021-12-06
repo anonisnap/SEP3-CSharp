@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazor.Data;
+using Radzen;
 using ServerCommunication;
 using ServerCommunication.SocketCommunication;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor
 {
@@ -30,9 +27,17 @@ namespace Blazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IServerCommunication, SocketClient>();
+            
             services.AddScoped<IItemHandler, ItemHandler>();
             services.AddScoped<ILocationHandler, LocationHandler>();
+            services.AddScoped<IItemLocationHandler, ItemLocationHandler>();
+            
+            services.AddScoped<IItemDataServerComm, ItemDataServerComm>();
+            services.AddScoped<ILocationDataServerComm, LocationDataServerComm>();
+            services.AddScoped<IItemLocationDataServerComm, ItemLocationDataServerComm>();
+            services.AddScoped<IServerCommunication, SocketClient>();
+            
+            services.AddScoped<DialogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

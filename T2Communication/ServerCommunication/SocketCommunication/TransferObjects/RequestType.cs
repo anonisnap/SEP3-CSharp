@@ -5,6 +5,7 @@ namespace ServerCommunication
         PUT,
         POST,
         GET,
+        GETALL,
         DELETE
     }
 }

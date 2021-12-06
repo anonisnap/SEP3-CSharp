@@ -9,4 +9,8 @@
       <ProjectReference Include="..\T2Communication\T2Communication.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Radzen.Blazor" Version="3.13.3" />
+    </ItemGroup>
+
 </Project>
