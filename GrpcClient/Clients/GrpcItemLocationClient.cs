@@ -14,8 +14,8 @@ namespace GrpcClient.Clients {
 		private GrpcChannel _channel;
 		private ItemLocation.ItemLocationClient _client;
 
-		public GrpcItemLocationClient(string address) {
-			_address = address;
+		public GrpcItemLocationClient(GRPCConnStr address) {
+			_address = address.GrpcAddress;
 		}
 
 		private gItemLocation ConvertItemToGItemLocation(Entities.Models.ItemLocation from) {

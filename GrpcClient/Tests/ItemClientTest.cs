@@ -2,22 +2,20 @@
 using Entities.Models;
 using GrpcClient.Clients;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Tests {
+	
 	[TestClass]
 	public class ItemClientTest {
-		private IEntityManager<Item> _client;
+		private IItemDataServerComm _client;
 		private Item _testItem1, _testItem2;
 
 		[TestInitialize()]
 		public void Setup( ) {
-			_client = new GrpcItemClient("http://localhost:9090");
+			_client = new GrpcItemClient(new GRPCConnStr());
 			_testItem1 = new( ) { Id = 0, ItemName = "The Answer to Life, The Universe, and Everything", Height = 420, Length = 69, Width = 727, Weight = 15 };
 			_testItem2 = new( ) { Id = 0, ItemName = "Couch", Height = 74, Length = 84, Width = 35, Weight = 100 };
 		}

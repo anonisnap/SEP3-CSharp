@@ -9,4 +9,8 @@
       <ProjectReference Include="..\T1Contracts\T1Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ServerCommunication\GrpcCommunication" />
+    </ItemGroup>
+
 </Project>

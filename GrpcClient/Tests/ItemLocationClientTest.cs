@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GrpcClient.Tests {
 	[TestClass]
 	public class ItemLocationClientTest {
-		private string _url = "http://localhost:9090";
+		private GRPCConnStr grpcConnStr = new ();
 		private IEntityManager<ItemLocation> _client;
 		private ItemLocation _testItemLocation1, _testItemLocation2;
 		private Item _i1, _i2;
@@ -16,15 +16,15 @@ namespace GrpcClient.Tests {
 
 		[TestInitialize]
 		public void Setup( ) {
-			_client = new GrpcItemLocationClient(_url);
+			_client = new GrpcItemLocationClient(grpcConnStr);
 			_i1 = new( ) { Id = 0, ItemName = "The Answer to Life, The Universe, and Everything", Height = 420, Length = 69, Width = 727, Weight = 15 }; 
 			_i2 = new( ) { Id = 0, ItemName = "Couch", Height = 74, Length = 84, Width = 35, Weight = 100 };
 			_l1 = new( ) { Id = 0, Description = "The Universe" }; 
 			_l2 = new( ) { Id = 0, Description = "Under the Couch" };
-			var cItem = new GrpcItemClient(_url);
+			var cItem = new GrpcItemClient(grpcConnStr);
 			_i1 = cItem.RegisterAsync(_i1).Result;
 			_i2 = cItem.RegisterAsync(_i2).Result;
-			var cLocation = new GrpcLocationClient(_url);
+			var cLocation = new GrpcLocationClient(grpcConnStr);
 			_l1 = cLocation.RegisterAsync(_l1).Result;
 			_l2 = cLocation.RegisterAsync(_l2).Result;
 
@@ -34,10 +34,10 @@ namespace GrpcClient.Tests {
 
 		[TestCleanup]
 		public async Task TearDown( ) {
-			var cItem = new GrpcItemClient(_url);
+			var cItem = new GrpcItemClient(grpcConnStr);
 			await cItem.RemoveAsync(_i1);
 			await cItem.RemoveAsync(_i2 );
-			var cLocation = new GrpcLocationClient(_url); 
+			var cLocation = new GrpcLocationClient(grpcConnStr); 
 			await cLocation.RemoveAsync(_l1);
 			await cLocation.RemoveAsync(_l2);
 

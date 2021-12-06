@@ -26,7 +26,7 @@ namespace WebDBserverAPI {
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
-			services.AddSingleton<WarehouseDbContext, SEP_DBContext>();
+			services.AddSingleton<WarehouseDbContext, TestDbContext>();
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
 			services.AddScoped<IItemLocationDataRepo, ItemLocationDataRepo>();
