@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Clients {
-	public class GrpcLocationClient : IEntityManager<Entities.Models.Location> {
+	public class GrpcLocationClient : ILocationDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
 		private myGrpc.Location.LocationClient _client;

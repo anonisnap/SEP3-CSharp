@@ -5,7 +5,7 @@ using ServerCommunication;
 
 namespace Blazor.Data
 {
-    public interface ILocationHandler : IEntityManager<Location>, IHandler
+    public interface ILocationHandler : IEntityManager<Location>
     {
       
     }

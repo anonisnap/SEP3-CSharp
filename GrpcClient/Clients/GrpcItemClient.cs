@@ -5,9 +5,10 @@ using ServerCommunication;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Clients {
-	public class GrpcItemClient : IEntityManager<Entities.Models.Item> {
+	public class GrpcItemClient : IItemDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
 		private myGrpc.Item.ItemClient _client;
@@ -22,6 +23,7 @@ namespace GrpcClient.Clients {
 		}
 
 		private Entities.Models.Item ConvertGItemToItem(gItem from) {
+			Console.WriteLine($"Converting gItem to Item\nId: {from.Id}\nItemName: {from.ItemName}");
 			Entities.Models.Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
 			return to;
 		}

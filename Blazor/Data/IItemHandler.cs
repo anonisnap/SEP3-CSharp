@@ -5,7 +5,7 @@ using ServerCommunication;
 
 namespace Blazor.Data
 {
-    public interface IItemHandler : IEntityManager<Item>,IHandler
+    public interface IItemHandler : IEntityManager<Item>
     {
         
     }

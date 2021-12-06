@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\SEP 3\SEP3_DB_Server\Entities\Entities.csproj" />
+	  <ProjectReference Include="..\T1Contracts\T1Contracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

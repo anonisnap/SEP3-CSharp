@@ -17,9 +17,14 @@ namespace DataBaseAccess.DataRepos.Impl
 		
 		public async Task<Item> AddAsync(Item item)
 		{
+			Console.WriteLine($"Attempting to add {item.ItemName} to Database");
+			
 			// Adds Item to Database
 			var entityEntry = await _warehouseDbContext.Items.AddAsync(item);
 			await _warehouseDbContext.SaveChangesAsync();
+
+			Console.WriteLine($"{entityEntry.Entity.ItemName} was added with the Id: {entityEntry.Entity.Id}");
+
 			return entityEntry.Entity;
 		}
 

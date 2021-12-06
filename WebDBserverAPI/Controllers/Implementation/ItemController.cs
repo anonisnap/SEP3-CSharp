@@ -5,70 +5,59 @@ using DataBaseAccess.DataRepos;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebDBserverAPI.Controllers
-{
-	
+namespace WebDBserverAPI.Controllers {
+
 	//TODO: Jeg mangler i astah ;(
 	[ApiController]
 	[Route("[controller]")]
-	public class ItemController : ControllerBase, IItemController
-	{
+	public class ItemController : ControllerBase, IItemController {
 		private IItemDataRepo _itemRepo;
 
-		public ItemController(IItemDataRepo itemRepo)
-		{
+		public ItemController(IItemDataRepo itemRepo) {
 			_itemRepo = itemRepo;
 		}
 
 		[HttpGet]
 		[Route("{itemId:int}")]
-		public async Task<ActionResult<Item>> GetAsync([FromRoute] int itemId)
-		{
+		public async Task<ActionResult<Item>> GetAsync([FromRoute] int itemId) {
 			Item item = await _itemRepo.GetAsync(itemId);
-			
+
 			return item != null ? Ok(item) : NotFound( );
 		}
-		
+
 		[HttpGet]
-		public async Task<ActionResult<IList<Item>>> GetAllAsync()
-		{
-			IList<Item> items = await _itemRepo.GetAllAsync();
-			
+		public async Task<ActionResult<IList<Item>>> GetAllAsync( ) {
+			IList<Item> items = await _itemRepo.GetAllAsync( );
+
 			return items != null ? Ok(items) : NotFound( );
 		}
 
-		
+
 		[HttpPut]
-		public async Task<ActionResult> PutAsync([FromBody] Item item)
-		{
+		public async Task<ActionResult> PutAsync([FromBody] Item item) {
 			Item itemAdded = await _itemRepo.AddAsync(item);
-			Console.WriteLine(itemAdded.Equals(item));
-			return Created($"/Item/{item.Id}", item);
+			return Created($"/Item/{item.Id}", itemAdded);
 		}
 
 		[HttpDelete]
 		[Route("{itemId:int}")]
-		public async Task<ActionResult<Item>> DeleteAsync([FromRoute] int itemId)
-		{
+		public async Task<ActionResult<Item>> DeleteAsync([FromRoute] int itemId) {
 			Item itemToDelete = await _itemRepo.RemoveAsync(itemId);
-			return itemToDelete != null ? Ok(itemToDelete) : NotFound();
+			return itemToDelete != null ? Ok(itemToDelete) : NotFound( );
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostAsync([FromBody] Item item)
-		{
-			try
-			{
-				await _itemRepo.UpdateAsync(item);
-				return Ok(item);
-			}
-			catch (Exception e)
-			{
+		public async Task<ActionResult> PostAsync([FromBody] Item item) {
+			try {
+				return item.Id == 0 ? Ok(await _itemRepo.AddAsync(item)) : Ok(await _itemRepo.UpdateAsync(item));
+				//await _itemRepo.UpdateAsync(item);
+				//return Ok(item);
+			} catch (Exception e) {
 				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);
 			}
-			
-			
+
+
 		}
 	}
 }

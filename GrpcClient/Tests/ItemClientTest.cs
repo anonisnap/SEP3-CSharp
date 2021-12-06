@@ -33,6 +33,9 @@ namespace GrpcClient.Tests {
 		[TestMethod("Register Item")] // Registering an Item | IMPLEMENTED : Register Item -> Check received Item = Input Item
 		public async Task RegisterItemAsync( ) {
 			var result = await _client.RegisterAsync(_testItem1);
+
+			Console.WriteLine($"Result from Server: {result}");
+
 			_testItem2 = result;
 			Assert.IsNotNull(result);
 			Assert.IsTrue(_testItem1.Equals(result));

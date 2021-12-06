@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Clients {
-	internal class GrpcItemLocationClient : IEntityManager<Entities.Models.ItemLocation> {
+	public class GrpcItemLocationClient : IItemLocationDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
 		private ItemLocation.ItemLocationClient _client;
