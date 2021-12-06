@@ -26,11 +26,11 @@ namespace WebDBserverAPI {
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
-			services.AddSingleton<WarehouseDbContext, TestDbContext>();
+
+			services.AddDbContext<WarehouseDbContext, TestDbContext>();
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
 			services.AddScoped<IItemLocationDataRepo, ItemLocationDataRepo>();
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

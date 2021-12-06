@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DataBaseAccess.DataAccess.DbContextImpl;
 using DataBaseAccess.DataRepos;
@@ -18,6 +19,7 @@ namespace RepoTest
         [SetUp]
         public void Setup()
         {
+            Console.WriteLine("SetUp");
             _dataRepo = new ItemDataRepo(new TestDbContext());
             _item.ItemName = "TestItemTest";
             _item.Length = 6;
@@ -29,11 +31,14 @@ namespace RepoTest
         [SetUpAttribute]
         public void AttributeSetup()
         {
+            
+            
         }
 
         [TearDownAttribute]
         public void AttributeTearDown()
         {
+            
             
         }
 
@@ -45,6 +50,20 @@ namespace RepoTest
             Assert.NotNull(item);
             Assert.AreEqual(_item,item);
             
+        }
+        
+        
+        [Test]
+        public async Task RemoveItemAsync()
+        {
+            Item item = await _dataRepo.AddAsync(_item);
+            
+            var removeResult=  await _dataRepo.RemoveAsync(item.Id);
+
+            var getRemoved = await _dataRepo.GetAsync(item.Id);
+            
+            Assert.Null(getRemoved);
+            Assert.NotNull(removeResult);
         }
     }
 }

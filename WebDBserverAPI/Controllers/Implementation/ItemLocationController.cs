@@ -57,8 +57,10 @@ namespace WebDBserverAPI.Controllers {
 
 		[HttpPost]
 		public async Task<ActionResult> PostAsync([FromBody] ItemLocation entity) {
-			ItemLocation itemLocation = await _itemLocationDataRepo.UpdateAsync(entity);
-			return itemLocation != null ? Ok(itemLocation) : NotFound( );
+			
+			return entity.Id == 0 ? 
+				Ok(await _itemLocationDataRepo.AddAsync(entity)) : 
+				Ok(await _itemLocationDataRepo.UpdateAsync(entity));
 		}
 	}
 }
