@@ -1,7 +1,8 @@
-﻿@page "/Items"
-@using Blazor.Data
+﻿@page "/Locations"
 @using Blazor.Pages.Components
 @using Entities.Models
+@using Blazor.Data
+<h3>Locations</h3>
 
 @inject IItemLocationHandler _itemLocationHandler
 @inject DialogService DialogService
@@ -14,13 +15,12 @@
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
     <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Location Description">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data.Item.Id)) Text="@data.Item.Id.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data.Location.Id)) Text="@data.Location.Description.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Locations"/>
     </Columns>
 </RadzenDataGrid>
 
@@ -33,16 +33,16 @@
     protected override async Task OnInitializedAsync()
     {
         _itemLocations = await _itemLocationHandler.GetAllAsync();
-        
+
         DialogService.OnOpen += Open;
         DialogService.OnClose += Close;
     }
 
     async Task OpenItemLocations(int id)
     {
-    await DialogService.OpenAsync<LocationsCard>($"Item Id {id}",
-            new Dictionary<string, object>() { { "Id", id } },
-            new DialogOptions() { Width = "700px", Height = "530px" });
+        await DialogService.OpenAsync<ItemsCard>($"Location Id {id}",
+            new Dictionary<string, object>() {{"Id", id}},
+            new DialogOptions() {Width = "700px", Height = "530px"});
     }
 
     void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
@@ -54,5 +54,4 @@
     {
         Console.WriteLine("Dialog closed");
     }
-    
 }

@@ -1,4 +1,4 @@
-﻿@page "/LocationsCard/{Id}"
+﻿@page "/ItemsCard/{Id}"
 @using Blazor.Data
 @using Entities.Models
 
@@ -8,12 +8,16 @@
 <RadzenCard Style="margin-bottom: 20px;">
     <div class="row">
         <div class="col-md-12">
-            <h3>Location Details</h3>
+            <h3>Item Details</h3>
             <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
                 <Columns>
-                    <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
                     <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Length" Title="Length"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Width" Title="Width"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Height" Title="Height"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Weight" Title="Weight"/>
                 </Columns>
             </RadzenDataGrid>
         </div>
@@ -28,7 +32,7 @@
         ItemLocation itemLocation = new ItemLocation();
         itemLocation.Item = new Item();
         itemLocation.Location = new Location();
-        itemLocation.Item.Id = Id;
+        itemLocation.Location.Id = Id;
 
         return itemLocation;
     }
@@ -38,7 +42,7 @@
 
     protected override async void OnInitialized()
     {
-        _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(SetupItem());
+        _itemLocations = await _itemLocationHandler.GetAllByLocationIdAsync(SetupItem());
     }
 
 }

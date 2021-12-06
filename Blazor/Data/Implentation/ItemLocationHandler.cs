@@ -47,5 +47,21 @@ namespace Blazor.Data
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(ItemLocation itemLocation)
+        {
+            //TODO: Fix servercommunication, so I work!
+            return await _itemLocationDataServerComm.GetAllAsync();
+            //return await _itemLocationDataServerComm.GetAllByLocationIdAsync(itemLocation);
+            throw new NotImplementedException();
+        }
+
+        public async Task<IList<ItemLocation>> GetAllByItemIdAsync(ItemLocation itemLocation)
+        {
+            //TODO: Fix servercommunication, so I work!
+            return await _itemLocationDataServerComm.GetAllAsync();
+            //return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemLocation);
+            throw new NotImplementedException();
+        }
     }
 }
