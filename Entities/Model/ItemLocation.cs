@@ -7,9 +7,9 @@
 		public int Amount { get; set; }
 
 		public override string ToString( ) {
-			return $"LocationID: {Id}" +
-				   $"\tLocation: {Location} " +
-				   $"\tItem: {Item} " +
+			return $"ID: {Id}" +
+				   $"\tLocation : ( {Location} )" +
+				   $"\tItem: ( {Item} )" +
 				   $"\tAmount: {Amount}";
 		}
 		public override bool Equals(object obj) {

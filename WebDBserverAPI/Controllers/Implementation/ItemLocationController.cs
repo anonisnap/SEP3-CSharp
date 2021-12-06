@@ -50,6 +50,7 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpDelete]
+		[Route("{entityId:int}")]
 		public async Task<ActionResult<ItemLocation>> DeleteAsync([FromRoute] int entityId) {
 			ItemLocation itemLocation = await _itemLocationRepo.RemoveAsync(entityId);
 			return itemLocation != null ? Ok(itemLocation) : NotFound( );

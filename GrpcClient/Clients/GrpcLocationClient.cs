@@ -29,15 +29,11 @@ namespace GrpcClient.Clients {
 			return to;
 		}
 		private void Connect( ) {
-			Console.WriteLine("+ Connecting to Server");
-
 			_channel = GrpcChannel.ForAddress(_address);
 			_client = new myGrpc.Location.LocationClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
-			Console.WriteLine("- Disconnecting from Server");
-
 			await _channel.ShutdownAsync( );
 			_client = null;
 		}
@@ -52,8 +48,6 @@ namespace GrpcClient.Clients {
 
 			// Send Call Request to Server and store reply
 			var reply = await _client.RegisterLocationAsync(g);
-
-			Console.WriteLine($"Reply to Client : {reply.Id}");
 
 			// Disconnect from Server
 			await Disconnect( );

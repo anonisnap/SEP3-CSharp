@@ -61,11 +61,10 @@ namespace DataBaseAccess.DataRepos.Impl {
 		}
 
 		public async Task<ItemLocation> GetAsync(int id) {
-			ItemLocationDB entity = await _warehouseDbContext.ItemLocationsDb.FindAsync(id);
+			ItemLocationDB entity = await _warehouseDbContext.ItemLocationsDb.Include(il => il.Item).Include(il => il.Location).Where(il => il.Id == id).FirstOrDefaultAsync();
 
 			return entity.GetItemLocation( );
 		}
-
 
 		public async Task<IList<ItemLocation>> GetByItemIdAsync(int itemId) {
 			List<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb

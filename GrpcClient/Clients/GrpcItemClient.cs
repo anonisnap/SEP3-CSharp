@@ -131,20 +131,15 @@ namespace GrpcClient.Clients {
 		}
 
 		private Item ConvertGItemToItem(gItem from) {
-			Console.WriteLine($"Converting gItem to Item\nId: {from.Id}\nItemName: {from.ItemName}");
-			Entities.Models.Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
+			Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
 			return to;
 		}
 		private void Connect( ) {
-			Console.WriteLine("+ Connecting to Server");
-
 			_channel = GrpcChannel.ForAddress(_address);
 			_client = new myGrpc.Item.ItemClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
-			Console.WriteLine("- Disconnecting from Server");
-
 			await _channel.ShutdownAsync( );
 			_client = null;
 		}
