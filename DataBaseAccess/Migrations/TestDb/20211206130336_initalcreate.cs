@@ -2,7 +2,7 @@
 
 namespace DataBaseAccess.Migrations.TestDb
 {
-    public partial class InitialCreate : Migration
+    public partial class initalcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,24 +37,26 @@ namespace DataBaseAccess.Migrations.TestDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemLocationsDB",
+                name: "ItemLocationsDb",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     ItemId = table.Column<int>(type: "INTEGER", nullable: false),
                     LocationId = table.Column<int>(type: "INTEGER", nullable: false),
                     Amount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemLocationsDB", x => new { x.ItemId, x.LocationId });
+                    table.PrimaryKey("PK_ItemLocationsDb", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemLocationsDB_Items_ItemId",
+                        name: "FK_ItemLocationsDb_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemLocationsDB_Locations_LocationId",
+                        name: "FK_ItemLocationsDb_Locations_LocationId",
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
@@ -62,8 +64,14 @@ namespace DataBaseAccess.Migrations.TestDb
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemLocationsDB_LocationId",
-                table: "ItemLocationsDB",
+                name: "IX_ItemLocationsDb_ItemId_LocationId",
+                table: "ItemLocationsDb",
+                columns: new[] { "ItemId", "LocationId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemLocationsDb_LocationId",
+                table: "ItemLocationsDb",
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
@@ -76,7 +84,7 @@ namespace DataBaseAccess.Migrations.TestDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ItemLocationsDB");
+                name: "ItemLocationsDb");
 
             migrationBuilder.DropTable(
                 name: "Items");
