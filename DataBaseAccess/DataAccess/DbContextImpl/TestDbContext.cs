@@ -9,7 +9,7 @@ namespace DataBaseAccess.DataAccess.DbContextImpl
         {
             //Name of database
             
-            //optionsBuilder.UseSqlite($@"Data Source = {ConnStr.TestDbPath}");
+            optionsBuilder.UseSqlite($@"Data Source = {ConnStr.TestDbPath}");
         }
         
     }

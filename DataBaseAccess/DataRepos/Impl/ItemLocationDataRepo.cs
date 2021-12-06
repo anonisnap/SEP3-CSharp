@@ -14,87 +14,84 @@ namespace DataBaseAccess.DataRepos.Impl {
 		}
 
 
-		public async Task<ItemLocation> AddAsync(ItemLocation obj) {
-			ItemLocationDB itemLocationDb = await GenerateItemLocationDbAsync(obj);
+		public async Task<ItemLocation> AddAsync(ItemLocation itemLocation) {
+			//ItemLocation itemLocation = await GenerateItemLocationAsync(obj);
+			Item objItem = await _warehouseDbContext.Items.FindAsync(itemLocation.Item.Id);
+			Location objLocation = await _warehouseDbContext.Locations.FindAsync(itemLocation.Location.Id);
 
-			EntityEntry<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb.AddAsync(itemLocationDb);
+			itemLocation.Item = objItem;
+			itemLocation.Location = objLocation;
+			EntityEntry<ItemLocation> entity = await _warehouseDbContext.ItemLocations.AddAsync(itemLocation);
 
 			await _warehouseDbContext.SaveChangesAsync( );
-			return entity.Entity.GetItemLocation( );
+			return entity.Entity;
 		}
 
 		public async Task<ItemLocation> RemoveAsync(int id) {
-			ItemLocationDB location = await _warehouseDbContext.ItemLocationsDb.FindAsync(id);
-			EntityEntry<ItemLocationDB> entity = _warehouseDbContext.ItemLocationsDb.Remove(location);
+			ItemLocation location = await _warehouseDbContext.ItemLocations.FindAsync(id);
+			EntityEntry<ItemLocation> entity = _warehouseDbContext.ItemLocations.Remove(location);
 
 			await _warehouseDbContext.SaveChangesAsync( );
-			return entity.Entity.GetItemLocation( );
+			return entity.Entity;
 		}
 
 		public async Task<ItemLocation> UpdateAsync(ItemLocation itemLocation) {
-			ItemLocationDB generatedItemLocationDb = await GenerateItemLocationDbAsync(itemLocation);
-
-			// find the old item location db object 
-			ItemLocationDB oldItemLocationDb =
-				 await _warehouseDbContext.ItemLocationsDb
-					 .Include(iLDb => iLDb.Item)
-					 .Include(iLDb => iLDb.Location)
-					 .Where(iLDb => iLDb.Id == itemLocation.Id)
-					 .FirstAsync( );
-
-			EntityEntry<ItemLocationDB> entity = _warehouseDbContext.ItemLocationsDb.Update(oldItemLocationDb);
-			entity.CurrentValues.SetValues(generatedItemLocationDb);
+			
+			EntityEntry<ItemLocation> entity = _warehouseDbContext.ItemLocations.Update(itemLocation);
 
 			await _warehouseDbContext.SaveChangesAsync( );
-			return entity.Entity.GetItemLocation( );
+			return entity.Entity;
 		}
 
 		public async Task<IList<ItemLocation>> GetAllAsync( ) {
-			List<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb
+			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
 				.ToListAsync( );
-			IList<ItemLocation> result = new List<ItemLocation>( );
-			entity.ForEach(x => result.Add(x.GetItemLocation( )));
+			//IList<ItemLocation> result = new List<ItemLocation>( );
+			//entity.ForEach(x => result.Add(x.GetItemLocation( )));
 
-			return result;
+			return entity;
 		}
 
 		public async Task<ItemLocation> GetAsync(int id) {
-			ItemLocationDB entity = await _warehouseDbContext.ItemLocationsDb.Include(il => il.Item).Include(il => il.Location).Where(il => il.Id == id).FirstOrDefaultAsync();
+			ItemLocation entity = await _warehouseDbContext.ItemLocations.Include(il => il.Item).Include(il => il.Location).Where(il => il.Id == id).FirstOrDefaultAsync();
 
-			return entity.GetItemLocation( );
+			return entity;
 		}
 
 		public async Task<IList<ItemLocation>> GetByItemIdAsync(int itemId) {
-			List<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb
+			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
-				.Where(ItemLocation => ItemLocation.ItemId == itemId)
+				.Where(ItemLocation => ItemLocation.Item.Id == itemId)
 				.ToListAsync( );
 
-			IList<ItemLocation> result = new List<ItemLocation>( );
-			entity.ForEach(x => result.Add(x.GetItemLocation( )));
+			////entity.ForEach(x => result.Add(x.GetItemLocation( )));
 
-			return result;
+			return entity;
 		}
 
 		public async Task<IList<ItemLocation>> GetByLocationIdAsync(int locationId) {
-			List<ItemLocationDB> entity = await _warehouseDbContext.ItemLocationsDb.Include(x => x.Item).Include(x => x.Location).Where(ItemLocation => ItemLocation.LocationId == locationId).ToListAsync( );
+			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+				.Include(x => x.Item)
+				.Include(x => x.Location)
+				.Where(ItemLocation => ItemLocation.Location.Id == locationId).ToListAsync( );
 			IList<ItemLocation> result = new List<ItemLocation>( );
-			entity.ForEach(x => result.Add(x.GetItemLocation( )));
+			//entity.ForEach(x => result.Add(x.GetItemLocation( )));
 
-			return result;
+			return entity;
 		}
 
-		private async Task<ItemLocationDB> GenerateItemLocationDbAsync(ItemLocation itemLocation) {
+		private async Task<ItemLocation> GenerateItemLocationAsync(ItemLocation itemLocation) {
 			// Retrieve Item and Location from _warehouseDbContext
 			Item objItem = await _warehouseDbContext.Items.FirstOrDefaultAsync(x => x.Id == itemLocation.Item.Id);
 			Location objLocation = await _warehouseDbContext.Locations.FirstOrDefaultAsync(x => x.Id == itemLocation.Location.Id);
 
 			_warehouseDbContext.ChangeTracker.AcceptAllChanges( );
 			// Create DB Specific Class with Item and Location from before
-			return new ItemLocationDB( ) { Id = itemLocation.Id, Amount = itemLocation.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
+			return
+				new ItemLocation(); //{ Id = itemLocation.Id, Amount = itemLocation.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
 		}
 	}
 }

@@ -1,7 +1,12 @@
-﻿namespace Entities.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entities.Models {
 	public class ItemLocation {
 		public int Id { get; set; }
+		
+		[Required]
 		public Location Location { get; set; }
+		[Required]
 		public Item Item { get; set; }
 
 		public int Amount { get; set; }
