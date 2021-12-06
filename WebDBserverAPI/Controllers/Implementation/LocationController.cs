@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
@@ -11,6 +12,7 @@ namespace WebDBserverAPI.Controllers
 	[ApiController]
 	[Route("[controller]")]
 	public class LocationController : ControllerBase, ILocationController {
+		
 		private IDataRepo<Location> _locationRepo;
 
 		public LocationController(IDataRepo<Location> locationRepo) {
@@ -18,7 +20,7 @@ namespace WebDBserverAPI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetLocationAsync(int? locationId) {
+		public async Task<ActionResult<Location>> GetAsync(int? locationId) {
 			try {
 				object location;
 				if (locationId != null) {
@@ -32,7 +34,11 @@ namespace WebDBserverAPI.Controllers
 			}
 		}
 
-		
+
+		public Task<ActionResult<Location>> GetAsync(int entityId)
+		{
+			throw new NotImplementedException();
+		}
 
 		[HttpGet]
 		public async Task<ActionResult<IList<Location>>> GetAllAsync() {
@@ -48,7 +54,7 @@ namespace WebDBserverAPI.Controllers
 		
 		
 		[HttpPut]
-		public async Task<ActionResult> PutLocationAsync(Location location) {
+		public async Task<ActionResult> PutAsync(Location location) {
 			try {
 				await _locationRepo.AddAsync(location);
 				Console.WriteLine($"+ Location {location.Description}");
@@ -64,14 +70,14 @@ namespace WebDBserverAPI.Controllers
 
 		[HttpPost]
 		[Route("{locationId:int}")]
-		public async Task<ActionResult> PostLocationAsync([FromRoute] int locationId, Location location) {
-			await _locationRepo.UpdateAsync(locationId, location);
+		public async Task<ActionResult> PostAsync(Location location) {
+			await _locationRepo.UpdateAsync(location);
 			return Ok(location);
 		}
 
 		[HttpDelete]
 		[Route("{locationId:int}")]
-		public async Task<ActionResult<Location>> DeleteLocationAsync([FromRoute] int locationId) {
+		public async Task<ActionResult<Location>> DeleteAsync([FromRoute] int locationId) {
 			try {
 				Location locationToDelete = await _locationRepo.RemoveAsync(locationId); // TODO: Exception thrown if Object is Null
 				return Ok(locationToDelete);
@@ -79,5 +85,6 @@ namespace WebDBserverAPI.Controllers
 				return StatusCode(500, e.Message);
 			}
 		}
+		
 	}
 }

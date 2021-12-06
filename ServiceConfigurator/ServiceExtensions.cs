@@ -1,5 +1,5 @@
-﻿using System;
-using DataBaseAccess;
+﻿using DataBaseAccess;
+using DataBaseAccess.DataAccess.DbContextImpl;
 using DataBaseAccess.DataRepos;
 using DataBaseAccess.DataRepos.Impl;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ namespace ServiceConfigurator
 
         public static void ConfigureRepositories(IServiceCollection services)
         {
-            services.AddScoped<DbContext, SEP_DBContext>();
+            services.AddScoped<WarehouseDbContext, SEP_DBContext>();
             services.AddScoped<IItemDataRepo, ItemDataRepo>();
             services.AddScoped<ILocationDataRepo, LocationDataRepo>();
         }
