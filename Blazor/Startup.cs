@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazor.Data;
+using GrpcClient;
 using Radzen;
 using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
@@ -31,12 +32,12 @@ namespace Blazor
             services.AddScoped<IItemHandler, ItemHandler>();
             services.AddScoped<ILocationHandler, LocationHandler>();
             services.AddScoped<IItemLocationHandler, ItemLocationHandler>();
-            
+
+            services.AddScoped<GRPCConnStr>();
             services.AddScoped<IItemDataServerComm, GrpcItemClient>();
             services.AddScoped<ILocationDataServerComm, GrpcLocationClient>();
             services.AddScoped<IItemLocationDataServerComm, GrpcItemLocationClient>();
-            //services.AddScoped<IServerCommunication, SocketClient>();
-            
+          
             services.AddScoped<DialogService>();
         }
 

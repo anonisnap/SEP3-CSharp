@@ -1,11 +1,11 @@
 ﻿using Grpc.Net.Client;
 using myGrpc;
-using Entities.Models;
-using ServerCommunication;
+
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using T1Contracts.ServerCommunicationInterfaces;
+using Item = Entities.Models.Item;
 
 namespace GrpcClient.Clients {
 	public class GrpcItemClient : IItemDataServerComm {
@@ -13,35 +13,12 @@ namespace GrpcClient.Clients {
 		private GrpcChannel _channel;
 		private myGrpc.Item.ItemClient _client;
 
-		public GrpcItemClient(string address) {
-			_address = address;
+		public GrpcItemClient(GRPCConnStr address) {
+			_address = address.GrpcAddress;
 		}
-
-		private gItem ConvertItemToGItem(Entities.Models.Item from) {
-			gItem to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
-			return to;
-		}
-
-		private Entities.Models.Item ConvertGItemToItem(gItem from) {
-			Entities.Models.Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
-			return to;
-		}
-		private void Connect( ) {
-			Console.WriteLine("+ Connecting to Server");
-
-			_channel = GrpcChannel.ForAddress(_address);
-			_client = new myGrpc.Item.ItemClient(_channel);
-		}
-
-		private async Task Disconnect( ) {
-			Console.WriteLine("- Disconnecting from Server");
-
-			await _channel.ShutdownAsync( );
-			_client = null;
-		}
-
+		
 		// IEntityManager Override Methods
-		public async Task<Entities.Models.Item> RegisterAsync(Entities.Models.Item entity) {
+		public async Task<Item> RegisterAsync(Item entity) {
 			// Convert Item to gRPC Item
 			gItem g = ConvertItemToGItem(entity);
 
@@ -55,13 +32,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.Item item = ConvertGItemToItem(reply);
+			Item item = ConvertGItemToItem(reply);
 
 			// Return Item to User
 			return item;
 		}
 
-		public async Task<Entities.Models.Item> RemoveAsync(Entities.Models.Item entity) {
+		public async Task<Item> RemoveAsync(Item entity) {
 			// Convert Item to gRPC Item
 			gItem g = ConvertItemToGItem(entity);
 
@@ -75,13 +52,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.Item item = ConvertGItemToItem(reply);
+			Item item = ConvertGItemToItem(reply);
 
 			// Return Item to User
 			return item;
 		}
 
-		public async Task<Entities.Models.Item> UpdateAsync(Entities.Models.Item entity) {
+		public async Task<Item> UpdateAsync(Item entity) {
 			// Convert Item to gRPC Item
 			gItem g = ConvertItemToGItem(entity);
 
@@ -101,7 +78,7 @@ namespace GrpcClient.Clients {
 			return item;
 		}
 
-		public async Task<IList<Entities.Models.Item>> GetAllAsync( ) {
+		public async Task<IList<Item>> GetAllAsync( ) {
 			// Convert Item to gRPC Item | Here, it is specifically used as an Object Template for later
 			gItem template = new( ) { };
 
@@ -128,7 +105,7 @@ namespace GrpcClient.Clients {
 			return items;
 		}
 
-		public async Task<Entities.Models.Item> GetAsync(Entities.Models.Item entity) {
+		public async Task<Item> GetAsync(Item entity) {
 			// Convert Item to gRPC Item
 			gItem g = ConvertItemToGItem(entity);
 
@@ -142,10 +119,35 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.Item item = ConvertGItemToItem(reply);
+			Item item = ConvertGItemToItem(reply);
 
 			// Return Item to User
 			return item;
 		}
+		
+		private gItem ConvertItemToGItem(Item from) {
+			gItem to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
+			return to;
+		}
+
+		private Item ConvertGItemToItem(gItem from) {
+			Console.WriteLine($"Converting gItem to Item\nId: {from.Id}\nItemName: {from.ItemName}");
+			Entities.Models.Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
+			return to;
+		}
+		private void Connect( ) {
+			Console.WriteLine("+ Connecting to Server");
+
+			_channel = GrpcChannel.ForAddress(_address);
+			_client = new myGrpc.Item.ItemClient(_channel);
+		}
+
+		private async Task Disconnect( ) {
+			Console.WriteLine("- Disconnecting from Server");
+
+			await _channel.ShutdownAsync( );
+			_client = null;
+		}
+		
 	}
 }

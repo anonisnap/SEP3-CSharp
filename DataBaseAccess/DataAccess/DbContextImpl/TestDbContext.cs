@@ -8,8 +8,8 @@ namespace DataBaseAccess.DataAccess.DbContextImpl
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Name of database
-            //optionsBuilder.UseSqlite(@"Data Source = C:\Users\Sander\RiderProjects\SEP3-CSharp\DataBaseAccess\TestWarehouseDb.db"); //Sander
-            optionsBuilder.UseSqlite(@"Data Source = C:\Users\N_i_v\RiderProjects\SEP3-CSharp\DataBaseAccess\TestWarehouseDb.db"); //Sebastian
+            
+            optionsBuilder.UseSqlite($@"Data Source = {ConnStr.TestDbPath}");
         }
         
     }

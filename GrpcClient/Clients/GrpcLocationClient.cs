@@ -15,8 +15,8 @@ namespace GrpcClient.Clients {
 		private GrpcChannel _channel;
 		private myGrpc.Location.LocationClient _client;
 
-		public GrpcLocationClient(string address) {
-			_address = address;
+		public GrpcLocationClient(GRPCConnStr address) {
+			_address = address.GrpcAddress;
 		}
 
 		private gLocation ConvertLocationToGLocation(Entities.Models.Location from) {

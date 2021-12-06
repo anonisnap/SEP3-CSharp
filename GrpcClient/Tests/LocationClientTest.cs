@@ -12,7 +12,7 @@ namespace GrpcClient.Tests {
 
 		[TestInitialize]
 		public void Setup( ) {
-			_client = new GrpcLocationClient("http://localhost:9090");
+			_client = new GrpcLocationClient(new GRPCConnStr());
 			_testLocation1 = new( ) { Id = 0, Description = "ThereIsNoWayThisCanBeADuplicateStringYouTwat" };
 			_testLocation2 = new( ) { Id = 0, Description = "Under the Couch" };
 		}
