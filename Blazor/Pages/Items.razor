@@ -16,7 +16,7 @@
     <Columns>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data.Item.Id)) Text="@data.Item.Id.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data)) Text="@data.Item.Id.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
@@ -42,10 +42,10 @@
         DialogService.OnClose += Close;
     }
 
-    async Task OpenItemLocations(int id)
+    async Task OpenItemLocations(ItemLocation itemLocation)
     {
-        await DialogService.OpenAsync<LocationsCard>($"Item Id {id}",
-            new Dictionary<string, object>() {{"Id", id}},
+        await DialogService.OpenAsync<LocationsCard>($"Item Id {itemLocation.Item.Id}",
+            new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
             new DialogOptions() {Width = "700px", Height = "530px"});
     }
 

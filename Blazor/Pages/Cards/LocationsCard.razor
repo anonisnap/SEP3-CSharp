@@ -21,24 +21,34 @@
 </RadzenCard>
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
+    
+    [Parameter]
+    public ItemLocation itemLocation { get; set; }
+
+
     private IList<ItemLocation> _itemLocations;
 
-    private ItemLocation SetupItem()
+    /*
+    private async ItemLocation SetupItemLocation()
     {
-        ItemLocation itemLocation = new ItemLocation();
-        itemLocation.Item = new Item();
+        ItemLocation itemLocation = new ()
+        {
+            Id = 1, Item =
+        }
         itemLocation.Location = new Location();
+        
         itemLocation.Item.Id = Id;
 
         return itemLocation;
     }
-
-    [Parameter]
-    public int Id { get; set; }
+    */
 
     protected override async void OnInitialized()
     {
-        _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(SetupItem());
+        //_itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(SetupItemLocation());
     }
 
 }

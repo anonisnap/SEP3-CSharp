@@ -1,6 +1,7 @@
 ﻿@page "/RegisteredItems"
 @using Blazor.Data
 @using Entities.Models
+@using System.Threading
 
 @inject IItemHandler _itemsHandler
 
@@ -8,18 +9,24 @@
 
 @if (_registeredItems == null)
 {
+    Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - null");
+    
     <p>
         <em>Loading...</em>
     </p>
 }
 else if (!_registeredItems.Any())
 {
+    Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - !Any");
+
     <p>
         <em>No registered items exist. Please add some.</em>
     </p>
 }
 else
 {
+    Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - Else");
+
     <RadzenDataGrid Data="@_registeredItems" TItem="Item" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
@@ -40,12 +47,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _registeredItems = await _itemsHandler.GetAllAsync();
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - Before Async");
 
-        /*foreach (var item in _registeredItems)
+        _registeredItems = await _itemsHandler.GetAllAsync();
+        Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - After Async");
+
+        foreach (var item in _registeredItems)
         {
             Console.WriteLine(item?.ItemName);
-        }*/
+        }
     }
 
 }
