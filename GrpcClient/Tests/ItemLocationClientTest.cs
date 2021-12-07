@@ -34,6 +34,8 @@ namespace GrpcClient.Tests {
 
 		[TestCleanup]
 		public async Task TearDown( ) {
+			await _client.RemoveAsync(_testItemLocation1);
+			await _client.RemoveAsync(_testItemLocation2);
 			var cItem = new GrpcItemClient(grpcConnStr);
 			await cItem.RemoveAsync(_i1);
 			await cItem.RemoveAsync(_i2 );
@@ -41,8 +43,6 @@ namespace GrpcClient.Tests {
 			await cItemLocation.RemoveAsync(_l1);
 			await cItemLocation.RemoveAsync(_l2);
 
-			await _client.RemoveAsync(_testItemLocation1);
-			await _client.RemoveAsync(_testItemLocation2);
 		}
 
 		[TestMethod("Register ItemLocation")] // Registering an ItemLocation | IMPLEMENTED : Register ItemLocation -> Check received ItemLocation = Input ItemLocation
