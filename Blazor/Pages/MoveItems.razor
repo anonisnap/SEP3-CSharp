@@ -6,6 +6,7 @@
 @inject IItemLocationHandler _itemLocationHandler
 @inject NavigationManager _navigationManager
 
+@inject DialogService DialogService
 
 <h3>MoveItems</h3>
 
@@ -14,8 +15,8 @@
         <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Item and location id</h5>
-                <RadzenDropDownDataGrid PageSize="20" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="false" Placeholder="Select"
+                <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                                        AllowFiltering="true" AllowClear="true" Placeholder="Select"
                                         Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
@@ -31,7 +32,7 @@
             <div class="col-xl-6 mb-5">
                 <h5>Registered Locations</h5>
                 <RadzenDropDownDataGrid PageSize="15" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" AllowVirtualization="false" Placeholder="Select"
+                                        AllowFiltering="true" AllowClear="true" Placeholder="Select"
                                         Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
@@ -50,18 +51,6 @@
     </div>
 </div>
 
-@*
-<RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
-                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                LogicalFilterOperator="LogicalFilterOperator.Or"
-                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
-    <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
-    </Columns>
-</RadzenDataGrid>*@
-
 @code {
     private IList<Location> _locations;
     private IList<ItemLocation> _itemLocations;
@@ -69,33 +58,35 @@
     private ItemLocation _newItemLocation;
     private ItemLocation _oldItemLocation;
 
-    
+
     protected override async Task OnInitializedAsync()
     {
         _itemLocations = await _itemLocationHandler.GetAllAsync();
         _locations = await _locationsHandler.GetAllAsync();
-        
+
         Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
 
         _newItemLocation = new();
         _oldItemLocation = new();
+
+        DialogService.OnOpen += Open;
+        DialogService.OnClose += CloseConfirmAdd;
     }
 
     private async Task Save()
     {
         Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
-        
-        await _itemLocationHandler.UpdateAsync(_newItemLocation);
-        
-        
 
-        //_navigationManager.NavigateTo("/");
+        await _itemLocationHandler.UpdateAsync(_newItemLocation);
+
+
+    //_navigationManager.NavigateTo("/");
     }
 
     void OnChange(object value, string name)
     {
     //Kig i AddItem page for hvordan det er gjort der
-        
+
         Console.WriteLine($"value is: {value}");
         Console.WriteLine($"name is: {name}");
 
@@ -116,6 +107,33 @@
             Location location = (Location) value;
             _newItemLocation.Location = location;
         }
+    }
+
+
+    void CloseConfirmAdd(dynamic result)
+    {
+        if (result != null) // if the user hits the x near the top right null is returned
+        {
+    // result is false if the user clicks no
+            if ((bool) result) Save();
+        }
+    }
+
+    public void Dispose()
+    {
+    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
+        DialogService.OnOpen -= Open;
+        DialogService.OnClose -= CloseConfirmAdd;
+    }
+
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+        Console.WriteLine("Dialog opened");
+    }
+
+    void Close(dynamic result)
+    {
+        Console.WriteLine($"Dialog closed {result}");
     }
 
 }
