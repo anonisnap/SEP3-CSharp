@@ -5,14 +5,14 @@
 
 @inject IItemLocationHandler _itemLocationHandler
 @inject DialogService DialogService
-
+<button>Tryk Her for reload!</button>
 <h3>Locations</h3>
 <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
     <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Location Description">
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location Description">
             <Template Context="data">
                 <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data)) Text="@data.Location.Description.ToString()"/>
             </Template>
