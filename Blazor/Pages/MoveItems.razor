@@ -7,7 +7,7 @@
 @inject NavigationManager _navigationManager
 
 
-<h3>MoveItems</h3>
+<h3>Move Items to new Location</h3>
 
 <div class="row">
     <div class="col-xl-10">
@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-md-4 mb-5">
                 <h5>Add to location</h5>
-                <RadzenButton Icon="save" Text="Save" Click="@Save"/>
+                <RadzenButton class="formButton" Icon="save" Text="Save" Click="@Save"/>
             </div>
         </div>
 
@@ -94,8 +94,7 @@
 
     void OnChange(object value, string name)
     {
-    //Kig i AddItem page for hvordan det er gjort der
-        
+    
         Console.WriteLine($"value is: {value}");
         Console.WriteLine($"name is: {name}");
 

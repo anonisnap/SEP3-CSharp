@@ -1,24 +1,12 @@
 ﻿@page "/RegisterItem"
 @using Blazor.Data
 @using Entities.Models
+@using System.Text.Json
 
 @inject IItemHandler _itemsHandler
 @inject NavigationManager _navigationManager
 
 <h3>Register a new Item</h3>
-
-@*<EditForm Model="@_item" OnValidSubmit="@AddNewItem">
-    <DataAnnotationsValidator/> <ValidationSummary/>
-    <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_item.ItemName"/> </div>
-    <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_item.Height"/> </div>
-    <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_item.Length"/> </div>
-    <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_item.Width"/> </div>
-    <div class="form-group"> Weight:<br/> <InputNumber @bind-Value="_item.Weight"/> </div>
-
-    <p class="actions">
-        <button class="btn btn-outline-dark" type="submit">Add</button>
-    </p>
-</EditForm>*@
 
 <EditForm class="RegisterForm" Model="@_item" OnValidSubmit="@AddNewItem">
     <DataAnnotationsValidator/><ValidationSummary/>
@@ -38,7 +26,7 @@
                         <RadzenLabel Text="Length"/>
                     </div>
                     <div class="col-md-8">
-                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Length"></RadzenNumeric>
+                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Length" />
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +53,7 @@
                         <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Weight"></RadzenNumeric>
                     </div>
                 </div>
-                
+
                 <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
                     <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
                 </div>
@@ -74,6 +62,61 @@
     </div>
 </EditForm>
 
+@*<RadzenTemplateForm class="RegisterForm" TItem="Item" Data="@_item" Submit="@AddNewItem">
+    <div class="row">
+        <div class="col-md-5">
+            <RadzenFieldset Text="Item Information">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Item Name"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox style="width: 80%;" Name="Name" @bind-Value="_item.ItemName"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Length"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Length" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Width"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Width"></RadzenNumeric>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Height"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Height"></RadzenNumeric>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Weight"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Weight"></RadzenNumeric>
+                    </div>
+                </div>
+
+                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>*@
+
+
+
 @code {
     //TODO: Fix at det crasher hvis man går ned på en minus værdi
 
@@ -81,16 +124,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-    //Todo: Missing awaits=?
         _item = new();
     }
 
     private async Task AddNewItem()
     {
-        await _itemsHandler.GetAllAsync();
-
-    //Navigate to specific Item created instead?
+        await _itemsHandler.RegisterAsync(_item);
         _navigationManager.NavigateTo("/RegisteredItems");
     }
+
 
 }
