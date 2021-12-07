@@ -61,13 +61,12 @@ namespace DataBaseAccess.DataRepos.Impl {
 		}
 
 		public async Task<IList<ItemLocation>> GetByItemIdAsync(int itemId) {
-			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+			
+			IList<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
-				.Where(ItemLocation => ItemLocation.Item.Id == itemId)
+				.Where(itemLocation => itemLocation.Item.Id == itemId)
 				.ToListAsync( );
-
-			////entity.ForEach(x => result.Add(x.GetItemLocation( )));
 
 			return entity;
 		}
@@ -76,10 +75,9 @@ namespace DataBaseAccess.DataRepos.Impl {
 			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
-				.Where(ItemLocation => ItemLocation.Location.Id == locationId).ToListAsync( );
-			IList<ItemLocation> result = new List<ItemLocation>( );
-			//entity.ForEach(x => result.Add(x.GetItemLocation( )));
-
+				.Where(ItemLocation => ItemLocation.Location.Id == locationId)
+				.ToListAsync( );
+			
 			return entity;
 		}
 

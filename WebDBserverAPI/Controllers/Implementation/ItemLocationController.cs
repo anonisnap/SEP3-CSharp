@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataBaseAccess.DataRepos.Impl;
 using Entities.Models;
@@ -25,8 +26,14 @@ namespace WebDBserverAPI.Controllers {
 		[HttpGet]
 		[Route("itemId/{itemId:int}")]
 		public async Task<ActionResult<IList<ItemLocation>>> GetByItemIdAsync([FromRoute] int itemId) {
-			IList<ItemLocation> itemLocation = await _itemLocationRepo.GetByItemIdAsync(itemId);
-			return itemLocation != null ? Ok(itemLocation) : NotFound( );
+			IList<ItemLocation> itemLocations = await _itemLocationRepo.GetByItemIdAsync(itemId);
+			
+			foreach (var itemLocation in itemLocations)
+			{
+				Console.WriteLine(itemLocation);
+			}
+			
+			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 
 		[HttpGet]
