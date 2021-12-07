@@ -15,7 +15,7 @@ message Confirmation {
   bool confirmed = 1;
 }
 
-service User {
+service UserService {
   rpc login (UserDetails) returns (Confirmation);
   rpc logout (UserDetails) returns (Confirmation);
 }

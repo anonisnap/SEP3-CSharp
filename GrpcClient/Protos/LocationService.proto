@@ -15,7 +15,7 @@ message gLocationList{
 
 }
 
-service Location{
+service LocationService{
   rpc RegisterLocation(gLocation) returns (gLocation);
   rpc GetLocation(gLocation) returns (gLocation);
   rpc GetAllLocations(gLocation) returns (gLocationList);

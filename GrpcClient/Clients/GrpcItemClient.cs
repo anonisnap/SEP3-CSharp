@@ -1,9 +1,8 @@
 ﻿using Grpc.Net.Client;
-using myGrpc;
 
-using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using myGrpc;
 using T1Contracts.ServerCommunicationInterfaces;
 using Item = Entities.Models.Item;
 
@@ -11,7 +10,7 @@ namespace GrpcClient.Clients {
 	public class GrpcItemClient : IItemDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
-		private myGrpc.Item.ItemClient _client;
+		private ItemService.ItemServiceClient _client;
 
 		public GrpcItemClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
@@ -136,7 +135,7 @@ namespace GrpcClient.Clients {
 		}
 		private void Connect( ) {
 			_channel = GrpcChannel.ForAddress(_address);
-			_client = new myGrpc.Item.ItemClient(_channel);
+			_client = new ItemService.ItemServiceClient(_channel);
 		}
 
 		private async Task Disconnect( ) {

@@ -1,10 +1,7 @@
 ﻿using Grpc.Net.Client;
 using myGrpc;
-using ServerCommunication;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using T1Contracts.ServerCommunicationInterfaces;
 using ItemLocation = Entities.Models.ItemLocation;
@@ -13,14 +10,14 @@ namespace GrpcClient.Clients {
 	public class GrpcItemLocationClient : IItemLocationDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
-		private myGrpc.ItemLocation.ItemLocationClient _client;
+		private ItemLocationService.ItemLocationServiceClient _client;
 
 		public GrpcItemLocationClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
 		}
 
 		// IEntityManager Override Methods
-		public async Task<Entities.Models.ItemLocation> RegisterAsync(ItemLocation entity) {
+		public async Task<ItemLocation> RegisterAsync(ItemLocation entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -34,7 +31,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
 			return itemLocation;
@@ -60,7 +57,7 @@ namespace GrpcClient.Clients {
 			return itemLocation;
 		}
 
-		public async Task<Entities.Models.ItemLocation> UpdateAsync(Entities.Models.ItemLocation entity) {
+		public async Task<ItemLocation> UpdateAsync(Entities.Models.ItemLocation entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -203,7 +200,7 @@ namespace GrpcClient.Clients {
 
 		private void Connect( ) {
 			_channel = GrpcChannel.ForAddress(_address);
-			_client = new myGrpc.ItemLocation.ItemLocationClient(_channel);
+			_client = new ItemLocationService.ItemLocationServiceClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
