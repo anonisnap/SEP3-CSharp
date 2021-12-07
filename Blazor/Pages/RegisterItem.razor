@@ -7,20 +7,7 @@
 
 <h3>Register a new Item</h3>
 
-@*<EditForm Model="@_item" OnValidSubmit="@AddNewItem">
-    <DataAnnotationsValidator/> <ValidationSummary/>
-    <div class="form-group"> Item Name:<br/> <InputText @bind-Value="_item.ItemName"/> </div>
-    <div class="form-group"> Height:<br/> <InputNumber @bind-Value="_item.Height"/> </div>
-    <div class="form-group"> Length:<br/> <InputNumber @bind-Value="_item.Length"/> </div>
-    <div class="form-group"> Width:<br/> <InputNumber @bind-Value="_item.Width"/> </div>
-    <div class="form-group"> Weight:<br/> <InputNumber @bind-Value="_item.Weight"/> </div>
-
-    <p class="actions">
-        <button class="btn btn-outline-dark" type="submit">Add</button>
-    </p>
-</EditForm>*@
-
-<EditForm class="RegisterForm" Model="@_item" OnValidSubmit="@AddNewItem">
+@*<EditForm class="RegisterForm" Model="@_item" OnValidSubmit="@AddNewItem">
     <DataAnnotationsValidator/><ValidationSummary/>
     <div class="row">
         <div class="col-md-5">
@@ -72,7 +59,66 @@
             </RadzenFieldset>
         </div>
     </div>
-</EditForm>
+</EditForm>*@
+
+<RadzenTemplateForm class="RegisterForm" TItem="Item" Data="@_item" Submit="@AddNewItem">
+    <div class="row">
+        <div class="col-md-5">
+            <RadzenFieldset Text="Item Information">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Item Name"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox style="width: 80%;" Name="ItemName" @bind-Value="_item.ItemName"/>
+                        <RadzenRequiredValidator Component="ItemName" Text="Item Name is required" Style="position: relative" />
+                         <RadzenRegexValidator Component="ItemName" Text="Name must only be letters" Pattern="\D+" Style="position: relative" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Length"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" Name="Length" style="width: 80%;" @bind-Value="_item.Length" />
+                        <RadzenNumericRangeValidator Component="Length" Min="1" Text="Length should be minimum 1" Style="position: relative" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Width"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" Name="Width" style="width: 80%;" @bind-Value="_item.Width"></RadzenNumeric>
+                        <RadzenNumericRangeValidator Component="Width" Min="1" Text="Width should be minimum 1" Style="position: relative" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Height"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" Name="Height" style="width: 80%;" @bind-Value="_item.Height"></RadzenNumeric>
+                        <RadzenNumericRangeValidator Component="Height" Min="1" Text="Height should be minimum 1" Style="position: relative " />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Weight"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenNumeric TValue="double" Name="Weight" style="width: 80%;" @bind-Value="_item.Weight"></RadzenNumeric>
+                        <RadzenNumericRangeValidator Component="Weight" Min="1" Text="Weight should be minimum 1" Style="position: relative" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>
 
 @code {
     //TODO: Fix at det crasher hvis man går ned på en minus værdi

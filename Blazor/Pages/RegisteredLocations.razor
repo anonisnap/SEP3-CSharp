@@ -7,40 +7,6 @@
 
 <h3>RegisteredLocations</h3>
 
-@*@if (_locations == null)
-{
-    <p>
-        <em>Loading...</em>
-    </p>
-}
-else if (!_locations.Any())
-{
-    <p>
-        <em>No locations exist. Please add some.</em>
-    </p>
-}
-else
-{
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id:</th>
-            <th>Description:</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @foreach (var location in _locations)
-        {
-            <tr>
-                <td>@location.Id</td>
-                <td>@location.Description</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}*@
-
 @if (_locations == null)
 {
     <p>
@@ -50,7 +16,7 @@ else
 else if (!_locations.Any())
 {
     <p>
-        <em>No Adults exist. Please add some.</em>
+        <em>No registered locations exist. Please add some.</em>
     </p>
 }
 else

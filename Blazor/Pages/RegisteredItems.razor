@@ -6,48 +6,6 @@
 
 <h3>Registered Items</h3>
 
-@*@if (_items == null)
-{
-    <p>
-        <em>Loading...</em>
-    </p>
-}
-else if (!_items.Any())
-{
-    <p>
-        <em>No Spike items exist. Please add some.</em>
-    </p>
-}
-else
-{
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id:</th>
-            <th>Item Name:</th>
-            <th>Lenght:</th>
-            <th>Width:</th>
-            <th>Height:</th>
-            <th>Weight:</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @foreach (var item in _items)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.ItemName</td>
-                <td>@item.Length</td>
-                <td>@item.Width</td>
-                <td>@item.Height</td>
-                <td>@item.Weight</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}*@
-
 @if (_registeredItems == null)
 {
     <p>
@@ -57,7 +15,7 @@ else
 else if (!_registeredItems.Any())
 {
     <p>
-        <em>No Adults exist. Please add some.</em>
+        <em>No registered items exist. Please add some.</em>
     </p>
 }
 else
