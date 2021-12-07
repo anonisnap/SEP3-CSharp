@@ -46,7 +46,8 @@
             </div>
             <div class="col-md-4 mb-5">
                 <h5>Add to location</h5>
-                <RadzenButton class="formButton" Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to add this item to this location?", "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
+                <RadzenButton class="formButton" Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to add this item to this location?",
+                                                                                   "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
             </div>
         </div>
 
@@ -106,12 +107,12 @@
             _itemLocation.Location = location;
         }
     }
-    
+
     void CloseConfirmAdd(dynamic result)
     {
         if (result != null) // if the user hits the x near the top right null is returned
         {
-            // result is false if the user clicks no
+    // result is false if the user clicks no
             if ((bool) result) Save();
         }
     }
@@ -125,4 +126,5 @@
     {
         Console.WriteLine($"Dialog closed {result}");
     }
+
 }

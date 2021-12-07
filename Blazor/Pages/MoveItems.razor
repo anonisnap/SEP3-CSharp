@@ -6,6 +6,8 @@
 @inject IItemLocationHandler _itemLocationHandler
 @inject NavigationManager _navigationManager
 
+@inject DialogService DialogService
+
 
 <h3>Move Items to new Location</h3>
 
@@ -43,24 +45,13 @@
         <div class="row">
             <div class="col-md-4 mb-5">
                 <h5>Add to location</h5>
-                <RadzenButton class="formButton" Icon="save" Text="Save" Click="@Save"/>
+                <RadzenButton class="formButton" Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to move this item?",
+                                                                               "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
             </div>
         </div>
 
     </div>
 </div>
-
-@*
-<RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
-                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                LogicalFilterOperator="LogicalFilterOperator.Or"
-                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
-    <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
-    </Columns>
-</RadzenDataGrid>*@
 
 @code {
     private IList<Location> _locations;
@@ -75,10 +66,13 @@
         _itemLocations = await _itemLocationHandler.GetAllAsync();
         _locations = await _locationsHandler.GetAllAsync();
         
-        Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
+        Console.WriteLine("count of itemLocations : " + _itemLocations.Count);
 
         _newItemLocation = new();
         _oldItemLocation = new();
+        
+        DialogService.OnOpen += Open;
+        DialogService.OnClose += CloseConfirmAdd;
     }
 
     private async Task Save()
@@ -115,6 +109,32 @@
             Location location = (Location) value;
             _newItemLocation.Location = location;
         }
+    }
+    
+    public void Dispose()
+    {
+    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
+        DialogService.OnOpen -= Open;
+        DialogService.OnClose -= CloseConfirmAdd;
+    }
+    
+    void CloseConfirmAdd(dynamic result)
+    {
+        if (result != null) // if the user hits the x near the top right null is returned
+        {
+    // result is false if the user clicks no
+            if ((bool) result) Save();
+        }
+    }
+
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+        Console.WriteLine("Dialog opened");
+    }
+
+    void Close(dynamic result)
+    {
+        Console.WriteLine($"Dialog closed {result}");
     }
 
 }
