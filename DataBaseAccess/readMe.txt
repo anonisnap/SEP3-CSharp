@@ -15,4 +15,6 @@ Extra:
 If more than one DBContext, do the following:
 Add --context <dbName>
 - Example
-dotnet ef migrations add 4_updatedItemLocationDb --context SEP_DBContext
+dotnet ef migrations add 11_AddingOrders --context SEP_DBContext
+
+dotnet ef database update --context SEP_DBContext

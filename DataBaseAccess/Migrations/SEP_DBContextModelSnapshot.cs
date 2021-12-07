@@ -93,6 +93,39 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("OrderNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Entities.Models.OrderEntry", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ItemId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderEntries");
+                });
+
             modelBuilder.Entity("Entities.Models.ItemLocation", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
@@ -106,6 +139,20 @@ namespace DataBaseAccess.Migrations
                     b.Navigation("Item");
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Entities.Models.OrderEntry", b =>
+                {
+                    b.HasOne("Entities.Models.Order", null)
+                        .WithMany("OrderEntries")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.Navigation("OrderEntries");
                 });
 #pragma warning restore 612, 618
         }
