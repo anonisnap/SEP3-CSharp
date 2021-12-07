@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace DataBaseAccess.DataRepos.Impl
             _warehouseDbContext = dbContext;
         }
         
+        
         public async Task<Order> AddAsync(Order obj)
         {
             throw new System.NotImplementedException();
@@ -21,22 +23,25 @@ namespace DataBaseAccess.DataRepos.Impl
 
         public async Task<Order> RemoveAsync(int id)
         {
+            
             throw new System.NotImplementedException();
         }
 
         public async Task<Order> UpdateAsync(Order itemLocation)
         {
+            //TODO: FIX ME
             throw new System.NotImplementedException();
         }
 
         public async Task<IList<Order>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await _warehouseDbContext.Orders.Include(order => order.OrderEntries).ToListAsync();
         }
 
         public async Task<Order> GetAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await _warehouseDbContext.Orders.Include(order => order.OrderEntries)
+                .Where(order => order.Id == id).FirstOrDefaultAsync();
         }
     }
 }
