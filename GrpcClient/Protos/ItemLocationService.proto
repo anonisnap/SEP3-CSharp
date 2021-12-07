@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "Protos/Item.proto";
-import "Protos/Location.proto";
+import "Protos/ItemService.proto";
+import "Protos/LocationService.proto";
 
 option java_package = "grpc.protos";
 option csharp_namespace = "myGrpc";
@@ -20,7 +20,7 @@ message gItemLocationList{
 }
 
 
-service ItemLocation{
+service ItemLocationService{
 
   rpc RegisterItemLocation(gItemLocation) returns (gItemLocation);
   rpc GetItemLocation(gItemLocation) returns (gItemLocation);

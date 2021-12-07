@@ -13,7 +13,7 @@ namespace GrpcClient.Clients {
 	public class GrpcLocationClient : ILocationDataServerComm {
 		private string _address;
 		private GrpcChannel _channel;
-		private myGrpc.Location.LocationClient _client;
+		private LocationService.LocationServiceClient _client;
 
 		public GrpcLocationClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
@@ -30,7 +30,7 @@ namespace GrpcClient.Clients {
 		}
 		private void Connect( ) {
 			_channel = GrpcChannel.ForAddress(_address);
-			_client = new myGrpc.Location.LocationClient(_channel);
+			_client = new LocationService.LocationServiceClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
@@ -140,7 +140,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Location to Location
-			Entities.Models.Location Location = ConvertGLocationToLocation(reply);
+			Location Location = ConvertGLocationToLocation(reply);
 
 			// Return Location to User
 			return Location;

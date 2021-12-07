@@ -26,10 +26,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Protobuf Include="Protos\Item.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\Location.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\ItemLocation.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\ItemService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\LocationService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\ItemLocationService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\UserService.proto" GrpcServices="Client" />
 	</ItemGroup>
 	
 </Project>

@@ -19,7 +19,7 @@ message gItemList {
 }
 
 
-service Item {
+service ItemService {
   rpc RegisterItem(gItem) returns (gItem);
   rpc GetItem(gItem) returns (gItem);
   rpc GetAllItems(gItem) returns (gItemList);
