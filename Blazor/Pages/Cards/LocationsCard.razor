@@ -1,0 +1,44 @@
+﻿@page "/LocationsCard/{Id}"
+@using Blazor.Data
+@using Entities.Models
+
+@inject DialogService DialogService
+@inject IItemLocationHandler _itemLocationHandler
+
+<RadzenCard Style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Location Details</h3>
+            <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
+                <Columns>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
+                    <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+</RadzenCard>
+
+@code {
+    private IList<ItemLocation> _itemLocations;
+
+    private ItemLocation SetupItem()
+    {
+        ItemLocation itemLocation = new ItemLocation();
+        itemLocation.Item = new Item();
+        itemLocation.Location = new Location();
+        itemLocation.Item.Id = Id;
+
+        return itemLocation;
+    }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async void OnInitialized()
+    {
+        _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(SetupItem());
+    }
+
+}

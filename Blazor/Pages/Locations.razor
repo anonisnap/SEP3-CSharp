@@ -1,26 +1,23 @@
-﻿@page "/Items"
+﻿@page "/Locations"
+@using Entities.Models
 @using Blazor.Data
 @using Blazor.Pages.Cards
-@using Entities.Models
 
 @inject IItemLocationHandler _itemLocationHandler
 @inject DialogService DialogService
 
-<h3>Items</h3>
-<h3>Den kan ikke vise locations for en item endnu - help</h3>
-
+<h3>Locations</h3>
 <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
     <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Location Description">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data.Item.Id)) Text="@data.Item.Id.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data.Location.Id)) Text="@data.Location.Description.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Locations"/>
     </Columns>
 </RadzenDataGrid>
 
@@ -29,14 +26,10 @@
     //Todo: Skal laves færdig, der skal vel noget itemlocation med
 
     private IList<ItemLocation> _itemLocations;
-    //private IList<Item> _registeredItems;
-
 
     protected override async Task OnInitializedAsync()
     {
         _itemLocations = await _itemLocationHandler.GetAllAsync();
-    //_registeredItems = await _itemsHandler.GetAllAsync();
-
 
         DialogService.OnOpen += Open;
         DialogService.OnClose += Close;
@@ -44,7 +37,7 @@
 
     async Task OpenItemLocations(int id)
     {
-        await DialogService.OpenAsync<LocationsCard>($"Item Id {id}",
+        await DialogService.OpenAsync<ItemsCard>($"Location Id {id}",
             new Dictionary<string, object>() {{"Id", id}},
             new DialogOptions() {Width = "700px", Height = "530px"});
     }
@@ -58,5 +51,4 @@
     {
         Console.WriteLine("Dialog closed");
     }
-
 }

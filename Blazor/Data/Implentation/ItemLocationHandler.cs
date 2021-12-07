@@ -16,11 +16,10 @@ namespace Blazor.Data
         {
             _itemLocationDataServerComm = itemLocationDataServerComm;
         }
-        
-        
+
+
         public async void CallBackBroardcast(object itemLocation)
         {
-            
         }
 
         public async Task<ItemLocation> RegisterAsync(ItemLocation itemLocation)
@@ -46,6 +45,16 @@ namespace Blazor.Data
         public async Task<ItemLocation> GetAsync(ItemLocation entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(ItemLocation itemLocation)
+        {
+            return await _itemLocationDataServerComm.GetAllByLocationIdAsync(itemLocation);
+        }
+
+        public async Task<IList<ItemLocation>> GetAllByItemIdAsync(ItemLocation itemLocation)
+        {
+            return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemLocation);
         }
     }
 }
