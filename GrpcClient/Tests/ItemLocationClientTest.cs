@@ -3,14 +3,15 @@ using GrpcClient.Clients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServerCommunication;
 using System.Threading.Tasks;
+using T1Contracts.ServerCommunicationInterfaces;
 
 
 namespace GrpcClient.Tests {
 	[TestClass]
 	public class ItemLocationClientTest {
 		private GRPCConnStr grpcConnStr = new ();
-		private IEntityManager<ItemLocation> _client;
-		private ItemLocation _testItemLocation1, _testItemLocation2;
+		private IItemLocationDataServerComm _client;
+		private ItemLocation _testItemLocation1, _testItemLocation2, _testItemLocation3;
 		private Item _i1, _i2;
 		private Location _l1, _l2;
 
@@ -30,12 +31,14 @@ namespace GrpcClient.Tests {
 
 			_testItemLocation1 = new( ) { Id = 0, Amount = 101, Item = _i1, Location = _l1 };
 			_testItemLocation2 = new( ) { Id = 0, Amount = 69, Item = _i2, Location = _l2 };
+			_testItemLocation3 = new( ) { Id = 0, Amount = 69, Item = _i1, Location = _l2 };
 		}
 
 		[TestCleanup]
 		public async Task TearDown( ) {
 			await _client.RemoveAsync(_testItemLocation1);
 			await _client.RemoveAsync(_testItemLocation2);
+			await _client.RemoveAsync(_testItemLocation3);
 			var cItem = new GrpcItemClient(grpcConnStr);
 			await cItem.RemoveAsync(_i1);
 			await cItem.RemoveAsync(_i2 );
@@ -106,6 +109,18 @@ namespace GrpcClient.Tests {
 
 			Assert.IsFalse(result.Contains(_testItemLocation1));
 			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
+		}
+		
+		[TestMethod("Get ItemLocations by item id")] 
+		public async Task GetByItemIdAsync( ) {
+			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
+			_testItemLocation3 = await _client.RegisterAsync(_testItemLocation3);
+			
+			var result = await _client.GetAllByItemIdAsync(_testItemLocation1);
+			
+			Assert.IsTrue(result.Contains(_testItemLocation1));
+			Assert.IsTrue(result.Contains(_testItemLocation3));
+			Assert.IsTrue(_testItemLocation1.Item.Id == _testItemLocation3.Item.Id );
 		}
 	}
 }
