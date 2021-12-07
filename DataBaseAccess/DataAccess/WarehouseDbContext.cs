@@ -15,9 +15,7 @@ namespace DataBaseAccess
             DbContextOptionsBuilder options = new DbContextOptionsBuilder();
             
             options.EnableSensitiveDataLogging();
-            // modelBuilder.Entity<ItemLocation>();
             modelBuilder.Entity<Location>().HasIndex(l => l.Description).IsUnique();
-            
         }
         
     }

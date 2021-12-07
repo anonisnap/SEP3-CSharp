@@ -6,6 +6,7 @@ namespace Entities.Models {
 		
 		[Required]
 		public Location Location { get; set; }
+		
 		[Required]
 		public Item Item { get; set; }
 
