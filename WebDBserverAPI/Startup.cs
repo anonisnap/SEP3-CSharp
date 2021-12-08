@@ -30,6 +30,7 @@ namespace WebDBserverAPI {
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
 			services.AddScoped<IItemLocationDataRepo, ItemLocationDataRepo>();
+			services.AddScoped<IOrderDataRepo, OrderDataRepo>();
 
 		}
 

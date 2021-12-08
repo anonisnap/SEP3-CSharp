@@ -16,9 +16,12 @@ namespace DataBaseAccess.DataRepos.Impl
         }
         
         
-        public async Task<Order> AddAsync(Order obj)
+        public async Task<Order> AddAsync(Order order)
         {
-            throw new System.NotImplementedException();
+            var entityEntry = await _warehouseDbContext.Orders.AddAsync(order);
+            await _warehouseDbContext.SaveChangesAsync( );
+
+            return entityEntry.Entity;
         }
 
         public async Task<Order> RemoveAsync(int id)
