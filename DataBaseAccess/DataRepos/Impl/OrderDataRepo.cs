@@ -23,7 +23,7 @@ namespace DataBaseAccess.DataRepos.Impl
 
         public async Task<Order> RemoveAsync(int id)
         {
-            
+            //Do we need to be able to remove orders? - Or just some sort of archive?
             throw new System.NotImplementedException();
         }
 

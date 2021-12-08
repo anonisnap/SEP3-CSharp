@@ -51,7 +51,7 @@ namespace WebDBserverAPI.Controllers {
 
 		[HttpPut]
 		public async Task<ActionResult> PutAsync([FromBody] ItemLocation entity) {
-			System.Console.WriteLine($"Attempting to put {entity} in Database");
+			Console.WriteLine($"Attempting to put {entity} in Database");
 			ItemLocation itemLocation = await _itemLocationRepo.AddAsync(entity);
 			return itemLocation != null ? Ok(itemLocation) : NotFound( );
 		}
