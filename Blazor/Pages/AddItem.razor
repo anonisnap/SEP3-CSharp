@@ -50,7 +50,7 @@ else
             <div class="row">
                 <div class="col-md-2 mb-5">
                     <h5>Amount</h5>
-                    <RadzenNumeric TValue="int" @bind-Value="_itemLocation.Amount"></RadzenNumeric>
+                    <RadzenNumeric TValue="int" @bind-Value="@_itemLocation.Amount"></RadzenNumeric>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5>Add to location</h5>
@@ -121,7 +121,6 @@ else
 
     public void Dispose()
     {
-    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
         DialogService.OnOpen -= Open;
         DialogService.OnClose -= CloseConfirmAdd;
     }

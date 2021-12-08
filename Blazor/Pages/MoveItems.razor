@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Item and location id</h5>
-                <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        FilterOperator="StringFilterOperator.Contains"
                                         AllowFiltering="true" AllowClear="true" Placeholder="Select"
                                         Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%">
                     <Columns>
@@ -27,11 +28,16 @@
                     </Columns>
                 </RadzenDropDownDataGrid>
             </div>
+            <div class="col-md-2 mb-5">
+                <h5>Amount</h5>
+                <RadzenNumeric TValue="int" Min="0" Max="maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-6 mb-5">
                 <h5>Registered Locations</h5>
-                <RadzenDropDownDataGrid PageSize="15" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains"
+                <RadzenDropDownDataGrid PageSize="15" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        FilterOperator="StringFilterOperator.Contains"
                                         AllowFiltering="true" AllowClear="true" Placeholder="Select"
                                         Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%">
                     <Columns>
@@ -58,6 +64,8 @@
     private ItemLocation _newItemLocation;
     private ItemLocation _oldItemLocation;
 
+    private int amount;
+    private int maxValue;
 
     protected override async Task OnInitializedAsync()
     {
@@ -77,22 +85,23 @@
     {
         Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
 
+    //hack slash amount
+        _newItemLocation.Amount = amount;
+        Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
+
         await _itemLocationHandler.UpdateAsync(_newItemLocation);
-
-
-    //_navigationManager.NavigateTo("/");
+        _navigationManager.NavigateTo("/Items");
     }
 
     void OnChange(object value, string name)
     {
-    //Kig i AddItem page for hvordan det er gjort der
-
         Console.WriteLine($"value is: {value}");
         Console.WriteLine($"name is: {name}");
 
         if (name.Equals("ItemLocation"))
         {
             _oldItemLocation = (ItemLocation) value;
+            maxValue = _oldItemLocation.Amount;
             Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
             Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
             Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
@@ -107,9 +116,12 @@
             Location location = (Location) value;
             _newItemLocation.Location = location;
         }
+        else if (name.Equals("amount"))
+        {
+            amount = (int) value;
+        }
     }
-
-
+    
     void CloseConfirmAdd(dynamic result)
     {
         if (result != null) // if the user hits the x near the top right null is returned
@@ -121,7 +133,6 @@
 
     public void Dispose()
     {
-    // The DialogService is a singleton so it is advisable to unsubscribe.??? den er scoped i startup 
         DialogService.OnOpen -= Open;
         DialogService.OnClose -= CloseConfirmAdd;
     }
