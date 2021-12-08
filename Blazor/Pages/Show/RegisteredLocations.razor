@@ -24,18 +24,21 @@ else
     <RadzenDataGrid Data="@_locations" TItem="Location" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
-                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
+                    ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="Location" Property="Id" Title="Location ID"/>
+            <RadzenDataGridColumn TItem="Location" Property="Id" Title="Location ID" SortOrder="SortOrder.Ascending"/>
             <RadzenDataGridColumn TItem="Location" Property="Description" Title="Description"/>
         </Columns>
     </RadzenDataGrid>
 }
 
 @code {
-
     private IList<Location> _locations;
 
+    private string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
+    private bool showPagerSummary = true;
+    
     protected override async Task OnInitializedAsync()
     {
         _locations = await _locationsHandler.GetAllAsync();

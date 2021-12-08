@@ -30,9 +30,10 @@ else
     <RadzenDataGrid Data="@_registeredItems" TItem="Item" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
-                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true" 
+                    ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="Item" Property="Id" Title="Item ID"/>
+            <RadzenDataGridColumn TItem="Item" Property="Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
             <RadzenDataGridColumn TItem="Item" Property="ItemName" Title="Item Name"/>
             <RadzenDataGridColumn TItem="Item" Property="Length" Title="Length"/>
             <RadzenDataGridColumn TItem="Item" Property="Width" Title="Width"/>
@@ -43,6 +44,10 @@ else
 }
 
 @code {
+    string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
+    bool showPagerSummary = true;
+    
+    
     private IList<Item> _registeredItems;
 
     protected override async Task OnInitializedAsync()

@@ -11,9 +11,10 @@
 <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
-                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
+                ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
     <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending">
             <Template Context="data">
                 <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenLocationWithItems(data)) Text="@data.Item.Id.ToString()"/>
             </Template>
@@ -28,6 +29,8 @@
     private IList<ItemLocation> _itemLocations;
     //private IList<Item> _registeredItems;
 
+    string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
+    bool showPagerSummary = true;
 
     protected override async Task OnInitializedAsync()
     {
