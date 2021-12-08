@@ -19,13 +19,13 @@ namespace GrpcClient.Clients {
 			_address = address.GrpcAddress;
 		}
 
-		private gLocation ConvertLocationToGLocation(Entities.Models.Location from) {
+		private gLocation ConvertLocationToGLocation(Location from) {
 			gLocation to = new( ) { Id = from.Id, Description = from.Description };
 			return to;
 		}
 
-		private Entities.Models.Location ConvertGLocationToLocation(gLocation from) {
-			Entities.Models.Location to = new( ) { Id = from.Id, Description = from.Description };
+		private Location ConvertGLocationToLocation(gLocation from) {
+			Location to = new( ) { Id = from.Id, Description = from.Description };
 			return to;
 		}
 		private void Connect( ) {
@@ -39,7 +39,7 @@ namespace GrpcClient.Clients {
 		}
 
 		// IEntityManager Override Methods
-		public async Task<Entities.Models.Location> RegisterAsync(Entities.Models.Location entity) {
+		public async Task<Location> RegisterAsync(Location entity) {
 			// Convert Location to gRPC Location
 			gLocation g = ConvertLocationToGLocation(entity);
 
@@ -53,13 +53,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Location to Location
-			Entities.Models.Location Location = ConvertGLocationToLocation(reply);
+			Location Location = ConvertGLocationToLocation(reply);
 
 			// Return Location to User
 			return Location;
 		}
 
-		public async Task<Entities.Models.Location> RemoveAsync(Entities.Models.Location entity) {
+		public async Task<Location> RemoveAsync(Location entity) {
 			// Convert Location to gRPC Location
 			gLocation g = ConvertLocationToGLocation(entity);
 
@@ -73,13 +73,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Location to Location
-			Entities.Models.Location Location = ConvertGLocationToLocation(reply);
+			Location Location = ConvertGLocationToLocation(reply);
 
 			// Return Location to User
 			return Location;
 		}
 
-		public async Task<Entities.Models.Location> UpdateAsync(Entities.Models.Location entity) {
+		public async Task<Location> UpdateAsync(Location entity) {
 			// Convert Location to gRPC Location
 			gLocation g = ConvertLocationToGLocation(entity);
 
@@ -93,13 +93,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Location to Location
-			Entities.Models.Location Location = ConvertGLocationToLocation(reply);
+			Location Location = ConvertGLocationToLocation(reply);
 
 			// Return Location to User
 			return Location;
 		}
 
-		public async Task<IList<Entities.Models.Location>> GetAllAsync( ) {
+		public async Task<IList<Location>> GetAllAsync( ) {
 			// Convert Location to gRPC Location | Here, it is specifically used as an Object Template for later
 			gLocation template = new( ) { };
 
@@ -114,7 +114,7 @@ namespace GrpcClient.Clients {
 
 			// Generate Lists to read from, and fill in
 			ICollection<gLocation> gLocations = reply.Location;
-			List<Entities.Models.Location> Locations = new( ) { };
+			List<Location> Locations = new( ) { };
 
 			// Loop Through Collection of gLocations
 			foreach (var g in gLocations) {
@@ -126,7 +126,7 @@ namespace GrpcClient.Clients {
 			return Locations;
 		}
 
-		public async Task<Entities.Models.Location> GetAsync(Entities.Models.Location entity) {
+		public async Task<Location> GetAsync(Location entity) {
 			// Convert Location to gRPC Location
 			gLocation g = ConvertLocationToGLocation(entity);
 

@@ -8,18 +8,3 @@
 <h3>CreateOrder</h3>
 
 
-
-@code {
-    private Order _order;
-    
-    protected override async Task OnInitializedAsync()
-    {
-        _order = new();
-    }
-
-    private async Task CreateNewOrder()
-    {
-        await _orderHandler.RegisterAsync(_order);
-        _navigationManager.NavigateTo("/Orders");
-    }
-}
