@@ -1,54 +1,47 @@
-﻿@page "/LocationsCard/{Id}"
+﻿@page "/LocationsCard/{itemLocation}"
 @using Blazor.Data
 @using Entities.Models
 
 @inject DialogService DialogService
 @inject IItemLocationHandler _itemLocationHandler
 
-<RadzenCard Style="margin-bottom: 20px;">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Location Details</h3>
-            <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                            Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
-                <Columns>
-                    <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
-                    <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
-                </Columns>
-            </RadzenDataGrid>
+@if (_itemLocations == null)
+{
+    <p>Loading...........</p>
+}
+else if (!_itemLocations.Any())
+{
+    <p>No Locations ;(</p>
+}
+else
+{
+    <RadzenCard Style="margin-bottom: 20px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Location Details</h3>
+                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
+                        <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
         </div>
-    </div>
-</RadzenCard>
+    </RadzenCard>
+}
 
 @code {
 
     [Parameter]
-    public int Id { get; set; }
-    
-    [Parameter]
     public ItemLocation itemLocation { get; set; }
-
-
+    
     private IList<ItemLocation> _itemLocations;
 
-    /*
-    private async ItemLocation SetupItemLocation()
-    {
-        ItemLocation itemLocation = new ()
-        {
-            Id = 1, Item =
-        }
-        itemLocation.Location = new Location();
-        
-        itemLocation.Item.Id = Id;
 
-        return itemLocation;
-    }
-    */
-
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        //_itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(SetupItemLocation());
+    _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(itemLocation);
     }
 
 }

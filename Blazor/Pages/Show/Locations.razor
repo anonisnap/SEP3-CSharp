@@ -14,7 +14,7 @@
     <Columns>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location Description">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data)) Text="@data.Location.Description.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemWithLocations(data)) Text="@data.Location.Description.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
@@ -23,8 +23,6 @@
 
 
 @code {
-    //Todo: Skal laves færdig, der skal vel noget itemlocation med
-
     private IList<ItemLocation> _itemLocations;
 
     protected override async Task OnInitializedAsync()
@@ -35,7 +33,7 @@
         DialogService.OnClose += Close;
     }
 
-    async Task OpenItemLocations(ItemLocation itemLocation)
+    async Task OpenItemWithLocations(ItemLocation itemLocation)
     {
         await DialogService.OpenAsync<ItemsCard>($"Location {itemLocation.Location.Description}",
             new Dictionary<string, object>() {{"ItemLocation", itemLocation}},

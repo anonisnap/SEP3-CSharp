@@ -16,18 +16,16 @@
     <Columns>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenItemLocations(data)) Text="@data.Item.Id.ToString()"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenLocationWithItems(data)) Text="@data.Item.Id.ToString()"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Id" Title="Locations"/>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Locations"/>
     </Columns>
 </RadzenDataGrid>
 
 
 @code {
-    //Todo: Skal laves færdig, der skal vel noget itemlocation med
-
     private IList<ItemLocation> _itemLocations;
     //private IList<Item> _registeredItems;
 
@@ -36,15 +34,15 @@
     {
         _itemLocations = await _itemLocationHandler.GetAllAsync();
     //_registeredItems = await _itemsHandler.GetAllAsync();
-
-
+        
         DialogService.OnOpen += Open;
         DialogService.OnClose += Close;
     }
 
-    async Task OpenItemLocations(ItemLocation itemLocation)
+    async Task OpenLocationWithItems(ItemLocation itemLocation)
     {
-        await DialogService.OpenAsync<LocationsCard>($"Item Id {itemLocation.Item.Id}",
+        await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {itemLocation.Item.ItemName}" +
+                                                     $"Item Id {itemLocation.Item.Id}",
             new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
             new DialogOptions() {Width = "700px", Height = "530px"});
     }
