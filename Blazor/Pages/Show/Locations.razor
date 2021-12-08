@@ -5,8 +5,9 @@
 
 @inject IItemLocationHandler _itemLocationHandler
 @inject DialogService DialogService
-<button>Tryk Her for reload!</button>
-<h3>Locations</h3>
+
+<h2>Locations</h2>
+
 <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
@@ -35,9 +36,9 @@
 
     async Task OpenItemWithLocations(ItemLocation itemLocation)
     {
-        await DialogService.OpenAsync<ItemsCard>($"Location {itemLocation.Location.Description}",
+        await DialogService.OpenAsync<ItemsCard>($"Location: {itemLocation.Location.Description}",
             new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
-            new DialogOptions() {Width = "700px", Height = "530px"});
+            new DialogOptions() {Width = "1000px", Height = "530px"});
     }
 
     void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)

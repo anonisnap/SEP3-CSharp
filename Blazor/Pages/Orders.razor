@@ -5,7 +5,7 @@
 @inject IOrderHandler _orderHandler
 @inject DialogService DialogService
 
-<h3>Orders</h3>
+<h2>Orders</h2>
 
 @if (_orders == null)
 {
@@ -31,14 +31,12 @@ else
     </RadzenDataGrid>
 }
 
-
-
 @code {
     private IList<Order> _orders;
 
     protected override async Task OnInitializedAsync()
     {
-        //_orders = await _orderHandler.GetAllAsync();
+        _orders = await _orderHandler.GetAllAsync();
     }
 
 }
