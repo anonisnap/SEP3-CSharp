@@ -1,0 +1,44 @@
+﻿@page "/Orders"
+@using Blazor.Data
+@using Entities.Models
+
+@inject IOrderHandler _orderHandler
+@inject DialogService DialogService
+
+<h3>Orders</h3>
+
+@if (_orders == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_orders.Any())
+{
+    <p>
+        <em>No registered locations exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <RadzenDataGrid Data="@_orders" TItem="Order" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    LogicalFilterOperator="LogicalFilterOperator.Or"
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+        <Columns>
+            <RadzenDataGridColumn TItem="Order" Property="OrderNumber" Title="Order Number"/>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+
+
+@code {
+    private IList<Order> _orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //_orders = await _orderHandler.GetAllAsync();
+    }
+
+}
