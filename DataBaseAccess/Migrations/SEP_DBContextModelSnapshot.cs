@@ -105,25 +105,54 @@ namespace DataBaseAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
+
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.Models.OrderEntry", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ItemId1")
                         .HasColumnType("integer");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                    b.HasKey("ItemId", "OrderId");
+                    b.HasIndex("ItemId1");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderEntries");
+                    b.ToTable("OrderEntry");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("OrderEntry");
+                });
+
+            modelBuilder.Entity("Entities.Models.OrderEntryDb", b =>
+                {
+                    b.HasBaseType("Entities.Models.OrderEntry");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("ItemId", "OrderId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("OrderEntryDb");
                 });
 
             modelBuilder.Entity("Entities.Models.ItemLocation", b =>
@@ -143,11 +172,19 @@ namespace DataBaseAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.OrderEntry", b =>
                 {
+                    b.HasOne("Entities.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.Order", null)
                         .WithMany("OrderEntries")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("Entities.Models.Order", b =>

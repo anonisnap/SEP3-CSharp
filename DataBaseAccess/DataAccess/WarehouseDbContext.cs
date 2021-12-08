@@ -11,7 +11,7 @@ namespace DataBaseAccess
         public DbSet<ItemLocation> ItemLocations { get; set; }
         
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderEntry> OrderEntries { get; set; }
+        public DbSet<OrderEntryDb> OrderEntriesDbs { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,9 +19,9 @@ namespace DataBaseAccess
             
             options.EnableSensitiveDataLogging();
             modelBuilder.Entity<Location>().HasIndex(l => l.Description).IsUnique();
-            
-            //modelBuilder.Entity<OrderEntry>().has
-            modelBuilder.Entity<OrderEntry>().HasKey(entry => new{entry.ItemId, entry.OrderId});
+
+            modelBuilder.Entity<Order>().HasIndex(order => order.OrderNumber).IsUnique();
+            modelBuilder.Entity<OrderEntryDb>().HasIndex(entry => new {entry.Id, entry.OrderId}).IsUnique();
         }
         
     }
