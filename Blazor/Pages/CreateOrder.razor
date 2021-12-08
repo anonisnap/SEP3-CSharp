@@ -1,0 +1,25 @@
+﻿@page "/CreateOrder"
+@using Blazor.Data
+@using Entities.Models
+
+@inject IOrderHandler _orderHandler
+@inject NavigationManager _navigationManager
+
+<h3>CreateOrder</h3>
+
+
+
+@code {
+    private Order _order;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _order = new();
+    }
+
+    private async Task CreateNewOrder()
+    {
+        await _orderHandler.RegisterAsync(_order);
+        _navigationManager.NavigateTo("/Orders");
+    }
+}
