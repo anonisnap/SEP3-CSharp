@@ -24,10 +24,14 @@ else
     <RadzenDataGrid Data="@_orders" TItem="Order" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
-                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true">
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
+                    ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="Order" Property="OrderNumber" Title="Order Number"/>
+            <RadzenDataGridColumn TItem="Order" Property="Id" Title="Order Number">
+                <Template Context="data">
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenLocationWithItems(data)) Text="@data.OrderNumber.ToString()"/>
+                </Template>
+            </RadzenDataGridColumn>
         </Columns>
     </RadzenDataGrid>
 }
-

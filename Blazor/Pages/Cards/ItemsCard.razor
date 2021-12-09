@@ -1,7 +1,6 @@
 ﻿@page "/ItemsCard/{itemLocation}"
 @using Blazor.Data
 @using Entities.Models
-@using System.Threading
 
 @inject DialogService DialogService
 @inject IItemLocationHandler _itemLocationHandler
@@ -20,7 +19,8 @@ else
         <div class="row">
             <div class="col-md-12">
                 <h3>Item Details</h3>
-                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" 
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
                     <Columns>
                         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
