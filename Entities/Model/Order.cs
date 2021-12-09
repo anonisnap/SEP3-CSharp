@@ -11,5 +11,7 @@ namespace Entities.Models
         public int OrderNumber { get; set; }
 
         public List<OrderEntry> OrderEntries { get; set; }
+        
+        public Location Location { get; set; }
     }
 }
