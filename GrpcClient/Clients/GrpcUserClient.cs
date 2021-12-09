@@ -17,13 +17,25 @@ namespace GrpcClient.Clients {
 		public GrpcUserClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
 		}
-		
-		public Task<User> LoginAsync(User user) {
-			throw new NotImplementedException( );
+
+		public async Task<User> LoginAsync(User user) {
+			Connect( );
+			UserDetails details = await _client.loginAsync(GetUserDetails(user) );
+			await Disconnect( );
+			return GetUser(details);
 		}
 
-		public Task Logout(User user) {
-			throw new NotImplementedException( );
+		public async Task Logout(User user) {
+			Connect( );
+			_ = await _client.logoutAsync(GetUserDetails(user));
+			await Disconnect( );
+		}
+
+		private UserDetails GetUserDetails(User user) {
+			return new( ) { Username = user.Username, Password = user.Password, Role = user.Role, SecurityLevel = user.SecurityLevel };
+		}
+		private User GetUser(UserDetails details) {
+			return new( ) { Username = details.Username, Password = details.Password, Role = details.Role, SecurityLevel = details.SecurityLevel };
 		}
 
 		private void Connect( ) {
