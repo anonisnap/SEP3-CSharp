@@ -6,16 +6,13 @@ option csharp_namespace = "myGrpc";
 package Protos;
 
 message UserDetails {
-  int32 id = 1;
-  string username = 2;
-  string password = 3;
-}
-
-message Confirmation {
-  bool confirmed = 1;
+  string Username = 1;
+  string Password = 2;
+  string Role = 3;
+  int32 SecurityLevel = 4;
 }
 
 service UserService {
-  rpc login (UserDetails) returns (Confirmation);
-  rpc logout (UserDetails) returns (Confirmation);
+  rpc login (UserDetails) returns (UserDetails);
+  rpc logout (UserDetails) returns (UserDetails);
 }

@@ -29,14 +29,4 @@
 		<Protobuf Include="Protos\UserService.proto" GrpcServices="Client" />
 	</ItemGroup>
 	
-	<ItemGroup>
-	  <Compile Remove="Tests\ItemClientTest.cs" />
-	  <Compile Remove="Tests\ItemLocationClientTest.cs" />
-	  <Compile Remove="Tests\LocationClientTest.cs" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Tests" />
-	</ItemGroup>
-	
 </Project>
