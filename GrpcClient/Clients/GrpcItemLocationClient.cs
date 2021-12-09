@@ -39,7 +39,7 @@ namespace GrpcClient.Clients {
 			return itemLocation;
 		}
 
-		public async Task<ItemLocation> RemoveAsync(int id) {
+		public async Task<bool> RemoveAsync(int id) {
 			// Convert Item to gRPC Item
 			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
 
@@ -51,12 +51,8 @@ namespace GrpcClient.Clients {
 
 			// Disconnect from Server
 			await Disconnect( );
-
-			// Convert returned gRPC Item to Item
-			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
-
-			// Return Item to User
-			return itemLocation;
+			
+			return reply.Value;
 		}
 
 		public async Task<ItemLocation> UpdateAsync(ItemLocation entity) {

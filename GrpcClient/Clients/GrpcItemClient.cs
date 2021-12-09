@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using myGrpc;
+using Protos;
 using T1Contracts.ServerCommunicationInterfaces;
 using Item = Entities.Models.Item;
 
@@ -36,7 +37,7 @@ namespace GrpcClient.Clients {
 			return item;
 		}
 
-		public async Task<Item> RemoveAsync(int id) {
+		public async Task<bool> RemoveAsync(int id) {
 			// Convert Item to gRPC Item
 			gItemId g = new gItemId {ItemId = id};
 
@@ -50,7 +51,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Item item = ConvertGItemToItem(reply);
+			bool item = reply.Value;
 
 			// Return Item to User
 			return item;

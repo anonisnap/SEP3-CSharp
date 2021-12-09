@@ -26,7 +26,7 @@ namespace Blazor.Data
             return await _locationDataServerComm.RegisterAsync(location);
         }
 
-        public Task<Location> RemoveAsync(int location)
+        public Task<bool> RemoveAsync(int location)
         {
             throw new System.NotImplementedException();
         }

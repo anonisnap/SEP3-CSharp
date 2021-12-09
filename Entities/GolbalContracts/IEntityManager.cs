@@ -7,7 +7,7 @@ namespace ServerCommunication
     {
         Task<TEntity> RegisterAsync(TEntity entity);
         
-        Task<TEntity> RemoveAsync(int entityId);
+        Task<bool> RemoveAsync(int entityId);
 
         Task<TEntity> UpdateAsync(TEntity entity);
 

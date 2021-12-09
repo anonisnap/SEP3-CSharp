@@ -19,7 +19,7 @@ namespace Blazor.Data
             return await _orderDataServerComm.RegisterAsync(order);
         }
 
-        public Task<Order> RemoveAsync(int order)
+        public Task<bool> RemoveAsync(int order)
         {
             throw new System.NotImplementedException();
         }

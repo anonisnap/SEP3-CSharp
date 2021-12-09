@@ -1,9 +1,11 @@
 syntax = "proto3";
 
-import "Protos/ItemService.proto";
-import "Protos/LocationService.proto";
+import "protos/ItemService.proto";
+import "protos/LocationService.proto";
+import "protos/ProtoUtil.proto";
 
-option java_package = "grpc.protos";
+
+option java_package = "protos";
 option csharp_namespace = "myGrpc";
 
 package Protos;
@@ -24,16 +26,14 @@ message gItemLocationId{
 }
 
 
-
 service ItemLocationService{
 
   rpc RegisterItemLocation(gItemLocation) returns (gItemLocation);
   rpc GetItemLocation(gItemLocationId) returns (gItemLocation);
   rpc GetAllItemLocations(gItemLocation) returns (gItemLocationList);
   rpc UpdateItemLocation(gItemLocation) returns (gItemLocation);
-  rpc RemoveItemLocation(gItemLocationId) returns (gItemLocation);
+  rpc RemoveItemLocation(gItemLocationId) returns (gBoolValue);
   rpc GetByItemId(gItemId) returns (gItemLocationList);
   rpc GetByLocationId(gLocationId) returns (gItemLocationList);
-
 }
 

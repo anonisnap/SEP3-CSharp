@@ -1,6 +1,7 @@
 syntax = "proto3";
+import "protos/ProtoUtil.proto";
 
-option java_package = "grpc.protos";
+option java_package = "protos";
 option csharp_namespace = "myGrpc";
 
 package Protos;
@@ -22,10 +23,11 @@ message gItemId{
   int32 ItemId = 1;
 }
 
+
 service ItemService {
   rpc RegisterItem(gItem) returns (gItem);
   rpc GetItem(gItemId) returns (gItem);
   rpc GetAllItems(gItem) returns (gItemList);
   rpc UpdateItem(gItem) returns (gItem);
-  rpc RemoveItem(gItemId) returns (gItem);
+  rpc RemoveItem(gItemId) returns (gBoolValue);
 }
