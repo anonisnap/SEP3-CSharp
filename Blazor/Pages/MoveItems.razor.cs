@@ -36,15 +36,23 @@ namespace Blazor.Pages
 
         private async Task Save()
         {
-            Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
-
             //hack slash amount
             _newItemLocation.Amount = _amount;
-            Console.WriteLine($"-----------------Printing Location: /n {_newItemLocation}-------------------------");
 
             await _itemLocationHandler.UpdateAsync(_newItemLocation);
             _navigationManager.NavigateTo("/Items");
         }
+        
+        private async Task Remove()
+        {
+            _newItemLocation.Location.Id = 1;
+            _newItemLocation.Location.Description = "Trashed";
+            Console.WriteLine(_newItemLocation);
+            await _itemLocationHandler.UpdateAsync(_newItemLocation);
+            _navigationManager.NavigateTo("/Items");
+        }
+        
+        
 
         void OnChange(object value, string name)
         {
