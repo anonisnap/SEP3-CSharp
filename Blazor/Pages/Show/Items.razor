@@ -1,6 +1,5 @@
 ﻿@page "/Items"
 @using Blazor.Data
-@using Blazor.Pages.Cards
 @using Entities.Models
 
 @inject IItemLocationHandler _itemLocationHandler
@@ -23,40 +22,3 @@
         <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Locations"/>
     </Columns>
 </RadzenDataGrid>
-
-
-@code {
-    private IList<ItemLocation> _itemLocations;
-    //private IList<Item> _registeredItems;
-
-    string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
-    bool showPagerSummary = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _itemLocations = await _itemLocationHandler.GetAllAsync();
-    //_registeredItems = await _itemsHandler.GetAllAsync();
-        
-        DialogService.OnOpen += Open;
-        DialogService.OnClose += Close;
-    }
-
-    async Task OpenLocationWithItems(ItemLocation itemLocation)
-    {
-        await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {itemLocation.Item.ItemName}" +
-                                                     $"Item Id {itemLocation.Item.Id}",
-            new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
-            new DialogOptions() {Width = "700px", Height = "530px"});
-    }
-
-    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
-    {
-        Console.WriteLine("Dialog Opened");
-    }
-
-    void Close(dynamic result)
-    {
-        Console.WriteLine("Dialog closed");
-    }
-
-}

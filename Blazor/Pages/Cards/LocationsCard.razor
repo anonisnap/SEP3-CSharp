@@ -19,7 +19,8 @@ else
         <div class="row">
             <div class="col-md-12">
                 <h3>Location Details</h3>
-                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" 
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
                     <Columns>
                         <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location"/>
@@ -29,19 +30,4 @@ else
             </div>
         </div>
     </RadzenCard>
-}
-
-@code {
-
-    [Parameter]
-    public ItemLocation itemLocation { get; set; }
-    
-    private IList<ItemLocation> _itemLocations;
-
-
-    protected override async Task OnInitializedAsync()
-    {
-    _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(itemLocation);
-    }
-
 }

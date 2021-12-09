@@ -38,5 +38,11 @@ namespace Blazor.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<IList<Order>> GetAllByOrderIdAsync(Order order)
+        {
+            return await _orderDataServerComm.GetAllByOrderIdAsync(order);
+        }
+        
     }
 }

@@ -1,6 +1,33 @@
 ﻿@page "/OrderCard"
+@using Entities.Models
+@using Blazor.Data
 
+@inject DialogService DialogService
+@inject IOrderHandler _orderHandler
 
-@code {
-    
+@if (_orders == null)
+{
+    <p>Loading...........</p>
+}
+else if (!_orders.Any())
+{
+    <p>No Locations ;(</p>
+}
+else
+{
+    <RadzenCard Style="margin-bottom: 20px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Order Details</h3>
+                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                Data="@_orders" TItem="Order" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Item.ItemName" Title="Item Name"/>
+                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.OrderId" Title="Order Id"/>
+                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Amount" Title="Amount"/>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </RadzenCard>
 }
