@@ -21,7 +21,7 @@ namespace WebDBserverAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> ValidateUser([FromBody] User userInfo)
+        public async Task<ActionResult<User>> Login([FromBody] User userInfo)
         {
             try
             {
