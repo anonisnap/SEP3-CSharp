@@ -1,4 +1,5 @@
 ﻿@page "/MoveItems"
+@attribute [Authorize(Policy = "SecurityLevel1")]
 @using Blazor.Data
 @using Entities.Models
 
@@ -10,54 +11,70 @@
 
 <h2>Move Items to a new Location </h2>
 <p></p>
-<div class="row">
-    <div class="col-xl-10">
-        <div class="row">
-            <div class="col-xl-6 mb-5">
-                <h5>Item and location id</h5>
-                <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                        FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="false" Placeholder="Select"
-                                        Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%"
-                                        AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
-                    <Columns>
-                        <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
-                        <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
-                        <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
-                        <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
-                    </Columns>
-                </RadzenDropDownDataGrid>
-            </div>
-            <div class="col-md-2 mb-5">
-                <h5>Amount</h5>
-                <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 mb-5">
-                <h5>Registered Locations</h5>
-                <RadzenDropDownDataGrid PageSize="10" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                        FilterOperator="StringFilterOperator.Contains"
-                                        AllowFiltering="true" AllowClear="true" Placeholder="Select"
-                                        Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%"
-                                        ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
-                    <Columns>
-                        <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
-                        <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
-                    </Columns>
-                </RadzenDropDownDataGrid>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <h5>Add to location</h5>
-                <RadzenButton Icon="save" Text="Save" Click="@Save"/>
-            </div>
-            <div class="col-md-2">
-                <h5>Remove</h5>
-                <RadzenButton Icon="delete" Text="Save" Click="@Remove"/>
-            </div>
-        </div>
 
+@if (_itemLocations == null || _itemLocations == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_itemLocations.Any() || !_itemLocations.Any())
+{
+    <p>
+        <em>No registered locations exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <div class="row">
+        <div class="col-xl-10">
+            <div class="row">
+                <div class="col-xl-6 mb-5">
+                    <h5>Item and location id</h5>
+                    <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            FilterOperator="StringFilterOperator.Contains"
+                                            AllowFiltering="true" AllowClear="false" Placeholder="Select"
+                                            Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%"
+                                            AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
+                            <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
+                            <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
+                            <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                </div>
+                <div class="col-md-2 mb-5">
+                    <h5>Amount</h5>
+                    <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 mb-5">
+                    <h5>Registered Locations</h5>
+                    <RadzenDropDownDataGrid PageSize="10" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            FilterOperator="StringFilterOperator.Contains"
+                                            AllowFiltering="true" AllowClear="true" Placeholder="Select"
+                                            Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%"
+                                            ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
+                            <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h5>Add to location</h5>
+                    <RadzenButton Icon="save" Text="Save" Click="@Save"/>
+                </div>
+                <div class="col-md-2">
+                    <h5>Remove</h5>
+                    <RadzenButton Icon="delete" Text="Save" Click="@Remove"/>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+}

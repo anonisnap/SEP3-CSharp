@@ -1,4 +1,5 @@
 ﻿@page "/OrderCard"
+@attribute [Authorize(Policy = "SecurityLevel1")]
 @using Entities.Models
 @using Blazor.Data
 

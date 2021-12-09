@@ -1,4 +1,5 @@
 ﻿@page "/LocationsCard/{itemLocation}"
+@attribute [Authorize(Policy = "SecurityLevel1")]
 @using Blazor.Data
 @using Entities.Models
 

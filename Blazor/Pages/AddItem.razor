@@ -1,4 +1,5 @@
 ﻿@page "/AddItem"
+@attribute [Authorize(Policy = "SecurityLevel1")]
 @using Entities.Models
 @using Blazor.Data
 
@@ -9,13 +10,18 @@
 
 @inject DialogService DialogService
 
-
 <h2>Add an Item to a Location</h2>
 <p></p>
-@if (_locations == null)
+@if (_locations == null || _items == null)
 {
     <p>
         <em>Loading...</em>
+    </p>
+}
+else if (!_locations.Any() || !_items.Any())
+{
+    <p>
+        <em>No registered locations exist. Please add some.</em>
     </p>
 }
 else

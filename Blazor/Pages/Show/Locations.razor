@@ -1,4 +1,5 @@
 ﻿@page "/Locations"
+@attribute [Authorize(Policy = "SecurityLevel1")]
 @using Entities.Models
 @using Blazor.Data
 @using Blazor.Pages.Cards
@@ -8,19 +9,34 @@
 
 <h2>Locations</h2>
 
-<RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
-                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                LogicalFilterOperator="LogicalFilterOperator.Or"
-                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
-                ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
-    <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
-            <Template Context="data">
-                <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
-                              Click="@(() => OpenItemWithLocations(data))" @onclick:stopPropagation="true"/>
-            </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
-    </Columns>
-</RadzenDataGrid>
+@if (_itemLocations == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!_itemLocations.Any())
+{
+    <p>
+        <em>No registered locations exist. Please add some.</em>
+    </p>
+}
+else
+{
+    <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    LogicalFilterOperator="LogicalFilterOperator.Or"
+                    AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
+                    ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
+        <Columns>
+            <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                <Template Context="data">
+                    <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
+                                  Click="@(() => OpenItemWithLocations(data))" @onclick:stopPropagation="true"/>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
+            <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
+        </Columns>
+    </RadzenDataGrid>
+}

@@ -1,4 +1,6 @@
 ﻿@page "/RegisterItem"
+@attribute [Authorize(Policy = "SecurityLevel2")]
+
 @using Blazor.Data
 @using Entities.Models
 
