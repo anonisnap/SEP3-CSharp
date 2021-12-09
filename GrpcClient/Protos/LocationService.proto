@@ -1,6 +1,7 @@
 syntax = "proto3";
+import "protos/ProtoUtil.proto";
 
-option java_package = "grpc.protos";
+option java_package = "protos";
 option csharp_namespace = "myGrpc";
 
 package Protos;
@@ -17,13 +18,14 @@ message gLocationList{
 
 message gLocationId{
   int32 LocationId = 1;
-  
+
 }
+
 
 service LocationService{
   rpc RegisterLocation(gLocation) returns (gLocation);
   rpc GetLocation(gLocationId) returns (gLocation);
   rpc GetAllLocations(gLocation) returns (gLocationList);
   rpc UpdateLocation(gLocation) returns (gLocation);
-  rpc RemoveLocation(gLocationId) returns (gLocation);
+  rpc RemoveLocation(gLocationId) returns (gBoolValue);
 }

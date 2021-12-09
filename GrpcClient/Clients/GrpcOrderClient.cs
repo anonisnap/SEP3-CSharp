@@ -21,7 +21,7 @@ namespace GrpcClient.Clients
             throw new System.NotImplementedException();
         }
 
-        public Task<Order> RemoveAsync(int entity)
+        public Task<bool> RemoveAsync(int entity)
         {
             throw new System.NotImplementedException();
         }

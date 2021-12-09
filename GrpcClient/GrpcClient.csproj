@@ -27,6 +27,7 @@
 		<Protobuf Include="Protos\ItemLocationService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\OrderService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\UserService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\ProtoUtil.proto" GrpcServices="Client" />
 	</ItemGroup>
 	
 </Project>

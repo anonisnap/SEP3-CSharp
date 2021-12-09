@@ -25,7 +25,7 @@ namespace Blazor.Data {
 			return await _itemDataServerComm.RegisterAsync(item);
 		}
 
-		public Task<Item> RemoveAsync(int item)
+		public Task<bool> RemoveAsync(int item)
 		{
 			throw new NotImplementedException();
 		}
