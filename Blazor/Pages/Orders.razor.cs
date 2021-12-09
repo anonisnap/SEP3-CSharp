@@ -13,6 +13,7 @@ namespace Blazor.Pages
 
         string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
         bool showPagerSummary = true;
+
         protected override async Task OnInitializedAsync()
         {
             _orders = await _orderHandler.GetAllAsync();
@@ -23,9 +24,13 @@ namespace Blazor.Pages
 
         async Task OpenLocationWithItems(Order order)
         {
-            await DialogService.OpenAsync<LocationsCard>($"\nOrder number: {order.OrderNumber}", 
-            new Dictionary<string, object>() {{"Order", order}},
-                new DialogOptions() {Width = "700px", Height = "530px"});
+            await DialogService.OpenAsync<LocationsCard>($"\nOrder number: {order.OrderNumber}",
+                new Dictionary<string, object>() {{"Order", order}},
+                new DialogOptions()
+                {
+                    Width = "700px", Height = "530px",
+                    CloseDialogOnOverlayClick = true, Resizable = true
+                });
         }
 
         void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)

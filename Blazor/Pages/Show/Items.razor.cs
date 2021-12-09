@@ -19,7 +19,7 @@ namespace Blazor.Pages.Show
         protected override async Task OnInitializedAsync()
         {
             _itemLocations = await _itemLocationHandler.GetAllAsync();
-        
+
             DialogService.OnOpen += Open;
             DialogService.OnClose += Close;
         }
@@ -29,7 +29,11 @@ namespace Blazor.Pages.Show
             await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {itemLocation.Item.ItemName}" +
                                                          $"Item Id {itemLocation.Item.Id}",
                 new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
-                new DialogOptions() {Width = "700px", Height = "530px"});
+                new DialogOptions()
+                {
+                    Width = "700px", Height = "530px",
+                    CloseDialogOnOverlayClick = true, Resizable = true
+                });
         }
 
         void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
