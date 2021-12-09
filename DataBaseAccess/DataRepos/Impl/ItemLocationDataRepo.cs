@@ -18,7 +18,8 @@ namespace DataBaseAccess.DataRepos.Impl {
 			//ItemLocation itemLocation = await GenerateItemLocationAsync(obj);
 			Item objItem = await _warehouseDbContext.Items.FindAsync(itemLocation.Item.Id);
 			Location objLocation = await _warehouseDbContext.Locations.FindAsync(itemLocation.Location.Id);
-
+			//todo: maybe not here ?
+			itemLocation.Id = 0;
 			itemLocation.Item = objItem;
 			itemLocation.Location = objLocation;
 			EntityEntry<ItemLocation> entity = await _warehouseDbContext.ItemLocations.AddAsync(itemLocation);
@@ -47,10 +48,11 @@ namespace DataBaseAccess.DataRepos.Impl {
 			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
+				
 				.ToListAsync( );
-			//IList<ItemLocation> result = new List<ItemLocation>( );
-			//entity.ForEach(x => result.Add(x.GetItemLocation( )));
-
+			
+			
+			
 			return entity;
 		}
 

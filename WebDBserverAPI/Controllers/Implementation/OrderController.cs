@@ -32,8 +32,9 @@ namespace WebDBserverAPI.Controllers
             return orders != null ? Ok(orders) : NotFound();
         }
         
-        [HttpPut]
-        public async Task<ActionResult> PutAsync([FromBody] Order entity)
+        [HttpPost]
+        [Route("add")]
+        public async Task<ActionResult> PostAddAsync([FromBody] Order entity)
         {
             Console.WriteLine($"Attempting to put {entity} in Database");
             Order order = await _orderDataRepo.AddAsync(entity);
@@ -48,9 +49,10 @@ namespace WebDBserverAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] Order entity)
+        [Route("update")]
+        public async Task<ActionResult> PostUpdateAsync([FromBody] Order entity)
         {
-            return entity.Id == 0 ? Ok(await _orderDataRepo.AddAsync(entity)) : Ok(await _orderDataRepo.UpdateAsync(entity));
+            return Ok(await _orderDataRepo.UpdateAsync(entity));
         }
     }
 }

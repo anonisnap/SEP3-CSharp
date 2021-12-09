@@ -49,8 +49,9 @@ namespace WebDBserverAPI.Controllers {
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 
-		[HttpPut]
-		public async Task<ActionResult> PutAsync([FromBody] ItemLocation entity) {
+		[HttpPost]
+		[Route("add")]
+		public async Task<ActionResult> PostAddAsync([FromBody] ItemLocation entity) {
 			Console.WriteLine($"Attempting to put {entity} in Database");
 			ItemLocation itemLocation = await _itemLocationRepo.AddAsync(entity);
 			return itemLocation != null ? Ok(itemLocation) : NotFound( );
@@ -64,8 +65,9 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostAsync([FromBody] ItemLocation entity) {
-			return entity.Id == 0 ? Ok(await _itemLocationRepo.AddAsync(entity)) : Ok(await _itemLocationRepo.UpdateAsync(entity));
+		[Route("update")]
+		public async Task<ActionResult> PostUpdateAsync([FromBody] ItemLocation entity) {
+			return Ok(await _itemLocationRepo.UpdateAsync(entity));
 		}
 	}
 }

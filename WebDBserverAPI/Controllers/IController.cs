@@ -10,10 +10,10 @@ namespace WebDBserverAPI.Controllers
 
         Task<ActionResult<IList<TEntity>>> GetAllAsync();
         
-        Task<ActionResult> PutAsync(TEntity entity);
+        Task<ActionResult> PostAddAsync(TEntity entity);
         
         Task<ActionResult<TEntity>> DeleteAsync(int entityId);
         
-        Task<ActionResult> PostAsync(TEntity entity);
+        Task<ActionResult> PostUpdateAsync(TEntity entity);
     }
 }

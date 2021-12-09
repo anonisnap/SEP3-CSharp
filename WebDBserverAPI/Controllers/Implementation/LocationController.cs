@@ -31,8 +31,9 @@ namespace WebDBserverAPI.Controllers {
 			return locations != null ? Ok(locations) : NotFound( );
 		}
 
-		[HttpPut]
-		public async Task<ActionResult> PutAsync(Location location) {
+		[HttpPost]
+		[Route("add")]
+		public async Task<ActionResult> PostAddAsync(Location location) {
 			await _locationRepo.AddAsync(location);
 
 			return Created($"/Location/{location.Id}", location);
@@ -48,9 +49,10 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostAsync(Location location) {
+		[Route("update")]
+		public async Task<ActionResult> PostUpdateAsync(Location location) {
 			try {
-				return location.Id == 0 ? Ok(await _locationRepo.AddAsync(location)) : Ok(await _locationRepo.UpdateAsync(location));
+				return  Ok(await _locationRepo.UpdateAsync(location));
 			} catch (Exception e) {
 				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);

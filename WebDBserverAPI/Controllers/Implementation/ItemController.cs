@@ -33,16 +33,16 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 
-		[HttpPut]
-		public async Task<ActionResult> PutAsync([FromBody] Item item) {
-			
+		[HttpPost]
+		[Route("add")]
+		public async Task<ActionResult> PostAddAsync([FromBody] Item item) {
 			Console.WriteLine("enter put "+Thread.CurrentThread.Name);
 			Console.WriteLine("Putcalled called for item " + item.ItemName + " " + item.Id);
 			Item itemAdded = await _itemRepo.AddAsync(item);
 			Console.WriteLine("Before return "+Thread.CurrentThread.Name);
 			return Created($"/Item/{item.Id}", itemAdded);
 		}
-
+		
 		[HttpDelete]
 		[Route("{itemId:int}")]
 		public async Task<ActionResult<Item>> DeleteAsync([FromRoute] int itemId) {
@@ -52,12 +52,10 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostAsync([FromBody] Item item) {
+		[Route("update")]
+		public async Task<ActionResult> PostUpdateAsync([FromBody] Item item) {
 			try {
-				
-				return item.Id == 0 ? Ok(await _itemRepo.AddAsync(item)) : Ok(await _itemRepo.UpdateAsync(item));
-				//await _itemRepo.UpdateAsync(item);
-				//return Ok(item);
+				return Ok(await _itemRepo.UpdateAsync(item));
 			} catch (Exception e) {
 				// Sander siger denne linje som optages af en Kommentar er en Kunstnerisk T�nkepause
 				return StatusCode(500, e.Message);

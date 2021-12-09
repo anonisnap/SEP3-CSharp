@@ -32,11 +32,13 @@ namespace Blazor
             services.AddScoped<IItemHandler, ItemHandler>();
             services.AddScoped<ILocationHandler, LocationHandler>();
             services.AddScoped<IItemLocationHandler, ItemLocationHandler>();
+            services.AddScoped<IOrderHandler, OrderHandler>();
 
             services.AddScoped<GRPCConnStr>();
             services.AddScoped<IItemDataServerComm, GrpcItemClient>();
             services.AddScoped<ILocationDataServerComm, GrpcLocationClient>();
             services.AddScoped<IItemLocationDataServerComm, GrpcItemLocationClient>();
+            services.AddScoped<IOrderDataServerComm, GrpcOrderClient>();
           
             services.AddScoped<DialogService>();
         }
