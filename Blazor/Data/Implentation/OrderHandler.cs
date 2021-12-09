@@ -19,7 +19,7 @@ namespace Blazor.Data
             return await _orderDataServerComm.RegisterAsync(order);
         }
 
-        public Task<Order> RemoveAsync(Order order)
+        public Task<Order> RemoveAsync(int order)
         {
             throw new System.NotImplementedException();
         }
@@ -34,7 +34,7 @@ namespace Blazor.Data
             return await _orderDataServerComm.GetAllAsync();
         }
 
-        public Task<Order> GetAsync(Order order)
+        public Task<Order> GetAsync(int order)
         {
             throw new System.NotImplementedException();
         }

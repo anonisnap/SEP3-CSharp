@@ -7,7 +7,7 @@ namespace Blazor.Data
 {
     public interface IItemLocationHandler : IEntityManager<ItemLocation>
     {
-        Task<IList<ItemLocation>> GetAllByLocationIdAsync(ItemLocation itemLocation);
-        Task<IList<ItemLocation>> GetAllByItemIdAsync(ItemLocation itemLocation);
+        Task<IList<ItemLocation>> GetAllByLocationIdAsync(int locationId);
+        Task<IList<ItemLocation>> GetAllByItemIdAsync(int itemId);
     }
 }

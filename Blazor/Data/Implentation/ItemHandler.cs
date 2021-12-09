@@ -25,7 +25,7 @@ namespace Blazor.Data {
 			return await _itemDataServerComm.RegisterAsync(item);
 		}
 
-		public Task<Item> RemoveAsync(Item item)
+		public Task<Item> RemoveAsync(int item)
 		{
 			throw new NotImplementedException();
 		}
@@ -40,7 +40,7 @@ namespace Blazor.Data {
 			return await _itemDataServerComm.GetAllAsync();
 		}
 
-		public async Task<Item> GetAsync(Item item)
+		public async Task<Item> GetAsync(int item)
 		{
 			return await _itemDataServerComm.GetAsync(item);
 		}

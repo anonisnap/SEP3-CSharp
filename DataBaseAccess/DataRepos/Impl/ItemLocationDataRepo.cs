@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -44,14 +46,12 @@ namespace DataBaseAccess.DataRepos.Impl {
 			return entity.Entity;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllAsync( ) {
-			List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+		public async Task<IList<ItemLocation>> GetAllAsync( )
+		{
+			IList<ItemLocation> entity = await _warehouseDbContext.ItemLocations
 				.Include(x => x.Item)
 				.Include(x => x.Location)
-				
-				.ToListAsync( );
-			
-			
+				.ToListAsync();
 			
 			return entity;
 		}

@@ -18,11 +18,15 @@ message gItemList {
   repeated gItem item = 1;
 }
 
+message gItemId{
+  int32 ItemId = 1;
+  
+}
 
 service ItemService {
   rpc RegisterItem(gItem) returns (gItem);
-  rpc GetItem(gItem) returns (gItem);
+  rpc GetItem(gItemId) returns (gItem);
   rpc GetAllItems(gItem) returns (gItemList);
   rpc UpdateItem(gItem) returns (gItem);
-  rpc RemoveItem(gItem) returns (gItem);
+  rpc RemoveItem(gItemId) returns (gItem);
 }

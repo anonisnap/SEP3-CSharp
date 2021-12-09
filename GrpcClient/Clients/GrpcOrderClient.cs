@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
@@ -9,10 +10,11 @@ namespace GrpcClient.Clients
     {
         public Task<Order> RegisterAsync(Order entity)
         {
+            
             throw new System.NotImplementedException();
         }
 
-        public Task<Order> RemoveAsync(Order entity)
+        public Task<Order> RemoveAsync(int entity)
         {
             throw new System.NotImplementedException();
         }
@@ -27,7 +29,12 @@ namespace GrpcClient.Clients
             throw new System.NotImplementedException();
         }
 
-        public Task<Order> GetAsync(Order entity)
+        public Task<Order> GetAsync(int entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IList<Order>> GetAllByOrderIdAsync(Order order)
         {
             throw new System.NotImplementedException();
         }

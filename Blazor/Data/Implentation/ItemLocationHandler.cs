@@ -27,7 +27,7 @@ namespace Blazor.Data
             return await _itemLocationDataServerComm.RegisterAsync(itemLocation);
         }
 
-        public Task<ItemLocation> RemoveAsync(ItemLocation entity)
+        public Task<ItemLocation> RemoveAsync(int entity)
         {
             throw new NotImplementedException();
         }
@@ -42,19 +42,19 @@ namespace Blazor.Data
             return await _itemLocationDataServerComm.GetAllAsync();
         }
 
-        public async Task<ItemLocation> GetAsync(ItemLocation entity)
+        public async Task<ItemLocation> GetAsync(int entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(ItemLocation itemLocation)
+        public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(int locationId)
         {
-            return await _itemLocationDataServerComm.GetAllByLocationIdAsync(itemLocation);
+            return await _itemLocationDataServerComm.GetAllByLocationIdAsync(locationId);
         }
 
-        public async Task<IList<ItemLocation>> GetAllByItemIdAsync(ItemLocation itemLocation)
+        public async Task<IList<ItemLocation>> GetAllByItemIdAsync(int itemId)
         {
-            return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemLocation);
+            return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemId);
         }
     }
 }

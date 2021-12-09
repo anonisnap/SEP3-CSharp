@@ -7,12 +7,12 @@ namespace ServerCommunication
     {
         Task<TEntity> RegisterAsync(TEntity entity);
         
-        Task<TEntity> RemoveAsync(TEntity entity);
+        Task<TEntity> RemoveAsync(int entityId);
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
         Task<IList<TEntity>> GetAllAsync();
 
-        Task<TEntity> GetAsync(TEntity entity);
+        Task<TEntity> GetAsync(int entityId);
     }
 }

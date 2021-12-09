@@ -19,16 +19,21 @@ message gItemLocationList{
   repeated gItemLocation itemLocations = 1;
 }
 
+message gItemLocationId{
+  int32 ItemLocationId = 1;
+}
+
+
 
 service ItemLocationService{
 
   rpc RegisterItemLocation(gItemLocation) returns (gItemLocation);
-  rpc GetItemLocation(gItemLocation) returns (gItemLocation);
+  rpc GetItemLocation(gItemLocationId) returns (gItemLocation);
   rpc GetAllItemLocations(gItemLocation) returns (gItemLocationList);
   rpc UpdateItemLocation(gItemLocation) returns (gItemLocation);
-  rpc RemoveItemLocation(gItemLocation) returns (gItemLocation);
-  rpc GetByItemId(gItemLocation) returns (gItemLocationList);
-  rpc GetByLocationId(gItemLocation) returns (gItemLocationList);
+  rpc RemoveItemLocation(gItemLocationId) returns (gItemLocation);
+  rpc GetByItemId(gItemId) returns (gItemLocationList);
+  rpc GetByLocationId(gLocationId) returns (gItemLocationList);
 
 }
 

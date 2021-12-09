@@ -39,9 +39,9 @@ namespace GrpcClient.Clients {
 			return itemLocation;
 		}
 
-		public async Task<ItemLocation> RemoveAsync(ItemLocation entity) {
+		public async Task<ItemLocation> RemoveAsync(int id) {
 			// Convert Item to gRPC Item
-			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
+			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
 
 			// Create Connection Point
 			Connect( );
@@ -106,9 +106,9 @@ namespace GrpcClient.Clients {
 			return items;
 		}
 
-		public async Task<ItemLocation> GetAsync(ItemLocation entity) {
+		public async Task<ItemLocation> GetAsync(int id) {
 			// Convert Item to gRPC Item
-			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
+			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
 
 			// Create Connection Point
 			Connect( );
@@ -126,15 +126,14 @@ namespace GrpcClient.Clients {
 			return itemLocation;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllByItemIdAsync(ItemLocation itemLocation)
+		public async Task<IList<ItemLocation>> GetAllByItemIdAsync(int itemId)
 		{
 			List<ItemLocation> itemLocations = new ();
-			
-			gItemLocation gItemLocation = ConvertItemLocationToGItemLocation(itemLocation);
-			
+
+			gItemId gItemId = new gItemId {ItemId = itemId};
 			Connect();
 
-			var reply = await _client.GetByItemIdAsync(gItemLocation);
+			var reply = await _client.GetByItemIdAsync(gItemId);
 			
 			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
 			// Loop Through Collection of gItemLocations
@@ -148,15 +147,15 @@ namespace GrpcClient.Clients {
 			return itemLocations;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(ItemLocation itemLocation)
+		public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(int locationId)
 		{
 			List<ItemLocation> itemLocations = new ();
-			
-			gItemLocation gItemLocation = ConvertItemLocationToGItemLocation(itemLocation);
+
+			gLocationId gLocationId = new gLocationId {LocationId = locationId};
 			
 			Connect();
 
-			var reply = await _client.GetByLocationIdAsync(gItemLocation);
+			var reply = await _client.GetByLocationIdAsync(gLocationId);
 			
 			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
 			// Loop Through Collection of gItemLocations

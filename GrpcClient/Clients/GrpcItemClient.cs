@@ -37,9 +37,9 @@ namespace GrpcClient.Clients {
 			return item;
 		}
 
-		public async Task<Item> RemoveAsync(Item entity) {
+		public async Task<Item> RemoveAsync(int id) {
 			// Convert Item to gRPC Item
-			gItem g = ConvertItemToGItem(entity);
+			gItemId g = new gItemId {ItemId = id};
 
 			// Create Connection Point
 			Connect( );
@@ -104,9 +104,9 @@ namespace GrpcClient.Clients {
 			return items;
 		}
 
-		public async Task<Item> GetAsync(Item entity) {
+		public async Task<Item> GetAsync(int id) {
 			// Convert Item to gRPC Item
-			gItem g = ConvertItemToGItem(entity);
+			gItemId g = new gItemId {ItemId = id};
 
 			// Create Connection Point
 			Connect( );

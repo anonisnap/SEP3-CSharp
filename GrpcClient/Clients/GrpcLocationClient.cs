@@ -59,9 +59,9 @@ namespace GrpcClient.Clients {
 			return Location;
 		}
 
-		public async Task<Location> RemoveAsync(Location entity) {
+		public async Task<Location> RemoveAsync(int locationId) {
 			// Convert Location to gRPC Location
-			gLocation g = ConvertLocationToGLocation(entity);
+			gLocationId g = new gLocationId {LocationId = locationId};
 
 			// Create Connection Point
 			Connect( );
@@ -126,9 +126,9 @@ namespace GrpcClient.Clients {
 			return Locations;
 		}
 
-		public async Task<Location> GetAsync(Location entity) {
+		public async Task<Location> GetAsync(int locationId) {
 			// Convert Location to gRPC Location
-			gLocation g = ConvertLocationToGLocation(entity);
+			gLocationId g = new gLocationId {LocationId = locationId};
 
 			// Create Connection Point
 			Connect( );

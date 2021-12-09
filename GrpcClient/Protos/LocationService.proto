@@ -15,10 +15,15 @@ message gLocationList{
 
 }
 
+message gLocationId{
+  int32 LocationId = 1;
+  
+}
+
 service LocationService{
   rpc RegisterLocation(gLocation) returns (gLocation);
-  rpc GetLocation(gLocation) returns (gLocation);
+  rpc GetLocation(gLocationId) returns (gLocation);
   rpc GetAllLocations(gLocation) returns (gLocationList);
   rpc UpdateLocation(gLocation) returns (gLocation);
-  rpc RemoveLocation(gLocation) returns (gLocation);
+  rpc RemoveLocation(gLocationId) returns (gLocation);
 }

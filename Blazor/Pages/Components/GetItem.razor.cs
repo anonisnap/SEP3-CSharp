@@ -17,7 +17,7 @@ namespace Blazor.Pages.Components
         public async void GetItemAsync()
         {
             Console.WriteLine($"Attempting to retrieve item id: {searchItemid}");
-            currentlyShownItem = await _itemHandler.GetAsync(new Item{Id = searchItemid});
+            currentlyShownItem = await _itemHandler.GetAsync(searchItemid);
         }
     }
 }

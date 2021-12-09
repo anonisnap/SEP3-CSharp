@@ -15,7 +15,7 @@ namespace Blazor.Pages.Cards
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(itemLocation);
+            _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(itemLocation.Item.Id);
         }
     }
 }
