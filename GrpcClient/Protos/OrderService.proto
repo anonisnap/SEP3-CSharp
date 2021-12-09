@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_package = "protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message gOrder{
+
+  int32 Id = 1;
+  int32 OrderNumber = 2;
+  repeated gOrderEntry orderEntries = 3;
+
+
+}
+
+message gOrderEntry{
+
+  int32 OrderId = 1;
+  int32 Amount = 2;
+  int32 ItemId = 3;
+
+}
+
+
+message gOrderList{
+  repeated gOrder orders = 1;
+}
+
+
+service OrderService {
+  rpc RegisterOrder(gOrder) returns (gOrder);
+  rpc GetOrder(gOrder) returns (gOrder);
+  rpc GetAllOrders(gOrder) returns (gOrderList);
+  rpc UpdateOrder(gOrder) returns (gOrder);
+  rpc RemoveOrder(gOrder) returns (gOrder);
+}

@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
+using Grpc.Net.Client;
+using myGrpc;
 using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Clients
 {
     public class GrpcOrderClient : IOrderDataServerComm
     {
+        private string _address;
+        private GrpcChannel _channel;
+        private OrderService _client;
+        
+        
         public Task<Order> RegisterAsync(Order entity)
         {
             
@@ -38,5 +45,12 @@ namespace GrpcClient.Clients
         {
             throw new System.NotImplementedException();
         }
+        
+        
+        
+        
+        
+        
+        
     }
 }
