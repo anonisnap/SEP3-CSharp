@@ -22,9 +22,9 @@ namespace GrpcClient.Tests {
 		public async Task TearDown( ) {
 			System.Console.WriteLine("== TEAR DOWN ==");
 			System.Console.WriteLine($"Removing {_testLocation1.Id}");
-			await _client.RemoveAsync(_testLocation1);
+			await _client.RemoveAsync(_testLocation1.Id);
 			System.Console.WriteLine($"Removing {_testLocation2.Id}");
-			await _client.RemoveAsync(_testLocation2);
+			await _client.RemoveAsync(_testLocation2.Id);
 		}
 
 		[TestMethod("Register Location")] // Registering an Location | IMPLEMENTED : Register Location -> Check received Location = Input Location
@@ -66,7 +66,7 @@ namespace GrpcClient.Tests {
 		[TestMethod("Get Location")] // Getting a Single Location | IMPLEMENTED : Register Location -> Get Location -> Check Location received = Input Location
 		public async Task GetLocationAsync( ) {
 			_testLocation1 = await _client.RegisterAsync(_testLocation1);
-			var result = await _client.GetAsync(_testLocation1);
+			var result = await _client.GetAsync(_testLocation1.Id);
 
 			System.Console.WriteLine($"Location Id : {_testLocation1.Id}\nResult Id   : {result.Id}");
 			Assert.IsTrue(_testLocation1.Equals(result));
@@ -75,7 +75,7 @@ namespace GrpcClient.Tests {
 
 		[TestMethod("Echo Get Location")] // Echoing Location | IMPLEMENTED : Get Location -> Check Location received = Input Location
 		public async Task EchoGetLocationAsync( ) {
-			var result = await _client.GetAsync(_testLocation2);
+			var result = await _client.GetAsync(_testLocation2.Id);
 
 			Assert.IsTrue(_testLocation2.Equals(result));
 		}
@@ -83,7 +83,7 @@ namespace GrpcClient.Tests {
 		[TestMethod("Remove Location")] // Removing an Location | IMPLEMENTED : Register Location -> Remove Location -> Check Location List does not contain Location
 		public async Task RemoveLocationAsync( ) {
 			_testLocation1 = await _client.RegisterAsync(_testLocation1);
-			await _client.RemoveAsync(_testLocation1);
+			await _client.RemoveAsync(_testLocation1.Id);
 
 			var result = await _client.GetAllAsync( );
 

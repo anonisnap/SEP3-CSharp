@@ -27,11 +27,14 @@ message gOrderList{
   repeated gOrder orders = 1;
 }
 
+message gOrderId{
+  int32 orderId = 1;
+}
 
 service OrderService {
   rpc RegisterOrder(gOrder) returns (gOrder);
-  rpc GetOrder(gOrder) returns (gOrder);
+  rpc GetOrder(gOrderId) returns (gOrder);
   rpc GetAllOrders(gOrder) returns (gOrderList);
   rpc UpdateOrder(gOrder) returns (gOrder);
-  rpc RemoveOrder(gOrder) returns (gOrder);
+  rpc RemoveOrder(gOrderId) returns (gOrder);
 }

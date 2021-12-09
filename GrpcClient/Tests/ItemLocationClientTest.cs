@@ -36,15 +36,15 @@ namespace GrpcClient.Tests {
 
 		[TestCleanup]
 		public async Task TearDown( ) {
-			await _client.RemoveAsync(_testItemLocation1);
-			await _client.RemoveAsync(_testItemLocation2);
-			await _client.RemoveAsync(_testItemLocation3);
+			await _client.RemoveAsync(_testItemLocation1.Id);
+			await _client.RemoveAsync(_testItemLocation2.Id);
+			await _client.RemoveAsync(_testItemLocation3.Id);
 			var cItem = new GrpcItemClient(grpcConnStr);
-			await cItem.RemoveAsync(_i1);
-			await cItem.RemoveAsync(_i2 );
+			await cItem.RemoveAsync(_i1.Id);
+			await cItem.RemoveAsync(_i2.Id);
 			var cItemLocation = new GrpcLocationClient(grpcConnStr); 
-			await cItemLocation.RemoveAsync(_l1);
-			await cItemLocation.RemoveAsync(_l2);
+			await cItemLocation.RemoveAsync(_l1.Id);
+			await cItemLocation.RemoveAsync(_l2.Id);
 
 		}
 
@@ -85,7 +85,7 @@ namespace GrpcClient.Tests {
 		public async Task GetItemLocationAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 
-			var result = await _client.GetAsync(_testItemLocation1);
+			var result = await _client.GetAsync(_testItemLocation1.Id);
 
 			System.Console.WriteLine($"ItemLocation : {_testItemLocation1}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
@@ -94,7 +94,7 @@ namespace GrpcClient.Tests {
 
 		[TestMethod("Echo Get ItemLocation")] // Echoing ItemLocation | CHECK : Get ItemLocation -> Check ItemLocation received = Input ItemLocation
 		public async Task EchoGetItemLocationAsync( ) {
-			var result = await _client.GetAsync(_testItemLocation2);
+			var result = await _client.GetAsync(_testItemLocation2.Id);
 
 			System.Console.WriteLine($"ItemLocation : {_testItemLocation2}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation2.Equals(result));
@@ -103,7 +103,7 @@ namespace GrpcClient.Tests {
 		[TestMethod("Remove ItemLocation")] // Removing an ItemLocation | CHECK : Register ItemLocation -> Remove ItemLocation -> Check ItemLocation List does not contain ItemLocation
 		public async Task RemoveItemLocationAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
-			await _client.RemoveAsync(_testItemLocation1);
+			await _client.RemoveAsync(_testItemLocation1.Id);
 
 			var result = await _client.GetAllAsync( );
 
@@ -116,7 +116,7 @@ namespace GrpcClient.Tests {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 			_testItemLocation3 = await _client.RegisterAsync(_testItemLocation3);
 			
-			var result = await _client.GetAllByItemIdAsync(_testItemLocation1);
+			var result = await _client.GetAllByItemIdAsync(_testItemLocation1.Id);
 			
 			Assert.IsTrue(result.Contains(_testItemLocation1));
 			Assert.IsTrue(result.Contains(_testItemLocation3));
