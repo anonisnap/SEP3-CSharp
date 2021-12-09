@@ -32,16 +32,3 @@ else
         </Columns>
     </RadzenDataGrid>
 }
-
-@code {
-    private IList<Location> _locations;
-
-    private string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
-    private bool showPagerSummary = true;
-    
-    protected override async Task OnInitializedAsync()
-    {
-        _locations = await _locationsHandler.GetAllAsync();
-    }
-
-}

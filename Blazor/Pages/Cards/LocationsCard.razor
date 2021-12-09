@@ -30,18 +30,3 @@ else
         </div>
     </RadzenCard>
 }
-
-@code {
-
-    [Parameter]
-    public ItemLocation itemLocation { get; set; }
-    
-    private IList<ItemLocation> _itemLocations;
-
-
-    protected override async Task OnInitializedAsync()
-    {
-    _itemLocations = await _itemLocationHandler.GetAllByItemIdAsync(itemLocation);
-    }
-
-}

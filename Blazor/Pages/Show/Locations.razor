@@ -22,36 +22,3 @@
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
     </Columns>
 </RadzenDataGrid>
-
-
-@code {
-    private IList<ItemLocation> _itemLocations;
-
-    string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
-    bool showPagerSummary = true;
-    
-    protected override async Task OnInitializedAsync()
-    {
-        _itemLocations = await _itemLocationHandler.GetAllAsync();
-
-        DialogService.OnOpen += Open;
-        DialogService.OnClose += Close;
-    }
-
-    async Task OpenItemWithLocations(ItemLocation itemLocation)
-    {
-        await DialogService.OpenAsync<ItemsCard>($"Location: {itemLocation.Location.Description}",
-            new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
-            new DialogOptions() {Width = "1000px", Height = "530px"});
-    }
-
-    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
-    {
-        Console.WriteLine("Dialog Opened");
-    }
-
-    void Close(dynamic result)
-    {
-        Console.WriteLine("Dialog closed");
-    }
-}

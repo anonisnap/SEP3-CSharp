@@ -50,19 +50,3 @@
         </div>
     </div>
 </RadzenTemplateForm>
-
-@code {
-    private Location _location;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _location = new();
-    }
-
-    private void RegisterNewLocation()
-    {
-        _locationHandler.RegisterAsync(_location);
-        _navigationManager.NavigateTo("/RegisteredLocations");
-    }
-
-}
