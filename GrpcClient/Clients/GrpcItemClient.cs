@@ -1,5 +1,4 @@
 ﻿using Grpc.Net.Client;
-
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using myGrpc;

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "protos";
+option java_package = "grpc.protos";
 option csharp_namespace = "myGrpc";
 
 package Protos;

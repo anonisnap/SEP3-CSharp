@@ -12,7 +12,7 @@ namespace GrpcClient.Clients
     {
         private string _address;
         private GrpcChannel _channel;
-        private OrderService _client;
+        private OrderService.OrderServiceClient _client;
         
         
         public Task<Order> RegisterAsync(Order entity)
