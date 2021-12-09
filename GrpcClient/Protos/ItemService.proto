@@ -20,7 +20,6 @@ message gItemList {
 
 message gItemId{
   int32 ItemId = 1;
-  
 }
 
 service ItemService {
