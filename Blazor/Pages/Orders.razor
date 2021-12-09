@@ -31,12 +31,3 @@ else
     </RadzenDataGrid>
 }
 
-@code {
-    private IList<Order> _orders;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _orders = await _orderHandler.GetAllAsync();
-    }
-
-}

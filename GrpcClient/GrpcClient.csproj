@@ -20,10 +20,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\T1Contracts\T1Contracts.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Protos" />
-	</ItemGroup>
 	
 	<ItemGroup>
 		<Protobuf Include="Protos\ItemService.proto" GrpcServices="Client" />

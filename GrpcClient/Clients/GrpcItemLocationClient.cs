@@ -3,11 +3,13 @@ using myGrpc;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
 using ItemLocation = Entities.Models.ItemLocation;
 
 namespace GrpcClient.Clients {
 	public class GrpcItemLocationClient : IItemLocationDataServerComm {
+		
 		private string _address;
 		private GrpcChannel _channel;
 		private ItemLocationService.ItemLocationServiceClient _client;
@@ -37,7 +39,7 @@ namespace GrpcClient.Clients {
 			return itemLocation;
 		}
 
-		public async Task<Entities.Models.ItemLocation> RemoveAsync(ItemLocation entity) {
+		public async Task<ItemLocation> RemoveAsync(ItemLocation entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -51,13 +53,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
 			return itemLocation;
 		}
 
-		public async Task<ItemLocation> UpdateAsync(Entities.Models.ItemLocation entity) {
+		public async Task<ItemLocation> UpdateAsync(ItemLocation entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -71,7 +73,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Entities.Models.ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
 			return itemLocation;
@@ -169,32 +171,32 @@ namespace GrpcClient.Clients {
 		}
 
 
-		private gItemLocation ConvertItemLocationToGItemLocation(Entities.Models.ItemLocation from) {
+		private gItemLocation ConvertItemLocationToGItemLocation(ItemLocation from) {
 			gItemLocation to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };
 			return to;
 		}
 
-		private Entities.Models.ItemLocation ConvertGItemLocationToItemLocation(gItemLocation from) {
+		private ItemLocation ConvertGItemLocationToItemLocation(gItemLocation from) {
 			ItemLocation to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertGItemToItem(from.Item), Location = ConvertGLocationToLocation(from.Location) };
 			return to;
 		}
 		
-		private gLocation ConvertLocationToGLocation(Entities.Models.Location from) {
+		private gLocation ConvertLocationToGLocation(Location from) {
 			gLocation to = new( ) { Id = from.Id, Description = from.Description };
 			return to;
 		}
 
-		private Entities.Models.Location ConvertGLocationToLocation(gLocation from) {
-			Entities.Models.Location to = new( ) { Id = from.Id, Description = from.Description };
+		private Location ConvertGLocationToLocation(gLocation from) {
+			Location to = new( ) { Id = from.Id, Description = from.Description };
 			return to;
 		}
-		private gItem ConvertItemToGItem(Entities.Models.Item from) {
+		private gItem ConvertItemToGItem(Item from) {
 			gItem to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
 			return to;
 		}
 
-		private Entities.Models.Item ConvertGItemToItem(gItem from) {
-			Entities.Models.Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
+		private Item ConvertGItemToItem(gItem from) {
+			Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
 			return to;
 		}
 
