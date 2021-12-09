@@ -23,9 +23,10 @@ namespace GrpcClient.Tests {
 		[TestCleanup( )]
 		public async Task TearDown( ) {
 			Console.WriteLine($"Removing Item ID : {_testItem1.Id}");
-			await _client.RemoveAsync(_testItem1);
+			await _client.RemoveAsync(_testItem1.Id);
 			Console.WriteLine($"Removing Item ID : {_testItem2.Id}");
-			await _client.RemoveAsync(_testItem2);
+			await _client.RemoveAsync(_testItem2.Id);
+			await _client.RemoveAsync(_testItem2.Id);
 		}
 
 		[TestMethod("Register Item")] // Registering an Item | IMPLEMENTED : Register Item -> Check received Item = Input Item
@@ -67,7 +68,7 @@ namespace GrpcClient.Tests {
 		[TestMethod("Get Item")] // Getting a Single Item | IMPLEMENTED : Register Item -> Get Item -> Check Item received = Input Item
 		public async Task GetItemAsync( ) {
 			_testItem1 = await _client.RegisterAsync(_testItem1);
-			var result = await _client.GetAsync(_testItem1);
+			var result = await _client.GetAsync(_testItem1.Id);
 
 			System.Console.WriteLine($"Item Id : {_testItem1.Id}\nResult Id   : {result.Id}");
 			Assert.IsTrue(_testItem1.Equals(result));
@@ -76,7 +77,7 @@ namespace GrpcClient.Tests {
 
 		[TestMethod("Echo Get Item")] // Echoing Item | IMPLEMENTED : Get Item -> Check Item received = Input Item
 		public async Task EchoGetItemAsync( ) {
-			var result = await _client.GetAsync(_testItem2);
+			var result = await _client.GetAsync(_testItem2.Id);
 
 			Assert.IsTrue(_testItem2.Equals(result));
 		}
@@ -84,7 +85,7 @@ namespace GrpcClient.Tests {
 		[TestMethod("Remove Item")] // Removing an Item | IMPLEMENTED : Register Item -> Remove Item -> Check Item List does not contain Item
 		public async Task RemoveItemAsync( ) {
 			_testItem1 = await _client.RegisterAsync(_testItem1);
-			await _client.RemoveAsync(_testItem1);
+			await _client.RemoveAsync(_testItem1.Id);
 
 			var result = await _client.GetAllAsync( );
 

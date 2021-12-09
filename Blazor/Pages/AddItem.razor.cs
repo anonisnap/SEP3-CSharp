@@ -32,7 +32,7 @@ namespace Blazor.Pages
 
             Console.WriteLine($"Printing Location: /n {_itemLocation}");
 
-            _navigationManager.NavigateTo("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            _navigationManager.NavigateTo("/Items");
         }
 
         void OnChange(object value, string name)
