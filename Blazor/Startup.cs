@@ -5,11 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazor.Data;
+using Blazor.Data.Implentation;
 using GrpcClient;
 using Radzen;
 using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
 using GrpcClient.Clients;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Blazor
 {
@@ -39,8 +41,16 @@ namespace Blazor
             services.AddScoped<ILocationDataServerComm, GrpcLocationClient>();
             services.AddScoped<IItemLocationDataServerComm, GrpcItemLocationClient>();
             services.AddScoped<IOrderDataServerComm, GrpcOrderClient>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
           
             services.AddScoped<DialogService>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("SecurityLevel1", a => a.RequireClaim("Level", "1", "2"));
+                options.AddPolicy("SecurityLevel2", a => a.RequireClaim("Level", "2"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

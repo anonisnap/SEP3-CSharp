@@ -16,7 +16,7 @@ namespace Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _orders = await _orderHandler.GetAllAsync();
+            //_orders = await _orderHandler.GetAllAsync();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += Close;

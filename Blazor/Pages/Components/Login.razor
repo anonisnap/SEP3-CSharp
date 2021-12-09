@@ -1,0 +1,59 @@
+﻿@page "/Login"
+@using Blazor.Data.Implentation
+@namespace LoginComponent
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div
+            class="form-group my-auto">
+            <label>Username:</label> <input type="text" placeholder="username" @bind-value="_username"/>
+        </div>
+        <div class="form-group my-auto">
+            <label>Password:</label> <input type="password" placeholder="password" @bind-value="_password"/>
+        </div>
+        <div style="color:red" class="my-auto">@_errorMessage</div> <a href="" @onclick="PerformLogin">Login</a>
+    </NotAuthorized>
+    <Authorized>
+        <a href="" @onclick="PerformLogout">Logout:</a>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string _username;
+    private string _password;
+    private string _errorMessage;
+
+    public async Task PerformLogin()
+    {
+        _errorMessage = "";
+        try
+        {
+            await ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(_username, _password);
+            _username = "";
+            _password = "";
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            _errorMessage = e.Message;
+        }
+    }
+
+    public async Task PerformLogout()
+    {
+        _errorMessage = "";
+        _username = "";
+        _password = "";
+        try
+        {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+        }
+    }
+}
