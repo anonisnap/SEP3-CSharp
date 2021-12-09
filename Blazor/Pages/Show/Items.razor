@@ -13,11 +13,13 @@
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
                 ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
     <Columns>
-        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending">
+        <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
             <Template Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" Class="formButton" Click=@(() => OpenLocationWithItems(data)) Text="@data.Item.Id.ToString()"/>
+                <RadzenButton Icon="info" Size="ButtonSize.Medium" Class="formButton m-1"
+                              Click="@(() => OpenLocationWithItems(data))" @onclick:stopPropagation="true"/>
             </Template>
         </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Locations"/>
     </Columns>
