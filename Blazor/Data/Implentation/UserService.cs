@@ -1,13 +1,21 @@
 ﻿using System.Threading.Tasks;
 using Entities.Models;
+using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor.Data
 {
     public class UserService : IUserService
     {
-        public Task<User> ValidateUser(string userName, string Password)
+        private IUserDataServerComm _userDataServerComm;
+
+        public UserService(IUserDataServerComm userDataServerComm)
         {
-            throw new System.NotImplementedException();
+            _userDataServerComm = userDataServerComm;
+        }
+        
+        public Task<User> ValidateUser(User user)
+        {
+            return _userDataServerComm.LoginAsync(user);
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Blazor.Data
 {
     public interface IUserService
     {
-        Task<User> ValidateUser(string userName, string Password);
+        Task<User> ValidateUser(User user);
     }
 }

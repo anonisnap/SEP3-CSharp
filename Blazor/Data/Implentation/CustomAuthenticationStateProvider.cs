@@ -14,8 +14,8 @@ namespace Blazor.Data.Implentation
         private readonly IJSRuntime _jsRuntime;
         private readonly IUserService _userService;
         private User _cachedUser;
-        
-         public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService)
+
+        public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService)
         {
             _jsRuntime = jsRuntime;
             _userService = userService;
@@ -50,7 +50,9 @@ namespace Blazor.Data.Implentation
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
-                User user = await _userService.ValidateUser(username, password);
+                User user = await _userService.ValidateUser(new User
+                    {Username = username, Password = password, Role = "Unknown", SecurityLevel = 0});
+
                 identity = SetupClaimsForUser(user);
                 string serialisedData = JsonSerializer.Serialize(user);
                 await _jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
@@ -74,7 +76,6 @@ namespace Blazor.Data.Implentation
 
         private ClaimsIdentity SetupClaimsForUser(User user)
         {
-            
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.Username));
             claims.Add(new Claim("Role", user.Role));

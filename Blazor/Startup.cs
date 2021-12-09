@@ -41,6 +41,8 @@ namespace Blazor
             services.AddScoped<ILocationDataServerComm, GrpcLocationClient>();
             services.AddScoped<IItemLocationDataServerComm, GrpcItemLocationClient>();
             services.AddScoped<IOrderDataServerComm, GrpcOrderClient>();
+            services.AddScoped<IUserDataServerComm, GrpcUserClient>();
+            
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
           
