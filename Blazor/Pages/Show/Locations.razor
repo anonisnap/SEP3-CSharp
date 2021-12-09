@@ -16,7 +16,7 @@
     <Columns>
         <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
             <Template Context="data">
-                <RadzenButton Icon="info" Size="ButtonSize.Medium" Class="formButton m-1"
+                <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
                               Click="@(() => OpenItemWithLocations(data))" @onclick:stopPropagation="true"/>
             </Template>
         </RadzenDataGridColumn>

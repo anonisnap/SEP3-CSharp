@@ -15,12 +15,18 @@
     <Columns>
         <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
             <Template Context="data">
-                <RadzenButton Icon="info" Size="ButtonSize.Medium" Class="formButton m-1"
+                <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
                               Click="@(() => OpenLocationWithItems(data))" @onclick:stopPropagation="true"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
         <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Locations"/>
+        @*<RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            <EditTemplate Context="data">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Class="m-1" Click="@(() => DeleteItemLocation(data))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>*@
     </Columns>
 </RadzenDataGrid>
