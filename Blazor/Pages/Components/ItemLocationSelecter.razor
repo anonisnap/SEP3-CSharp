@@ -1,0 +1,80 @@
+@page "/ItemLocationSelecter"
+@using Entities.Models
+@using Blazor.Data
+@namespace ItemLocationSelecterComponent
+
+@inject IItemLocationHandler _itemLocationHandler
+@inject NavigationManager _navigationManager
+<h3>ItemLocationSelecter</h3>
+
+<div class="row">
+    <div class="col-xl-6 mb-5">
+        <h5>Item and location id</h5>
+        <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                FilterOperator="StringFilterOperator.Contains"
+                                AllowFiltering="true" AllowClear="false" Placeholder="Select"
+                                Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%"
+                                AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
+            <Columns>
+
+                @{
+                    if (showLocationDetail)
+                    {
+                        <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
+                        <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
+                    }
+                }
+                <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
+                <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
+            </Columns>
+        </RadzenDropDownDataGrid>
+    </div>
+    <div class="col-md-2 mb-5">
+        <h5>Amount</h5>
+        <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public bool showLocationDetail { get; set; }
+
+    private IList<ItemLocation> _itemLocations;
+    private int _amount;
+    private int _maxValue;
+
+    string pagingSummaryFormat = "Page {0} of {1}";
+    bool showPagerSummary = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _itemLocations = await _itemLocationHandler.GetAllAsync();
+    }
+
+    void OnChange(object value, string name)
+    {
+        if (name.Equals("ItemLocation"))
+        {
+            Console.WriteLine("selected itemlocation " + value);
+
+    /*
+            _oldItemLocation = (ItemLocation) value;
+            _maxValue = _oldItemLocation.Amount;
+            Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
+            Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
+            Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
+            _newItemLocation.Item = _oldItemLocation.Item;
+            _newItemLocation.Amount = _oldItemLocation.Amount;
+            _newItemLocation.Id = _oldItemLocation.Id;
+*/
+        }
+        else if (name.Equals("amount"))
+        {
+            _amount = (int) value;
+        }
+    }
+
+
+}
