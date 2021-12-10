@@ -89,17 +89,47 @@ namespace GrpcClient.Clients {
 
 			// Generate Lists to read from, and fill in
 			ICollection<gInventory> gInventorys = reply.Inventorys;
-			List<Inventory> items = new( ) { };
+			List<Inventory> inventories = new( ) { };
 
 			// Loop Through Collection of gInventorys
 			foreach (var g in gInventorys) {
 				// Convert each gInventory and add to list of Items
-				items.Add(ConvertGInventoryToInventory(g));
+				inventories.Add(ConvertGInventoryToInventory(g));
 			}
 
 			// Return Item to User
-			return items;
+			return inventories;
 		}
+		
+		public async Task<IList<Inventory>> GetInventoryStock()
+		{
+			// Convert Item to gRPC Item | Here, it is specifically used as an Object Template for later
+			gInventory template = new( ) { };
+
+			// Create Connection Point
+			Connect( );
+
+			// Send Call Request to Server and store reply
+			gInventoryList reply = await _client.GetStockInventoryAsync(template);
+
+			// Disconnect from Server
+			await Disconnect( );
+
+			// Generate Lists to read from, and fill in
+			ICollection<gInventory> gInventorys = reply.Inventorys;
+			List<Inventory> inventories = new( ) { };
+
+			// Loop Through Collection of gInventorys
+			foreach (var g in gInventorys) {
+				// Convert each gInventory and add to list of Items
+				inventories.Add(ConvertGInventoryToInventory(g));
+			}
+
+			// Return Item to User
+			return inventories;
+		}
+
+		
 
 		public async Task<Inventory> GetAsync(int id) {
 			// Convert Item to gRPC Item
@@ -164,6 +194,7 @@ namespace GrpcClient.Clients {
 			return Inventorys;
 		}
 
+		
 
 		private gInventory ConvertInventoryToGInventory(Inventory from) {
 			gInventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };

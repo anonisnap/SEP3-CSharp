@@ -34,5 +34,6 @@ service InventoryService{
   rpc RemoveInventory(gInventoryId) returns (gBoolValue);
   rpc GetByItemId(gItemId) returns (gInventoryList);
   rpc GetByLocationId(gLocationId) returns (gInventoryList);
+  rpc GetStockInventory(gInventory) returns (gInventoryList);
 }
 

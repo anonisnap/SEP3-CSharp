@@ -48,7 +48,7 @@ namespace WebDBserverAPI.Controllers {
 		public async Task<ActionResult<IList<Inventory>>> GetInventoryStock()
 		{
 			IList<Inventory> itemLocations = await _inventoryRepo.GetInventoryStock();
-			return itemLocations != null ? Ok(itemLocations) : NotFound( );
+			return itemLocations != null ? Ok(itemLocations) : NotFound();
 		}
 
 		[HttpGet]
