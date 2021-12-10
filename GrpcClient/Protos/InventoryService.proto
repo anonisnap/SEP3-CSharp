@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "protos/ItemService.proto";
+import "protos/LocationService.proto";
+import "protos/ProtoUtil.proto";
+
+
+option java_package = "protos";
+option csharp_namespace = "myGrpc";
+
+package Protos;
+
+message gInventory{
+  gItem item = 1;
+  gLocation location = 2;
+  int32 id = 3;
+  int32 amount = 4;
+}
+
+message gInventoryList{
+  repeated gInventory Inventorys = 1;
+}
+
+message gInventoryId{
+  int32 InventoryId = 1;
+}
+
+
+service InventoryService{
+
+  rpc RegisterInventory(gInventory) returns (gInventory);
+  rpc GetInventory(gInventoryId) returns (gInventory);
+  rpc GetAllInventorys(gInventory) returns (gInventoryList);
+  rpc UpdateInventory(gInventory) returns (gInventory);
+  rpc RemoveInventory(gInventoryId) returns (gBoolValue);
+  rpc GetByItemId(gItemId) returns (gInventoryList);
+  rpc GetByLocationId(gLocationId) returns (gInventoryList);
+}
+
