@@ -4,18 +4,18 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebDBserverAPI.Controllers {
-	public interface IItemLocationController : IController<ItemLocation>
+	public interface IItemLocationController : IController<Inventory>
 	{
 
-		public Task<ActionResult<IList<ItemLocation>>> GetByItemIdAsync(int itemId);
-		public Task<ActionResult<IList<ItemLocation>>> GetByLocationIdAsync(int locationId);
+		public Task<ActionResult<IList<Inventory>>> GetByItemIdAsync(int itemId);
+		public Task<ActionResult<IList<Inventory>>> GetByLocationIdAsync(int locationId);
 		
 		/// <summary>
 		/// Gets all item location, excluding the Trashed location
 		/// and itemLocations associated with an Order
 		/// </summary>
-		/// <returns>Task<IList<ItemLocation>></returns>
-		public Task<ActionResult<IList<ItemLocation>>> GetItemLocationStock();
+		/// <returns>Task<IList<Inventory>></returns>
+		public Task<ActionResult<IList<Inventory>>> GetItemLocationStock();
 		
 		
 		

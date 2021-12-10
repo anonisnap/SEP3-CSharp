@@ -18,15 +18,15 @@ namespace WebDBserverAPI.Controllers {
 
 		[HttpGet]
 		[Route("{entityId:int}")]
-		public async Task<ActionResult<ItemLocation>> GetAsync([FromRoute] int entityId) {
-			ItemLocation itemLocation = await _itemLocationRepo.GetAsync(entityId);
-			return itemLocation != null ? Ok(itemLocation) : NotFound( );
+		public async Task<ActionResult<Inventory>> GetAsync([FromRoute] int entityId) {
+			Inventory inventory = await _itemLocationRepo.GetAsync(entityId);
+			return inventory != null ? Ok(inventory) : NotFound( );
 		}
 
 		[HttpGet]
 		[Route("itemId/{itemId:int}")]
-		public async Task<ActionResult<IList<ItemLocation>>> GetByItemIdAsync([FromRoute] int itemId) {
-			IList<ItemLocation> itemLocations = await _itemLocationRepo.GetByItemIdAsync(itemId);
+		public async Task<ActionResult<IList<Inventory>>> GetByItemIdAsync([FromRoute] int itemId) {
+			IList<Inventory> itemLocations = await _itemLocationRepo.GetByItemIdAsync(itemId);
 			
 			foreach (var itemLocation in itemLocations)
 			{
@@ -38,43 +38,43 @@ namespace WebDBserverAPI.Controllers {
 
 		[HttpGet]
 		[Route("locationId/{locationId:int}")]
-		public async Task<ActionResult<IList<ItemLocation>>> GetByLocationIdAsync([FromRoute] int locationId) {
-			IList<ItemLocation> itemLocations = await _itemLocationRepo.GetByLocationIdAsync(locationId);
+		public async Task<ActionResult<IList<Inventory>>> GetByLocationIdAsync([FromRoute] int locationId) {
+			IList<Inventory> itemLocations = await _itemLocationRepo.GetByLocationIdAsync(locationId);
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 		
 		[HttpGet]
 		[Route("Stock")]
-		public async Task<ActionResult<IList<ItemLocation>>> GetItemLocationStock()
+		public async Task<ActionResult<IList<Inventory>>> GetItemLocationStock()
 		{
-			IList<ItemLocation> itemLocations = await _itemLocationRepo.GetItemLocationStock();
+			IList<Inventory> itemLocations = await _itemLocationRepo.GetItemLocationStock();
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IList<ItemLocation>>> GetAllAsync( ) {
-			IList<ItemLocation> itemLocations = await _itemLocationRepo.GetAllAsync( );
+		public async Task<ActionResult<IList<Inventory>>> GetAllAsync( ) {
+			IList<Inventory> itemLocations = await _itemLocationRepo.GetAllAsync( );
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 
 		[HttpPost]
 		[Route("add")]
-		public async Task<ActionResult> PostAddAsync([FromBody] ItemLocation entity) {
+		public async Task<ActionResult> PostAddAsync([FromBody] Inventory entity) {
 			Console.WriteLine($"Attempting to put {entity} in Database");
-			ItemLocation itemLocation = await _itemLocationRepo.AddAsync(entity);
-			return itemLocation != null ? Ok(itemLocation) : NotFound( );
+			Inventory inventory = await _itemLocationRepo.AddAsync(entity);
+			return inventory != null ? Ok(inventory) : NotFound( );
 		}
 
 		[HttpDelete]
 		[Route("{entityId:int}")]
-		public async Task<ActionResult<ItemLocation>> DeleteAsync([FromRoute] int entityId) {
-			ItemLocation itemLocation = await _itemLocationRepo.RemoveAsync(entityId);
-			return itemLocation != null ? Ok(itemLocation) : NotFound( );
+		public async Task<ActionResult<Inventory>> DeleteAsync([FromRoute] int entityId) {
+			Inventory inventory = await _itemLocationRepo.RemoveAsync(entityId);
+			return inventory != null ? Ok(inventory) : NotFound( );
 		}
 
 		[HttpPost]
 		[Route("update")]
-		public async Task<ActionResult> PostUpdateAsync([FromBody] ItemLocation entity) {
+		public async Task<ActionResult> PostUpdateAsync([FromBody] Inventory entity) {
 			return Ok(await _itemLocationRepo.UpdateAsync(entity));
 		}
 	}

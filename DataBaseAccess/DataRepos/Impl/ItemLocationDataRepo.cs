@@ -19,41 +19,41 @@ namespace DataBaseAccess.DataRepos.Impl
         }
 
 
-        public async Task<ItemLocation> AddAsync(ItemLocation itemLocation)
+        public async Task<Inventory> AddAsync(Inventory inventory)
         {
-            //ItemLocation itemLocation = await GenerateItemLocationAsync(obj);
-            Item objItem = await _warehouseDbContext.Items.FindAsync(itemLocation.Item.Id);
-            Location objLocation = await _warehouseDbContext.Locations.FindAsync(itemLocation.Location.Id);
+            //Inventory inventory = await GenerateItemLocationAsync(obj);
+            Item objItem = await _warehouseDbContext.Items.FindAsync(inventory.Item.Id);
+            Location objLocation = await _warehouseDbContext.Locations.FindAsync(inventory.Location.Id);
             //todo: maybe not here ?
-            itemLocation.Id = 0;
-            itemLocation.Item = objItem;
-            itemLocation.Location = objLocation;
-            EntityEntry<ItemLocation> entity = await _warehouseDbContext.ItemLocations.AddAsync(itemLocation);
+            inventory.Id = 0;
+            inventory.Item = objItem;
+            inventory.Location = objLocation;
+            EntityEntry<Inventory> entity = await _warehouseDbContext.Inventory.AddAsync(inventory);
 
             await _warehouseDbContext.SaveChangesAsync();
             return entity.Entity;
         }
 
-        public async Task<ItemLocation> RemoveAsync(int id)
+        public async Task<Inventory> RemoveAsync(int id)
         {
-            ItemLocation location = await _warehouseDbContext.ItemLocations.FindAsync(id);
-            EntityEntry<ItemLocation> entity = _warehouseDbContext.ItemLocations.Remove(location);
+            Inventory location = await _warehouseDbContext.Inventory.FindAsync(id);
+            EntityEntry<Inventory> entity = _warehouseDbContext.Inventory.Remove(location);
 
             await _warehouseDbContext.SaveChangesAsync();
             return entity.Entity;
         }
 
-        public async Task<ItemLocation> UpdateAsync(ItemLocation itemLocation)
+        public async Task<Inventory> UpdateAsync(Inventory inventory)
         {
-            EntityEntry<ItemLocation> entity = _warehouseDbContext.ItemLocations.Update(itemLocation);
+            EntityEntry<Inventory> entity = _warehouseDbContext.Inventory.Update(inventory);
 
             await _warehouseDbContext.SaveChangesAsync();
             return entity.Entity;
         }
 
-        public async Task<IList<ItemLocation>> GetAllAsync()
+        public async Task<IList<Inventory>> GetAllAsync()
         {
-            IList<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+            IList<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
                 .ToListAsync();
@@ -61,17 +61,17 @@ namespace DataBaseAccess.DataRepos.Impl
             return entity;
         }
 
-        public async Task<ItemLocation> GetAsync(int id)
+        public async Task<Inventory> GetAsync(int id)
         {
-            ItemLocation entity = await _warehouseDbContext.ItemLocations.Include(il => il.Item)
+            Inventory entity = await _warehouseDbContext.Inventory.Include(il => il.Item)
                 .Include(il => il.Location).Where(il => il.Id == id).FirstOrDefaultAsync();
 
             return entity;
         }
 
-        public async Task<IList<ItemLocation>> GetByItemIdAsync(int itemId)
+        public async Task<IList<Inventory>> GetByItemIdAsync(int itemId)
         {
-            IList<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+            IList<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
                 .Where(itemLocation => itemLocation.Item.Id == itemId)
@@ -80,9 +80,9 @@ namespace DataBaseAccess.DataRepos.Impl
             return entity;
         }
 
-        public async Task<IList<ItemLocation>> GetByLocationIdAsync(int locationId)
+        public async Task<IList<Inventory>> GetByLocationIdAsync(int locationId)
         {
-            List<ItemLocation> entity = await _warehouseDbContext.ItemLocations
+            List<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
                 .Where(ItemLocation => ItemLocation.Location.Id == locationId)
@@ -92,9 +92,9 @@ namespace DataBaseAccess.DataRepos.Impl
         }
         
         
-        public async Task<IList<ItemLocation>> GetItemLocationStock()
+        public async Task<IList<Inventory>> GetItemLocationStock()
         {
-           var itemLocations = await _warehouseDbContext.ItemLocations
+           var itemLocations = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
                 .Where(itemLocation => !itemLocation.Location.Description.StartsWith("o") 
@@ -106,17 +106,17 @@ namespace DataBaseAccess.DataRepos.Impl
            return itemLocations;
         }
 
-        private async Task<ItemLocation> GenerateItemLocationAsync(ItemLocation itemLocation)
+        private async Task<Inventory> GenerateItemLocationAsync(Inventory inventory)
         {
             // Retrieve Item and Location from _warehouseDbContext
-            Item objItem = await _warehouseDbContext.Items.FirstOrDefaultAsync(x => x.Id == itemLocation.Item.Id);
+            Item objItem = await _warehouseDbContext.Items.FirstOrDefaultAsync(x => x.Id == inventory.Item.Id);
             Location objLocation =
-                await _warehouseDbContext.Locations.FirstOrDefaultAsync(x => x.Id == itemLocation.Location.Id);
+                await _warehouseDbContext.Locations.FirstOrDefaultAsync(x => x.Id == inventory.Location.Id);
 
             _warehouseDbContext.ChangeTracker.AcceptAllChanges();
             // Create DB Specific Class with Item and Location from before
             return
-                new ItemLocation(); //{ Id = itemLocation.Id, Amount = itemLocation.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
+                new Inventory(); //{ Id = inventory.Id, Amount = inventory.Amount, Item = objItem, Location = objLocation, ItemId = objItem.Id, LocationId = objLocation.Id };
         }
     }
 }

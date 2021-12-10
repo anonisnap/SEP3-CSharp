@@ -9,10 +9,10 @@ namespace Blazor.Pages
     public partial class MoveItems
     {
         private IList<Location> _locations;
-        private IList<ItemLocation> _itemLocations;
+        private IList<Inventory> _itemLocations;
 
-        private ItemLocation _newItemLocation;
-        private ItemLocation _oldItemLocation;
+        private Inventory _newInventory;
+        private Inventory _oldInventory;
 
         private int _amount;
         private int _maxValue;
@@ -22,13 +22,13 @@ namespace Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _itemLocationHandler.GetAllAsync();
+            _itemLocations = await _inventoryHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
 
             Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
 
-            _newItemLocation = new();
-            _oldItemLocation = new();
+            _newInventory = new();
+            _oldInventory = new();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += CloseConfirmAdd;
@@ -37,27 +37,27 @@ namespace Blazor.Pages
         private async Task Save()
         {
             //hack slash amount
-            _newItemLocation.Amount = _amount;
+            _newInventory.Amount = _amount;
 
-            await _itemLocationHandler.UpdateAsync(_newItemLocation);
+            await _inventoryHandler.UpdateAsync(_newInventory);
             _navigationManager.NavigateTo("/Items");
         }
         
         private void OnChange(object value, string name)
         {
             
-            if (name.Equals("ItemLocation"))
+            if (name.Equals("Inventory"))
             {
-                _oldItemLocation = (ItemLocation) value;
-                _maxValue = _oldItemLocation.Amount;
-                Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
-                Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
-                Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
-                _newItemLocation.Item = _oldItemLocation.Item;
-                _newItemLocation.Amount = _oldItemLocation.Amount;
-                _newItemLocation.Id = _oldItemLocation.Id;
+                _oldInventory = (Inventory) value;
+                _maxValue = _oldInventory.Amount;
+                Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
+                Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
+                Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
+                _newInventory.Item = _oldInventory.Item;
+                _newInventory.Amount = _oldInventory.Amount;
+                _newInventory.Id = _oldInventory.Id;
 
-                Console.WriteLine($"++++ NewItemLocation.Id - {_newItemLocation.Id}");
+                Console.WriteLine($"++++ NewItemLocation.Id - {_newInventory.Id}");
             }
             else if (name.Equals("amount"))
             {

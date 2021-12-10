@@ -8,11 +8,11 @@ using T1Contracts.ServerCommunicationInterfaces;
 
 namespace Blazor.Data
 {
-    public class ItemLocationHandler : IItemLocationHandler
+    public class InventoryHandler : IInventoryHandler
     {
         private IItemLocationDataServerComm _itemLocationDataServerComm;
 
-        public ItemLocationHandler(IItemLocationDataServerComm itemLocationDataServerComm)
+        public InventoryHandler(IItemLocationDataServerComm itemLocationDataServerComm)
         {
             _itemLocationDataServerComm = itemLocationDataServerComm;
         }
@@ -22,9 +22,9 @@ namespace Blazor.Data
         {
         }
 
-        public async Task<ItemLocation> RegisterAsync(ItemLocation itemLocation)
+        public async Task<Inventory> RegisterAsync(Inventory inventory)
         {
-            return await _itemLocationDataServerComm.RegisterAsync(itemLocation);
+            return await _itemLocationDataServerComm.RegisterAsync(inventory);
         }
 
         public Task<bool> RemoveAsync(int entity)
@@ -32,27 +32,27 @@ namespace Blazor.Data
             throw new NotImplementedException();
         }
 
-        public async Task<ItemLocation> UpdateAsync(ItemLocation itemLocation)
+        public async Task<Inventory> UpdateAsync(Inventory inventory)
         {
-            return await _itemLocationDataServerComm.UpdateAsync(itemLocation);
+            return await _itemLocationDataServerComm.UpdateAsync(inventory);
         }
 
-        public async Task<IList<ItemLocation>> GetAllAsync()
+        public async Task<IList<Inventory>> GetAllAsync()
         {
             return await _itemLocationDataServerComm.GetAllAsync();
         }
 
-        public async Task<ItemLocation> GetAsync(int entity)
+        public async Task<Inventory> GetAsync(int entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(int locationId)
+        public async Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId)
         {
             return await _itemLocationDataServerComm.GetAllByLocationIdAsync(locationId);
         }
 
-        public async Task<IList<ItemLocation>> GetAllByItemIdAsync(int itemId)
+        public async Task<IList<Inventory>> GetAllByItemIdAsync(int itemId)
         {
             return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemId);
         }

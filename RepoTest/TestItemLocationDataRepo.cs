@@ -13,7 +13,7 @@ namespace RepoTest
         private ItemLocationDataRepo _itemLocationDataRepo;
         private Item _testItem1, _testItem2;
         private Location _testLocaiton;
-        private ItemLocation _testItemLocation;
+        private Inventory _testInventory;
         private ItemDataRepo _itemDataRepo;
         private LocationDataRepo _locationDataRepo;
 
@@ -48,10 +48,10 @@ namespace RepoTest
                 _testLocaiton = _locationDataRepo.AddAsync(tempLocation).Result;
             }
             
-            _testItemLocation =  new();
-            _testItemLocation.Amount = 10;
-            _testItemLocation.Item = _testItem1;
-            _testItemLocation.Location = _testLocaiton;
+            _testInventory =  new();
+            _testInventory.Amount = 10;
+            _testInventory.Item = _testItem1;
+            _testInventory.Location = _testLocaiton;
             
         }
 
@@ -59,43 +59,43 @@ namespace RepoTest
         public void AttributeTearDown()
         {
             Console.WriteLine("TearDown");
-            _itemLocationDataRepo.RemoveAsync(_testItemLocation.Id);
+            _itemLocationDataRepo.RemoveAsync(_testInventory.Id);
         }
 
         [Test]
         public async Task AddItemLocationToDb()
         {
-            var result = await _itemLocationDataRepo.AddAsync(_testItemLocation);
+            var result = await _itemLocationDataRepo.AddAsync(_testInventory);
             Assert.NotNull(result);
-            Assert.AreEqual(_testItemLocation, result );
+            Assert.AreEqual(_testInventory, result );
         }
 
         [Test]
         public async Task GetItemLocation()
         {
-            await _itemLocationDataRepo.AddAsync(_testItemLocation);
-            var result = await _itemLocationDataRepo.GetAsync(_testItemLocation.Id);
+            await _itemLocationDataRepo.AddAsync(_testInventory);
+            var result = await _itemLocationDataRepo.GetAsync(_testInventory.Id);
             Assert.NotNull(result);
-            Assert.AreEqual(_testItemLocation, result);
+            Assert.AreEqual(_testInventory, result);
         }
         
 
         [Test]
         public async Task RemoveItemLocation()
         {
-            await _itemLocationDataRepo.AddAsync(_testItemLocation);
-            var result =await _itemLocationDataRepo.RemoveAsync(_testItemLocation.Id);
+            await _itemLocationDataRepo.AddAsync(_testInventory);
+            var result =await _itemLocationDataRepo.RemoveAsync(_testInventory.Id);
             Assert.NotNull(result);
-            Assert.AreEqual(_testItemLocation, result);
+            Assert.AreEqual(_testInventory, result);
         }
 
         [Test]
         public void UpdateItemLocation()
         {      
-            _itemLocationDataRepo.AddAsync(_testItemLocation);
-            _testItemLocation.Amount = 100;
-            var result = _itemLocationDataRepo.UpdateAsync(_testItemLocation).Result;
-            Assert.AreEqual(_testItemLocation.Id, result.Id);
+            _itemLocationDataRepo.AddAsync(_testInventory);
+            _testInventory.Amount = 100;
+            var result = _itemLocationDataRepo.UpdateAsync(_testInventory).Result;
+            Assert.AreEqual(_testInventory.Id, result.Id);
             Assert.NotNull(result);
             Assert.AreEqual(100, result.Amount);
         }

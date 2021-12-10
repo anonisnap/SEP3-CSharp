@@ -19,6 +19,31 @@ namespace DataBaseAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Inventory");
+                });
+
             modelBuilder.Entity("Entities.Models.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -46,31 +71,6 @@ namespace DataBaseAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("ItemLocations");
                 });
 
             modelBuilder.Entity("Entities.Models.Location", b =>
@@ -184,7 +184,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()

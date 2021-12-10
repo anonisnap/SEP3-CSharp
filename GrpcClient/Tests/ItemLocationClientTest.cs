@@ -11,7 +11,7 @@ namespace GrpcClient.Tests {
 	public class ItemLocationClientTest {
 		private GRPCConnStr grpcConnStr = new ();
 		private IItemLocationDataServerComm _client;
-		private ItemLocation _testItemLocation1, _testItemLocation2, _testItemLocation3;
+		private Inventory _testItemLocation1, _testItemLocation2, _testItemLocation3;
 		private Item _i1, _i2;
 		private Location _l1, _l2;
 
@@ -48,29 +48,29 @@ namespace GrpcClient.Tests {
 
 		}
 
-		[TestMethod("Register ItemLocation")] // Registering an ItemLocation | IMPLEMENTED : Register ItemLocation -> Check received ItemLocation = Input ItemLocation
+		[TestMethod("Register Inventory")] // Registering an Inventory | IMPLEMENTED : Register Inventory -> Check received Inventory = Input Inventory
 		public async Task RegisterItemLocationAsync( ) {
 			var result = await _client.RegisterAsync(_testItemLocation1);
 			_testItemLocation1.Id = result.Id;
 			
 			Assert.IsNotNull(result);
-			System.Console.WriteLine($"ItemLocation : {_testItemLocation1}\nResult       : {result}");
+			System.Console.WriteLine($"Inventory : {_testItemLocation1}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
 			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod("Update ItemLocation")] // Updating an ItemLocation | CHECK : Register ItemLocation -> Change Weight of ItemLocation -> Update ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Update Inventory")] // Updating an Inventory | CHECK : Register Inventory -> Change Weight of Inventory -> Update Inventory -> Check Inventory received = Input Inventory
 		public async Task UpdateItemLocationAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 			_testItemLocation1.Amount = 5;
 			var result = await _client.UpdateAsync(_testItemLocation1);
 
-			System.Console.WriteLine($"ItemLocation : {_testItemLocation1}\nResult       : {result}");
+			System.Console.WriteLine($"Inventory : {_testItemLocation1}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
 			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod("Get All ItemLocations")] // Getting an ItemLocationlist | CHECK : Register ItemLocations -> Get ItemLocation List -> Check ItemLocationlist contains Input ItemLocations
+		[TestMethod("Get All ItemLocations")] // Getting an ItemLocationlist | CHECK : Register ItemLocations -> Get Inventory List -> Check ItemLocationlist contains Input ItemLocations
 		public async Task GetAllItemLocationsAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 			_testItemLocation2 = await _client.RegisterAsync(_testItemLocation2);
@@ -81,26 +81,26 @@ namespace GrpcClient.Tests {
 			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod("Get ItemLocation")] // Getting a Single ItemLocation | CHECK : Register ItemLocation -> Get ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Get Inventory")] // Getting a Single Inventory | CHECK : Register Inventory -> Get Inventory -> Check Inventory received = Input Inventory
 		public async Task GetItemLocationAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 
 			var result = await _client.GetAsync(_testItemLocation1.Id);
 
-			System.Console.WriteLine($"ItemLocation : {_testItemLocation1}\nResult       : {result}");
+			System.Console.WriteLine($"Inventory : {_testItemLocation1}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation1.Equals(result));
 			Assert.IsFalse(_testItemLocation1.Id == 0 && _testItemLocation2.Id == 0);
 		}
 
-		[TestMethod("Echo Get ItemLocation")] // Echoing ItemLocation | CHECK : Get ItemLocation -> Check ItemLocation received = Input ItemLocation
+		[TestMethod("Echo Get Inventory")] // Echoing Inventory | CHECK : Get Inventory -> Check Inventory received = Input Inventory
 		public async Task EchoGetItemLocationAsync( ) {
 			var result = await _client.GetAsync(_testItemLocation2.Id);
 
-			System.Console.WriteLine($"ItemLocation : {_testItemLocation2}\nResult       : {result}");
+			System.Console.WriteLine($"Inventory : {_testItemLocation2}\nResult       : {result}");
 			Assert.IsTrue(_testItemLocation2.Equals(result));
 		}
 
-		[TestMethod("Remove ItemLocation")] // Removing an ItemLocation | CHECK : Register ItemLocation -> Remove ItemLocation -> Check ItemLocation List does not contain ItemLocation
+		[TestMethod("Remove Inventory")] // Removing an Inventory | CHECK : Register Inventory -> Remove Inventory -> Check Inventory List does not contain Inventory
 		public async Task RemoveItemLocationAsync( ) {
 			_testItemLocation1 = await _client.RegisterAsync(_testItemLocation1);
 			await _client.RemoveAsync(_testItemLocation1.Id);

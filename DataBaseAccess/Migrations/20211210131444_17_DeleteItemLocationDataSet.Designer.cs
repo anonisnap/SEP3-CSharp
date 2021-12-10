@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataBaseAccess.Migrations
 {
     [DbContext(typeof(SEP_DBContext))]
-    [Migration("20211208134058_12_OrderNumberUnique")]
-    partial class _12_OrderNumberUnique
+    [Migration("20211210131444_16_DeleteItemLocationDataSet")]
+    partial class _17_DeleteItemLocationDataSet
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,31 @@ namespace DataBaseAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Inventory");
+                });
 
             modelBuilder.Entity("Entities.Models.Item", b =>
                 {
@@ -50,31 +75,6 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Entities.Models.Inventory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("Inventory");
-                });
-
             modelBuilder.Entity("Entities.Models.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -102,10 +102,15 @@ namespace DataBaseAccess.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("OrderNumber")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("OrderNumber")
                         .IsUnique();
@@ -123,11 +128,7 @@ namespace DataBaseAccess.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ItemId1")
+                    b.Property<int?>("ItemId")
                         .HasColumnType("integer");
 
                     b.Property<int>("OrderId")
@@ -135,26 +136,54 @@ namespace DataBaseAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId1");
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderEntry");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("OrderEntry");
                 });
 
             modelBuilder.Entity("Entities.Models.OrderEntryDb", b =>
                 {
-                    b.HasBaseType("Entities.Models.OrderEntry");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");
 
-                    b.HasIndex("ItemId", "OrderId")
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id", "OrderId")
                         .IsUnique();
 
-                    b.HasDiscriminator().HasValue("OrderEntryDb");
+                    b.ToTable("OrderEntriesDbs");
+                });
+
+            modelBuilder.Entity("Entities.Models.User", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("text");
+
+                    b.Property<int>("SecurityLevel")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entities.Models.Inventory", b =>
@@ -172,13 +201,20 @@ namespace DataBaseAccess.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.HasOne("Entities.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("Entities.Models.OrderEntry", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ItemId");
 
                     b.HasOne("Entities.Models.Order", null)
                         .WithMany("OrderEntries")

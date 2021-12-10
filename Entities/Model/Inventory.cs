@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models {
-	public class ItemLocation {
+	public class Inventory {
 		public int Id { get; set; }
 		
 		[Required]
@@ -19,7 +19,7 @@ namespace Entities.Models {
 				   $"\tAmount: {Amount}";
 		}
 		public override bool Equals(object obj) {
-			return (obj?.GetType( ) == typeof(ItemLocation)) && Id == ((ItemLocation) obj).Id && Amount == ((ItemLocation) obj).Amount && Item.Equals(((ItemLocation) obj).Item) && Location.Equals(((ItemLocation) obj).Location);
+			return (obj?.GetType( ) == typeof(Inventory)) && Id == ((Inventory) obj).Id && Amount == ((Inventory) obj).Amount && Item.Equals(((Inventory) obj).Item) && Location.Equals(((Inventory) obj).Location);
 		}
 
 	}
