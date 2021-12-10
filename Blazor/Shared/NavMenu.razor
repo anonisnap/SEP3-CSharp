@@ -12,30 +12,12 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
-        @*<AuthorizeView Policy="SecurityLevel2">
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="RegisterItem">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Register Item
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="CreateLocation">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Register Location
-                </NavLink>
-            </li>
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="RegisteredItems">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Registered Items
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="RegisteredLocations">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Registered Locations
-                </NavLink>
-            </li>
-        </AuthorizeView>*@
-
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="CreateOrder">
+                <span class="oi oi-question-mark" aria-hidden="true"></span> Create Order
+            </NavLink>
+        </li>
+        
         <AuthorizeView Policy="SecurityLevel1">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="AddItem">
