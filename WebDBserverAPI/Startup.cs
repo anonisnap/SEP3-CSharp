@@ -29,7 +29,7 @@ namespace WebDBserverAPI {
 			services.AddDbContext<WarehouseDbContext, SEP_DBContext>();
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
-			services.AddScoped<IItemLocationDataRepo, ItemLocationDataRepo>();
+			services.AddScoped<IInventoryDataRepo, InventoryDataRepo>();
 			services.AddScoped<IOrderDataRepo, OrderDataRepo>();
 			services.AddScoped<IUserDataRepo, UserDataRepo>();
 

@@ -48,7 +48,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace DataBaseAccess.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("ItemLocations");
+                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("Entities.Models.Location", b =>
@@ -100,10 +100,15 @@ namespace DataBaseAccess.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("OrderNumber")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("OrderNumber")
                         .IsUnique();
@@ -179,7 +184,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()
@@ -190,6 +195,15 @@ namespace DataBaseAccess.Migrations
                         .HasForeignKey("LocationId");
 
                     b.Navigation("Item");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.HasOne("Entities.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
 
                     b.Navigation("Location");
                 });

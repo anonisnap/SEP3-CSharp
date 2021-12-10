@@ -8,7 +8,7 @@ namespace DataBaseAccess
         public DbSet<Location> Locations { get; set; }
         public DbSet<Item> Items { get; set; }
         
-        public DbSet<ItemLocation> ItemLocations { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
         
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderEntryDb> OrderEntriesDbs { get; set; }

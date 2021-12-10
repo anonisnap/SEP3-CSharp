@@ -4,18 +4,18 @@
 @using Blazor.Data
 @using Blazor.Pages.Cards
 
-@inject IItemLocationHandler _itemLocationHandler
+@inject IInventoryHandler _inventoryHandler
 @inject DialogService DialogService
 
 <h2>Locations</h2>
 
-@if (_itemLocations == null)
+@if (_inventories == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_itemLocations.Any())
+else if (!_inventories.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -23,20 +23,20 @@ else if (!_itemLocations.Any())
 }
 else
 {
-    <RadzenDataGrid Data="@_itemLocations" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
+    <RadzenDataGrid Data="@_inventories" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
                     ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            <RadzenDataGridColumn TItem="Inventory" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
                 <Template Context="data">
                     <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
                                   Click="@(() => OpenItemWithLocations(data))" @onclick:stopPropagation="true"/>
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
-            <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
+            <RadzenDataGridColumn TItem="Inventory" Property="Location.Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
+            <RadzenDataGridColumn TItem="Inventory" Property="Item.ItemName" Title="Item Name"/>
         </Columns>
     </RadzenDataGrid>
 }

@@ -49,7 +49,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
+            modelBuilder.Entity("Entities.Models.InventoryDb", b =>
                 {
                     b.Property<int>("ItemId")
                         .HasColumnType("integer");

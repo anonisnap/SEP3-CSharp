@@ -9,10 +9,10 @@ namespace Blazor.Pages
     public partial class MoveItems
     {
         private IList<Location> _locations;
-        private IList<ItemLocation> _itemLocations;
+        private IList<Inventory> _inventories;
 
-        private ItemLocation _newItemLocation;
-        private ItemLocation _oldItemLocation;
+        private Inventory _newInventory;
+        private Inventory _oldInventory;
 
         private int _amount;
         private int _maxValue;
@@ -22,13 +22,13 @@ namespace Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _itemLocationHandler.GetAllAsync();
+            _inventories = await _inventoryHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
 
-            Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
+            Console.WriteLine("count of itemlocations : " + _inventories.Count);
 
-            _newItemLocation = new();
-            _oldItemLocation = new();
+            _newInventory = new();
+            _oldInventory = new();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += CloseConfirmAdd;
@@ -37,45 +37,27 @@ namespace Blazor.Pages
         private async Task Save()
         {
             //hack slash amount
-            _newItemLocation.Amount = _amount;
+            _newInventory.Amount = _amount;
 
-            await _itemLocationHandler.UpdateAsync(_newItemLocation);
+            await _inventoryHandler.UpdateAsync(_newInventory);
             _navigationManager.NavigateTo("/Items");
         }
         
-        private async Task Remove()
+        private void OnChange(object value, string name)
         {
-            _newItemLocation.Location.Id = 1;
-            _newItemLocation.Location.Description = "Trashed";
-            Console.WriteLine(_newItemLocation);
-            await _itemLocationHandler.UpdateAsync(_newItemLocation);
-            _navigationManager.NavigateTo("/Items");
-        }
-        
-        
-
-        void OnChange(object value, string name)
-        {
-            Console.WriteLine($"value is: {value}");
-            Console.WriteLine($"name is: {name}");
-
-            if (name.Equals("ItemLocation"))
+            
+            if (name.Equals("Inventory"))
             {
-                _oldItemLocation = (ItemLocation) value;
-                _maxValue = _oldItemLocation.Amount;
-                Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
-                Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
-                Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
-                _newItemLocation.Item = _oldItemLocation.Item;
-                _newItemLocation.Amount = _oldItemLocation.Amount;
-                _newItemLocation.Id = _oldItemLocation.Id;
+                _oldInventory = (Inventory) value;
+                _maxValue = _oldInventory.Amount;
+                Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
+                Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
+                Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
+                _newInventory.Item = _oldInventory.Item;
+                _newInventory.Amount = _oldInventory.Amount;
+                _newInventory.Id = _oldInventory.Id;
 
-                Console.WriteLine($"++++ NewItemLocation.Id - {_newItemLocation.Id}");
-            }
-            else if (name.Equals("Location"))
-            {
-                Location location = (Location) value;
-                _newItemLocation.Location = location;
+                Console.WriteLine($"++++ NewItemLocation.Id - {_newInventory.Id}");
             }
             else if (name.Equals("amount"))
             {
@@ -83,7 +65,7 @@ namespace Blazor.Pages
             }
         }
 
-        void CloseConfirmAdd(dynamic result)
+        private void CloseConfirmAdd(dynamic result)
         {
             if (result != null) // if the user hits the x near the top right null is returned
             {
@@ -98,14 +80,9 @@ namespace Blazor.Pages
             DialogService.OnClose -= CloseConfirmAdd;
         }
 
-        void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+        private void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
         {
             Console.WriteLine("Dialog opened");
-        }
-
-        void Close(dynamic result)
-        {
-            Console.WriteLine($"Dialog closed {result}");
         }
     }
 }

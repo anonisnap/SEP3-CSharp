@@ -24,10 +24,20 @@
 	<ItemGroup>
 		<Protobuf Include="Protos\ItemService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\LocationService.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\ItemLocationService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\InventoryService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\OrderService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\UserService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\ProtoUtil.proto" GrpcServices="Client" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Compile Remove="Tests\InventoryClientTest.cs" />
+	  <Compile Remove="Tests\ItemClientTest.cs" />
+	  <Compile Remove="Tests\LocationClientTest.cs" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Tests" />
 	</ItemGroup>
 	
 </Project>

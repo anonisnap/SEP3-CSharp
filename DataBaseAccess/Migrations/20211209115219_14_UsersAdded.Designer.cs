@@ -50,7 +50,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace DataBaseAccess.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("ItemLocations");
+                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("Entities.Models.Location", b =>
@@ -181,7 +181,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocation", b =>
+            modelBuilder.Entity("Entities.Models.Inventory", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()
