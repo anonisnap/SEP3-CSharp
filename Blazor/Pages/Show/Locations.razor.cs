@@ -9,14 +9,14 @@ namespace Blazor.Pages.Show
 {
     public partial class Locations
     {
-        private IList<Inventory> _itemLocations;
+        private IList<Inventory> _inventories;
 
         string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
         bool showPagerSummary = true;
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _inventoryHandler.GetAllAsync();
+            _inventories = await _inventoryHandler.GetAllAsync();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += Close;

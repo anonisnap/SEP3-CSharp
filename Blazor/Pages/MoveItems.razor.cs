@@ -9,7 +9,7 @@ namespace Blazor.Pages
     public partial class MoveItems
     {
         private IList<Location> _locations;
-        private IList<Inventory> _itemLocations;
+        private IList<Inventory> _inventories;
 
         private Inventory _newInventory;
         private Inventory _oldInventory;
@@ -22,10 +22,10 @@ namespace Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _inventoryHandler.GetAllAsync();
+            _inventories = await _inventoryHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
 
-            Console.WriteLine("count of itemlocations : " + _itemLocations.Count);
+            Console.WriteLine("count of itemlocations : " + _inventories.Count);
 
             _newInventory = new();
             _oldInventory = new();

@@ -10,12 +10,12 @@ namespace Blazor.Pages.Cards
         [Parameter]
         public Inventory Inventory { get; set; }
     
-        private IList<Inventory> _itemLocations;
+        private IList<Inventory> _inventories;
 
 
         protected override async Task OnInitializedAsync()
         {
-            _itemLocations = await _inventoryHandler.GetAllByItemIdAsync(Inventory.Item.Id);
+            _inventories = await _inventoryHandler.GetAllByItemIdAsync(Inventory.Item.Id);
         }
     }
 }
