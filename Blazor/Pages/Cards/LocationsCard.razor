@@ -6,11 +6,11 @@
 @inject DialogService DialogService
 @inject IInventoryHandler _inventoryHandler
 
-@if (_itemLocations == null)
+@if (_inventories == null)
 {
     <p>Loading...........</p>
 }
-else if (!_itemLocations.Any())
+else if (!_inventories.Any())
 {
     <p>No Locations ;(</p>
 }
@@ -22,7 +22,7 @@ else
                 <h3>Location Details</h3>
                 <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" 
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                Data="@_itemLocations" TItem="Inventory" ColumnWidth="200px">
+                                Data="@_inventories" TItem="Inventory" ColumnWidth="200px">
                     <Columns>
                         <RadzenDataGridColumn TItem="Inventory" Property="Location.Description" Title="Location"/>
                         <RadzenDataGridColumn TItem="Inventory" Property="Amount" Title="Amount"/>

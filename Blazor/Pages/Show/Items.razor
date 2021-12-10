@@ -8,13 +8,13 @@
 
 <h2>Items</h2>
 
-@if (_itemLocations == null)
+@if (_inventories == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_itemLocations.Any())
+else if (!_inventories.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -22,7 +22,7 @@ else if (!_itemLocations.Any())
 }
 else
 {
-    <RadzenDataGrid Data="@_itemLocations" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
+    <RadzenDataGrid Data="@_inventories" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"

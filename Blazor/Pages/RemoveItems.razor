@@ -12,13 +12,13 @@
 <h2>Remove Items</h2>
 <p></p>
 
-@if (_itemLocations == null)
+@if (_inventories == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_itemLocations.Any())
+else if (!_inventories.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -34,7 +34,7 @@ else
                     <RadzenDropDownDataGrid PageSize="15" TValue="Inventory" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                             FilterOperator="StringFilterOperator.Contains"
                                             AllowFiltering="true" AllowClear="false" Placeholder="Select"
-                                            Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "Inventory")) Style="width:100%"
+                                            Data="@_inventories" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "Inventory")) Style="width:100%"
                                             AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
