@@ -11,7 +11,7 @@ namespace GrpcClient.Clients {
 		
 		private string _address;
 		private GrpcChannel _channel;
-		private ItemLocationService.ItemLocationServiceClient _client;
+		private InventoryService.InventoryServiceClient _client;
 
 		public GrpcInventoryClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
@@ -20,19 +20,19 @@ namespace GrpcClient.Clients {
 		// IEntityManager Override Methods
 		public async Task<Inventory> RegisterAsync(Inventory entity) {
 			// Convert Item to gRPC Item
-			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
+			gInventory g = ConvertInventoryToGInventory(entity);
 
 			// Create Connection Point
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			var reply = await _client.RegisterItemLocationAsync(g);
+			var reply = await _client.RegisterInventoryAsync(g);
 
 			// Disconnect from Server
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGInventoryToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -40,13 +40,13 @@ namespace GrpcClient.Clients {
 
 		public async Task<bool> RemoveAsync(int id) {
 			// Convert Item to gRPC Item
-			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
+			gInventoryId g = new gInventoryId {InventoryId = id};
 
 			// Create Connection Point
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			var reply = await _client.RemoveItemLocationAsync(g);
+			var reply = await _client.RemoveInventoryAsync(g);
 
 			// Disconnect from Server
 			await Disconnect( );
@@ -56,19 +56,19 @@ namespace GrpcClient.Clients {
 
 		public async Task<Inventory> UpdateAsync(Inventory entity) {
 			// Convert Item to gRPC Item
-			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
+			gInventory g = ConvertInventoryToGInventory(entity);
 
 			// Create Connection Point
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			var reply = await _client.UpdateItemLocationAsync(g);
+			var reply = await _client.UpdateInventoryAsync(g);
 
 			// Disconnect from Server
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGInventoryToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -76,25 +76,25 @@ namespace GrpcClient.Clients {
 
 		public async Task<IList<Inventory>> GetAllAsync( ) {
 			// Convert Item to gRPC Item | Here, it is specifically used as an Object Template for later
-			gItemLocation template = new( ) { };
+			gInventory template = new( ) { };
 
 			// Create Connection Point
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			gItemLocationList reply = await _client.GetAllItemLocationsAsync(template);
+			gInventoryList reply = await _client.GetAllInventorysAsync(template);
 
 			// Disconnect from Server
 			await Disconnect( );
 
 			// Generate Lists to read from, and fill in
-			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
+			ICollection<gInventory> gInventorys = reply.Inventorys;
 			List<Inventory> items = new( ) { };
 
-			// Loop Through Collection of gItemLocations
-			foreach (var g in gItemLocations) {
-				// Convert each gItemLocation and add to list of Items
-				items.Add(ConvertGItemLocationToItemLocation(g));
+			// Loop Through Collection of gInventorys
+			foreach (var g in gInventorys) {
+				// Convert each gInventory and add to list of Items
+				items.Add(ConvertGInventoryToInventory(g));
 			}
 
 			// Return Item to User
@@ -103,19 +103,19 @@ namespace GrpcClient.Clients {
 
 		public async Task<Inventory> GetAsync(int id) {
 			// Convert Item to gRPC Item
-			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
+			gInventoryId g = new gInventoryId {InventoryId = id};
 
 			// Create Connection Point
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			var reply = await _client.GetItemLocationAsync(g);
+			var reply = await _client.GetInventoryAsync(g);
 
 			// Disconnect from Server
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGInventoryToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -123,28 +123,28 @@ namespace GrpcClient.Clients {
 
 		public async Task<IList<Inventory>> GetAllByItemIdAsync(int itemId)
 		{
-			List<Inventory> itemLocations = new ();
+			List<Inventory> Inventorys = new ();
 
 			gItemId gItemId = new gItemId {ItemId = itemId};
 			Connect();
 
 			var reply = await _client.GetByItemIdAsync(gItemId);
 			
-			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
-			// Loop Through Collection of gItemLocations
-			foreach (var g in gItemLocations) {
-				// Convert each gItemLocation and add to list of Items
-				itemLocations.Add(ConvertGItemLocationToItemLocation(g));
+			ICollection<gInventory> gInventorys = reply.Inventorys;
+			// Loop Through Collection of gInventorys
+			foreach (var g in gInventorys) {
+				// Convert each gInventory and add to list of Items
+				Inventorys.Add(ConvertGInventoryToInventory(g));
 			}
 			
 			await Disconnect();
 			
-			return itemLocations;
+			return Inventorys;
 		}
 
 		public async Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId)
 		{
-			List<Inventory> itemLocations = new ();
+			List<Inventory> Inventorys = new ();
 
 			gLocationId gLocationId = new gLocationId {LocationId = locationId};
 			
@@ -152,25 +152,25 @@ namespace GrpcClient.Clients {
 
 			var reply = await _client.GetByLocationIdAsync(gLocationId);
 			
-			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
-			// Loop Through Collection of gItemLocations
-			foreach (var g in gItemLocations) {
-				// Convert each gItemLocation and add to list of Items
-				itemLocations.Add(ConvertGItemLocationToItemLocation(g));
+			ICollection<gInventory> gInventorys = reply.Inventorys;
+			// Loop Through Collection of gInventorys
+			foreach (var g in gInventorys) {
+				// Convert each gInventory and add to list of Items
+				Inventorys.Add(ConvertGInventoryToInventory(g));
 			}
 			
 			await Disconnect();
 			
-			return itemLocations;
+			return Inventorys;
 		}
 
 
-		private gItemLocation ConvertItemLocationToGItemLocation(Inventory from) {
-			gItemLocation to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };
+		private gInventory ConvertInventoryToGInventory(Inventory from) {
+			gInventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };
 			return to;
 		}
 
-		private Inventory ConvertGItemLocationToItemLocation(gItemLocation from) {
+		private Inventory ConvertGInventoryToInventory(gInventory from) {
 			Inventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertGItemToItem(from.Item), Location = ConvertGLocationToLocation(from.Location) };
 			return to;
 		}
@@ -196,7 +196,7 @@ namespace GrpcClient.Clients {
 
 		private void Connect( ) {
 			_channel = GrpcChannel.ForAddress(_address);
-			_client = new ItemLocationService.ItemLocationServiceClient(_channel);
+			_client = new InventoryService.InventoryServiceClient(_channel);
 		}
 
 		private async Task Disconnect( ) {
