@@ -44,7 +44,7 @@ namespace WebDBserverAPI.Controllers {
 		}
 		
 		[HttpGet]
-		[Route("Stock")]
+		[Route("stock")]
 		public async Task<ActionResult<IList<Inventory>>> GetInventoryStock()
 		{
 			IList<Inventory> itemLocations = await _inventoryRepo.GetInventoryStock();
@@ -52,6 +52,7 @@ namespace WebDBserverAPI.Controllers {
 		}
 
 		[HttpGet]
+		[Route("all")]
 		public async Task<ActionResult<IList<Inventory>>> GetAllAsync( ) {
 			IList<Inventory> itemLocations = await _inventoryRepo.GetAllAsync( );
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );

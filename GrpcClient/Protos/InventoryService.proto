@@ -27,10 +27,9 @@ message gInventoryId{
 
 
 service InventoryService{
-
   rpc RegisterInventory(gInventory) returns (gInventory);
   rpc GetInventory(gInventoryId) returns (gInventory);
-  rpc GetAllInventorys(gInventory) returns (gInventoryList);
+  rpc GetAllInventory(gInventory) returns (gInventoryList);
   rpc UpdateInventory(gInventory) returns (gInventory);
   rpc RemoveInventory(gInventoryId) returns (gBoolValue);
   rpc GetByItemId(gItemId) returns (gInventoryList);

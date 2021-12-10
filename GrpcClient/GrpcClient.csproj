@@ -31,8 +31,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Compile Include="obj\Debug\net5.0\Protos\InventoryService.cs" />
-	  <Compile Include="obj\Debug\net5.0\Protos\InventoryServiceGrpc.cs" />
 	  <Compile Remove="Tests\InventoryClientTest.cs" />
 	  <Compile Remove="Tests\ItemClientTest.cs" />
 	  <Compile Remove="Tests\LocationClientTest.cs" />

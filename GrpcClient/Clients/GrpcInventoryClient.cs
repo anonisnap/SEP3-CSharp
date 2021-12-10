@@ -82,7 +82,7 @@ namespace GrpcClient.Clients {
 			Connect( );
 
 			// Send Call Request to Server and store reply
-			gInventoryList reply = await _client.GetAllInventorysAsync(template);
+			gInventoryList reply = await _client.GetAllInventoryAsync(template);
 
 			// Disconnect from Server
 			await Disconnect( );
