@@ -11,7 +11,7 @@ namespace Blazor.Pages
         private IList<Item> _items;
         private IList<Location> _locations;
 
-        private ItemLocation _itemLocation;
+        private Inventory _inventory;
 
         string pagingSummaryFormat = "Page {0} of {1}";
         bool showPagerSummary = true;
@@ -20,7 +20,7 @@ namespace Blazor.Pages
         {
             _items = await _itemsHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
-            _itemLocation = new();
+            _inventory = new();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += CloseConfirmAdd;
@@ -28,9 +28,9 @@ namespace Blazor.Pages
 
         private async Task Save()
         {
-            await _itemLocationHandler.RegisterAsync(_itemLocation);
+            await _inventoryHandler.RegisterAsync(_inventory);
 
-            Console.WriteLine($"Printing Location: /n {_itemLocation}");
+            Console.WriteLine($"Printing Location: /n {_inventory}");
 
             _navigationManager.NavigateTo("/Items");
         }
@@ -47,12 +47,12 @@ namespace Blazor.Pages
             {
                 Item item = (Item) value;
 
-                _itemLocation.Item = item;
+                _inventory.Item = item;
             }
             else if (name.Equals("Location"))
             {
                 Location location = (Location) value;
-                _itemLocation.Location = location;
+                _inventory.Location = location;
             }
         }
 

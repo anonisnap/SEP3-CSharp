@@ -9,7 +9,7 @@ namespace DataBaseAccess.Migrations
         {
 
             migrationBuilder.CreateTable(
-                name: "ItemLocations",
+                name: "Inventory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -37,19 +37,19 @@ namespace DataBaseAccess.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemLocations_ItemId",
-                table: "ItemLocations",
+                table: "Inventory",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemLocations_LocationId",
-                table: "ItemLocations",
+                table: "Inventory",
                 column: "LocationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ItemLocations");
+                name: "Inventory");
 
             migrationBuilder.CreateTable(
                 name: "ItemLocationsDb",

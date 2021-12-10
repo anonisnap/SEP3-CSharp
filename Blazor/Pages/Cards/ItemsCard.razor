@@ -4,7 +4,7 @@
 @using Entities.Models
 
 @inject DialogService DialogService
-@inject IItemLocationHandler _itemLocationHandler
+@inject IInventoryHandler _inventoryHandler
 
 
 @if (_itemLocations == null)
@@ -23,14 +23,14 @@ else
                 <h3>Item Details</h3>
                 <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" 
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                Data="@_itemLocations" TItem="ItemLocation" ColumnWidth="200px">
+                                Data="@_itemLocations" TItem="Inventory" ColumnWidth="200px">
                     <Columns>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Amount" Title="Amount"/>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Length" Title="Length"/>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Width" Title="Width"/>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Height" Title="Height"/>
-                        <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Weight" Title="Weight"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Item.ItemName" Title="Item Name"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Amount" Title="Amount"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Item.Length" Title="Length"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Item.Width" Title="Width"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Item.Height" Title="Height"/>
+                        <RadzenDataGridColumn TItem="Inventory" Property="Item.Weight" Title="Weight"/>
                     </Columns>
                 </RadzenDataGrid>
             </div>

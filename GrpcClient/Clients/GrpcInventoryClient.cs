@@ -5,21 +5,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
-using ItemLocation = Entities.Models.ItemLocation;
 
 namespace GrpcClient.Clients {
-	public class GrpcItemLocationClient : IItemLocationDataServerComm {
+	public class GrpcInventoryClient : IInventoryDataServerComm {
 		
 		private string _address;
 		private GrpcChannel _channel;
 		private ItemLocationService.ItemLocationServiceClient _client;
 
-		public GrpcItemLocationClient(GRPCConnStr address) {
+		public GrpcInventoryClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
 		}
 
 		// IEntityManager Override Methods
-		public async Task<ItemLocation> RegisterAsync(ItemLocation entity) {
+		public async Task<Inventory> RegisterAsync(Inventory entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -33,10 +32,10 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
-			return itemLocation;
+			return inventory;
 		}
 
 		public async Task<bool> RemoveAsync(int id) {
@@ -55,7 +54,7 @@ namespace GrpcClient.Clients {
 			return reply.Value;
 		}
 
-		public async Task<ItemLocation> UpdateAsync(ItemLocation entity) {
+		public async Task<Inventory> UpdateAsync(Inventory entity) {
 			// Convert Item to gRPC Item
 			gItemLocation g = ConvertItemLocationToGItemLocation(entity);
 
@@ -69,13 +68,13 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
-			return itemLocation;
+			return inventory;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllAsync( ) {
+		public async Task<IList<Inventory>> GetAllAsync( ) {
 			// Convert Item to gRPC Item | Here, it is specifically used as an Object Template for later
 			gItemLocation template = new( ) { };
 
@@ -90,7 +89,7 @@ namespace GrpcClient.Clients {
 
 			// Generate Lists to read from, and fill in
 			ICollection<gItemLocation> gItemLocations = reply.ItemLocations;
-			List<ItemLocation> items = new( ) { };
+			List<Inventory> items = new( ) { };
 
 			// Loop Through Collection of gItemLocations
 			foreach (var g in gItemLocations) {
@@ -102,7 +101,7 @@ namespace GrpcClient.Clients {
 			return items;
 		}
 
-		public async Task<ItemLocation> GetAsync(int id) {
+		public async Task<Inventory> GetAsync(int id) {
 			// Convert Item to gRPC Item
 			gItemLocationId g = new gItemLocationId {ItemLocationId = id};
 
@@ -116,15 +115,15 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			ItemLocation itemLocation = ConvertGItemLocationToItemLocation(reply);
+			Inventory inventory = ConvertGItemLocationToItemLocation(reply);
 
 			// Return Item to User
-			return itemLocation;
+			return inventory;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllByItemIdAsync(int itemId)
+		public async Task<IList<Inventory>> GetAllByItemIdAsync(int itemId)
 		{
-			List<ItemLocation> itemLocations = new ();
+			List<Inventory> itemLocations = new ();
 
 			gItemId gItemId = new gItemId {ItemId = itemId};
 			Connect();
@@ -143,9 +142,9 @@ namespace GrpcClient.Clients {
 			return itemLocations;
 		}
 
-		public async Task<IList<ItemLocation>> GetAllByLocationIdAsync(int locationId)
+		public async Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId)
 		{
-			List<ItemLocation> itemLocations = new ();
+			List<Inventory> itemLocations = new ();
 
 			gLocationId gLocationId = new gLocationId {LocationId = locationId};
 			
@@ -166,13 +165,13 @@ namespace GrpcClient.Clients {
 		}
 
 
-		private gItemLocation ConvertItemLocationToGItemLocation(ItemLocation from) {
+		private gItemLocation ConvertItemLocationToGItemLocation(Inventory from) {
 			gItemLocation to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };
 			return to;
 		}
 
-		private ItemLocation ConvertGItemLocationToItemLocation(gItemLocation from) {
-			ItemLocation to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertGItemToItem(from.Item), Location = ConvertGLocationToLocation(from.Location) };
+		private Inventory ConvertGItemLocationToItemLocation(gItemLocation from) {
+			Inventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertGItemToItem(from.Item), Location = ConvertGLocationToLocation(from.Location) };
 			return to;
 		}
 		

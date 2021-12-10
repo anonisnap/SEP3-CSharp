@@ -3,7 +3,7 @@
 @using Blazor.Pages.Cards
 @using Blazor.Data
 
-@inject IItemLocationHandler _itemLocationHandler
+@inject IInventoryHandler _inventoryHandler
 @inject DialogService DialogService
 
 <h3>Trashed</h3>
@@ -22,20 +22,20 @@ else if (!_itemLocationsTrashed.Any())
 }
 else
 {
-    <RadzenDataGrid Data="@_itemLocationsTrashed" TItem="ItemLocation" AllowFiltering="true" FilterMode="FilterMode.Simple"
+    <RadzenDataGrid Data="@_itemLocationsTrashed" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
                     ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            <RadzenDataGridColumn TItem="Inventory" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
                 <Template Context="data">
                     <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
                                   Click="@(() => OpenLocationWithItems(data))" @onclick:stopPropagation="true"/>
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
-            <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
+            <RadzenDataGridColumn TItem="Inventory" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
+            <RadzenDataGridColumn TItem="Inventory" Property="Item.ItemName" Title="Item Name"/>
         </Columns>
     </RadzenDataGrid>
 }
@@ -43,8 +43,8 @@ else
 @code {
     //TODO: ALT DETTE TRASHED LOGIK SKAL FLYTTES TIL TIER 2!!!!!!! - FØR AFLEVERING! ;))))
     
-    private IList<ItemLocation> _itemLocations;
-    private IList<ItemLocation> _itemLocationsTrashed;
+    private IList<Inventory> _itemLocations;
+    private IList<Inventory> _itemLocationsTrashed;
 
     //For Sorting amount:
     private IList<Item> _items;
@@ -56,7 +56,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _itemLocations = await _itemLocationHandler.GetAllAsync();
+        _itemLocations = await _inventoryHandler.GetAllAsync();
         SortTrashed();
         DialogService.OnOpen += Open;
         DialogService.OnClose += Close;
@@ -64,7 +64,7 @@ else
 
     private void SortTrashed()
     {
-        _itemLocationsTrashed = new List<ItemLocation>();
+        _itemLocationsTrashed = new List<Inventory>();
         foreach (var itemLocation in _itemLocations)
         {
             if (itemLocation.Location.Id == 1)
@@ -138,20 +138,20 @@ else
         
         /*
         //Divider med trashed items
-        foreach (var itemLocation in _itemLocationsTrashed)
+        foreach (var inventory in _itemLocationsTrashed)
         {
-            itemLocation.Amount
+            inventory.Amount
         }
         */
         
         //*100
     }
 
-    async Task OpenLocationWithItems(ItemLocation itemLocation)
+    async Task OpenLocationWithItems(Inventory inventory)
     {
-        await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {itemLocation.Item.ItemName}" +
-                                                     $"Item Id {itemLocation.Item.Id}",
-            new Dictionary<string, object>() {{"ItemLocation", itemLocation}},
+        await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {inventory.Item.ItemName}" +
+                                                     $"Item Id {inventory.Item.Id}",
+            new Dictionary<string, object>() {{"Inventory", inventory}},
             new DialogOptions()
             {
                 Width = "700px", Height = "530px",

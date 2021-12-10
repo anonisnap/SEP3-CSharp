@@ -3,17 +3,17 @@
 @using Blazor.Data
 @namespace ItemLocationSelecterComponent
 
-@inject IItemLocationHandler _itemLocationHandler
+@inject IInventoryHandler _inventoryHandler
 @inject NavigationManager _navigationManager
-<h3>ItemLocationSelecter</h3>
+<h3>InventorySelecter</h3>
 
 <div class="row">
     <div class="col-xl-6 mb-5">
         <h5>Item and location id</h5>
-        <RadzenDropDownDataGrid PageSize="15" TValue="ItemLocation" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+        <RadzenDropDownDataGrid PageSize="15" TValue="Inventory" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.Contains"
                                 AllowFiltering="true" AllowClear="false" Placeholder="Select"
-                                Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "ItemLocation")) Style="width:100%"
+                                Data="@_itemLocations" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "Inventory")) Style="width:100%"
                                 AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
             <Columns>
 
@@ -41,7 +41,7 @@
     [Parameter]
     public bool showLocationDetail { get; set; }
 
-    private IList<ItemLocation> _itemLocations;
+    private IList<Inventory> _itemLocations;
     private int _amount;
     private int _maxValue;
 
@@ -50,24 +50,24 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _itemLocations = await _itemLocationHandler.GetAllAsync();
+        _itemLocations = await _inventoryHandler.GetAllAsync();
     }
 
     void OnChange(object value, string name)
     {
-        if (name.Equals("ItemLocation"))
+        if (name.Equals("Inventory"))
         {
             Console.WriteLine("selected itemlocation " + value);
 
     /*
-            _oldItemLocation = (ItemLocation) value;
-            _maxValue = _oldItemLocation.Amount;
-            Console.WriteLine($"+++ OldItemLocation.Id - {_oldItemLocation.Id}");
-            Console.WriteLine($"-Printing Item from Item Location: {_oldItemLocation.Item}");
-            Console.WriteLine($"-Printing Amount from Item Location: {_oldItemLocation.Amount}");
-            _newItemLocation.Item = _oldItemLocation.Item;
-            _newItemLocation.Amount = _oldItemLocation.Amount;
-            _newItemLocation.Id = _oldItemLocation.Id;
+            _oldInventory = (Inventory) value;
+            _maxValue = _oldInventory.Amount;
+            Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
+            Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
+            Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
+            _newInventory.Item = _oldInventory.Item;
+            _newInventory.Amount = _oldInventory.Amount;
+            _newInventory.Id = _oldInventory.Id;
 */
         }
         else if (name.Equals("amount"))

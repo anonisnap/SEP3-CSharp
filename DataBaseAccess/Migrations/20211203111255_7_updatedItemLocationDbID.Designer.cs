@@ -49,7 +49,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
+            modelBuilder.Entity("Entities.Models.InventoryDb", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace DataBaseAccess.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("Entities.Models.ItemLocationDB", b =>
+            modelBuilder.Entity("Entities.Models.InventoryDb", b =>
                 {
                     b.HasOne("Entities.Models.Item", "Item")
                         .WithMany()
