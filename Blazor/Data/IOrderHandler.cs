@@ -7,7 +7,5 @@ namespace Blazor.Data
 {
     public interface IOrderHandler : IEntityManager<Order>
     {
-        Task<IList<Order>> GetAllByOrderIdAsync(Order order);
-
     }
 }
