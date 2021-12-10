@@ -45,9 +45,7 @@ namespace Blazor.Pages
         
         private void OnChange(object value, string name)
         {
-            Console.WriteLine($"value is: {value}");
-            Console.WriteLine($"name is: {name}");
-
+            
             if (name.Equals("ItemLocation"))
             {
                 _oldItemLocation = (ItemLocation) value;
@@ -60,11 +58,6 @@ namespace Blazor.Pages
                 _newItemLocation.Id = _oldItemLocation.Id;
 
                 Console.WriteLine($"++++ NewItemLocation.Id - {_newItemLocation.Id}");
-            }
-            else if (name.Equals("Location"))
-            {
-                Location location = (Location) value;
-                _newItemLocation.Location = location;
             }
             else if (name.Equals("amount"))
             {

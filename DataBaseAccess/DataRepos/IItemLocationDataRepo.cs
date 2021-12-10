@@ -10,6 +10,9 @@ namespace DataBaseAccess.DataRepos.Impl
         Task<IList<ItemLocation>> GetByItemIdAsync(int itemId);
         
         Task<IList<ItemLocation>> GetByLocationIdAsync(int locationId);
+
+        Task<IList<ItemLocation>> GetItemLocationStock();
+
         
     }
 }
