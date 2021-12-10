@@ -1,4 +1,4 @@
-﻿@page "/MoveItems"
+﻿@page "/RemoveItems"
 @* @attribute [Authorize(Policy = "SecurityLevel1")] *@
 @using Blazor.Data
 @using Entities.Models
@@ -9,16 +9,16 @@
 
 @inject DialogService DialogService
 
-<h2>Move Items to a new Location </h2>
+<h2>Remove Items</h2>
 <p></p>
 
-@if (_itemLocations == null || _locations == null)
+@if (_itemLocations == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_itemLocations.Any() || !_locations.Any())
+else if (!_itemLocations.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -49,26 +49,12 @@ else
                     <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-6 mb-5">
-                    <h5>Registered Locations</h5>
-                    <RadzenDropDownDataGrid PageSize="10" TValue="Location" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                            FilterOperator="StringFilterOperator.Contains"
-                                            AllowFiltering="true" AllowClear="true" Placeholder="Select"
-                                            Data="@_locations" TextProperty="Description" Change=@(args => OnChange(args, "Location")) Style="width:100%"
-                                            ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
-                        <Columns>
-                            <RadzenDropDownDataGridColumn Property="Id" Title="Description Id"/>
-                            <RadzenDropDownDataGridColumn Property="Description" Title="Description"/>
-                        </Columns>
-                    </RadzenDropDownDataGrid>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-2">
-                    <h5>Add to location</h5>
-                    <RadzenButton Icon="save" Text="Save" Click=@(args => DialogService.Confirm("Are you sure you want to move this item?",
-                                                                    "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
+                    <h5>Trash</h5>
+                    <RadzenButton Icon="delete" Text="Trash" Click=@(args => DialogService.Confirm("Are you sure you want to remove?", 
+                                                                       "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
                 </div>
             </div>
 
