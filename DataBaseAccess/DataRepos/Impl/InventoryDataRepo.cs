@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DataBaseAccess.DataRepos.Impl
 {
-    public class ItemLocationDataRepo : IItemLocationDataRepo
+    public class InventoryDataRepo : IInventoryDataRepo
     {
         private WarehouseDbContext _warehouseDbContext;
 
-        public ItemLocationDataRepo(WarehouseDbContext dbContext)
+        public InventoryDataRepo(WarehouseDbContext dbContext)
         {
             _warehouseDbContext = dbContext;
         }
@@ -80,7 +80,7 @@ namespace DataBaseAccess.DataRepos.Impl
             return entity;
         }
 
-        public async Task<IList<Inventory>> GetByLocationIdAsync(int locationId)
+        public async Task<IList<Inventory>> GetInventoryIdAsync(int locationId)
         {
             List<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
@@ -92,7 +92,7 @@ namespace DataBaseAccess.DataRepos.Impl
         }
         
         
-        public async Task<IList<Inventory>> GetItemLocationStock()
+        public async Task<IList<Inventory>> GetInventoryStock()
         {
            var itemLocations = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)

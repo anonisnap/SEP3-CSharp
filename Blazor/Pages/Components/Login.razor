@@ -11,13 +11,19 @@
             class="form-group my-auto">
             <label>Username:</label> <input type="text" placeholder="username" @bind-value="_username"/>
         </div>
-        <div class="form-group my-auto">
+        <div class="form-group my-auto ml-2 pl-2">
             <label>Password:</label> <input type="password" placeholder="password" @bind-value="_password"/>
         </div>
-        <div style="color:red" class="my-auto">@_errorMessage</div> <a href="" @onclick="PerformLogin">Login</a>
+        <div style="color:red" class="my-auto">@_errorMessage</div>
+
+        <a href="" @onclick="PerformLogin">
+            <button class="btn btn-outline-dark btn-primary">Log in</button>
+        </a>
     </NotAuthorized>
     <Authorized>
-        <a href="" @onclick="PerformLogout">Logout:</a>
+        <a href="" @onclick="PerformLogout">
+            <button class="btn btn-outline-dark btn-primary">Logout</button>
+        </a>
     </Authorized>
 </AuthorizeView>
 
@@ -56,4 +62,5 @@
         {
         }
     }
+
 }

@@ -8,16 +8,16 @@ using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Tests {
 	[TestClass]
-	public class ItemLocationClientTest {
+	public class InventoryClientTest {
 		private GRPCConnStr grpcConnStr = new ();
-		private IItemLocationDataServerComm _client;
+		private IInventoryDataServerComm _client;
 		private Inventory _testItemLocation1, _testItemLocation2, _testItemLocation3;
 		private Item _i1, _i2;
 		private Location _l1, _l2;
 
 		[TestInitialize]
 		public void Setup( ) {
-			_client = new GrpcItemLocationClient(grpcConnStr);
+			_client = new GrpcInventoryClient(grpcConnStr);
 			_i1 = new( ) { Id = 0, ItemName = "The Answer to Life, The Universe, and Everything", Height = 420, Length = 69, Width = 727, Weight = 15 }; 
 			_i2 = new( ) { Id = 0, ItemName = "Couch", Height = 74, Length = 84, Width = 35, Weight = 100 };
 			_l1 = new( ) { Id = 0, Description = "The Universe" }; 

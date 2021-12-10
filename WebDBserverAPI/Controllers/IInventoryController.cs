@@ -4,7 +4,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebDBserverAPI.Controllers {
-	public interface IItemLocationController : IController<Inventory>
+	public interface IInventoryController : IController<Inventory>
 	{
 
 		public Task<ActionResult<IList<Inventory>>> GetByItemIdAsync(int itemId);
@@ -15,7 +15,7 @@ namespace WebDBserverAPI.Controllers {
 		/// and itemLocations associated with an Order
 		/// </summary>
 		/// <returns>Task<IList<Inventory>></returns>
-		public Task<ActionResult<IList<Inventory>>> GetItemLocationStock();
+		public Task<ActionResult<IList<Inventory>>> GetInventoryStock();
 		
 		
 		

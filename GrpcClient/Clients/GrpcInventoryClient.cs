@@ -7,13 +7,13 @@ using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
 
 namespace GrpcClient.Clients {
-	public class GrpcItemLocationClient : IItemLocationDataServerComm {
+	public class GrpcInventoryClient : IInventoryDataServerComm {
 		
 		private string _address;
 		private GrpcChannel _channel;
 		private ItemLocationService.ItemLocationServiceClient _client;
 
-		public GrpcItemLocationClient(GRPCConnStr address) {
+		public GrpcInventoryClient(GRPCConnStr address) {
 			_address = address.GrpcAddress;
 		}
 

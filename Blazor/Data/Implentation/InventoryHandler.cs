@@ -10,11 +10,11 @@ namespace Blazor.Data
 {
     public class InventoryHandler : IInventoryHandler
     {
-        private IItemLocationDataServerComm _itemLocationDataServerComm;
+        private IInventoryDataServerComm _inventoryDataServerComm;
 
-        public InventoryHandler(IItemLocationDataServerComm itemLocationDataServerComm)
+        public InventoryHandler(IInventoryDataServerComm inventoryDataServerComm)
         {
-            _itemLocationDataServerComm = itemLocationDataServerComm;
+            _inventoryDataServerComm = inventoryDataServerComm;
         }
 
 
@@ -24,7 +24,7 @@ namespace Blazor.Data
 
         public async Task<Inventory> RegisterAsync(Inventory inventory)
         {
-            return await _itemLocationDataServerComm.RegisterAsync(inventory);
+            return await _inventoryDataServerComm.RegisterAsync(inventory);
         }
 
         public Task<bool> RemoveAsync(int entity)
@@ -34,12 +34,12 @@ namespace Blazor.Data
 
         public async Task<Inventory> UpdateAsync(Inventory inventory)
         {
-            return await _itemLocationDataServerComm.UpdateAsync(inventory);
+            return await _inventoryDataServerComm.UpdateAsync(inventory);
         }
 
         public async Task<IList<Inventory>> GetAllAsync()
         {
-            return await _itemLocationDataServerComm.GetAllAsync();
+            return await _inventoryDataServerComm.GetAllAsync();
         }
 
         public async Task<Inventory> GetAsync(int entity)
@@ -49,12 +49,12 @@ namespace Blazor.Data
 
         public async Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId)
         {
-            return await _itemLocationDataServerComm.GetAllByLocationIdAsync(locationId);
+            return await _inventoryDataServerComm.GetAllByLocationIdAsync(locationId);
         }
 
         public async Task<IList<Inventory>> GetAllByItemIdAsync(int itemId)
         {
-            return await _itemLocationDataServerComm.GetAllByItemIdAsync(itemId);
+            return await _inventoryDataServerComm.GetAllByItemIdAsync(itemId);
         }
     }
 }
