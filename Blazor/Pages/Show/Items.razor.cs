@@ -36,11 +36,6 @@ namespace Blazor.Pages.Show
                 });
         }
 
-        async Task DeleteItemLocation(ItemLocation itemLocation)
-        {
-            //move item to trashed list
-        }
-        
         void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
         {
             Console.WriteLine("Dialog Opened");

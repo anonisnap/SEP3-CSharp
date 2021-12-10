@@ -28,6 +28,12 @@ else
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
                     ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
+            <RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                <Template Context="data">
+                    <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
+                                  Click="@(() => OpenLocationWithItems(data))" @onclick:stopPropagation="true"/>
+                </Template>
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
             <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
         </Columns>
@@ -60,6 +66,7 @@ else
             }
         }
     }
+
     async Task OpenLocationWithItems(ItemLocation itemLocation)
     {
         await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {itemLocation.Item.ItemName}" +
@@ -72,11 +79,6 @@ else
             });
     }
 
-    async Task DeleteItemLocation(ItemLocation itemLocation)
-    {
-    //move item to trashed list
-    }
-        
     void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
     {
         Console.WriteLine("Dialog Opened");
@@ -86,4 +88,5 @@ else
     {
         Console.WriteLine("Dialog closed");
     }
+
 }
