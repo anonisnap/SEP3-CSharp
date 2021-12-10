@@ -37,12 +37,6 @@ else
             <RadzenDataGridColumn TItem="ItemLocation" Property="Item.Id" Title="Item ID" SortOrder="SortOrder.Ascending"/>
             <RadzenDataGridColumn TItem="ItemLocation" Property="Item.ItemName" Title="Item Name"/>
             <RadzenDataGridColumn TItem="ItemLocation" Property="Location.Description" Title="Locations"/>
-            @*<RadzenDataGridColumn TItem="ItemLocation" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
-            <EditTemplate Context="data">
-                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Class="m-1" Click="@(() => DeleteItemLocation(data))">
-                </RadzenButton>
-            </EditTemplate>
-        </RadzenDataGridColumn>*@
         </Columns>
     </RadzenDataGrid>
 }
