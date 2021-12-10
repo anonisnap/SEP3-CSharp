@@ -8,13 +8,13 @@
 
 <h3>Trashed</h3>
 
-@if (_itemLocationsTrashed == null)
+@if (_inventories == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_itemLocationsTrashed.Any())
+else if (!_inventories.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -22,7 +22,7 @@ else if (!_itemLocationsTrashed.Any())
 }
 else
 {
-    <RadzenDataGrid Data="@_itemLocationsTrashed" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
+    <RadzenDataGrid Data="@_inventories" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
@@ -42,9 +42,9 @@ else
 
 @code {
     //TODO: ALT DETTE TRASHED LOGIK SKAL FLYTTES TIL TIER 2!!!!!!! - FØR AFLEVERING! ;))))
-    
-    private IList<Inventory> _itemLocations;
-    private IList<Inventory> _itemLocationsTrashed;
+
+
+    private IList<Inventory> _inventories;
 
     //For Sorting amount:
     private IList<Item> _items;
@@ -56,16 +56,21 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _itemLocations = await _inventoryHandler.GetAllAsync();
-        SortTrashed();
+        _inventories = await _inventoryHandler.GetAllByLocationIdAsync(1);
         DialogService.OnOpen += Open;
         DialogService.OnClose += Close;
     }
 
+
+    /*
+          private IList<Inventory> _itemLocationsTrashed;
+
+     
+    
     private void SortTrashed()
     {
         _itemLocationsTrashed = new List<Inventory>();
-        foreach (var itemLocation in _itemLocations)
+        foreach (var itemLocation in _inventories)
         {
             if (itemLocation.Location.Id == 1)
             {
@@ -123,7 +128,7 @@ else
         }
         
         //Få total amount af items
-        foreach (var itemLocation in _itemLocations)
+        foreach (var itemLocation in _inventories)
         {
             foreach (var trashHelp in trashHelper_Total)
             {
@@ -135,9 +140,8 @@ else
                 }
             }
         }
-        
-        
-        /*
+*/
+    /*
         //Divider med trashed items
         foreach (var inventory in _itemLocationsTrashed)
         {
@@ -148,6 +152,7 @@ else
         //*100
     }
     */
+
 
     async Task OpenLocationWithItems(Inventory inventory)
     {
