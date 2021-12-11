@@ -12,8 +12,11 @@ namespace Entities.Models
 
         public override string ToString()
         {
-            return $"id: {Id}, OrderId: {OrderId}, Amount: {Amount}, item Name: {Item.ItemName}";
-        }
+            return $"Order Entry\n " +
+                   $"Id: {Id}\n" +
+                   $"OrderId: {OrderId}\n" +
+                   $"Amount: {Amount}\n" +
+                   $"Item: {Item.ItemName}";        }
 
         public object Clone()
         {
