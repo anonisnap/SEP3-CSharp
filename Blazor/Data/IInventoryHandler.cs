@@ -9,5 +9,8 @@ namespace Blazor.Data
     {
         Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId);
         Task<IList<Inventory>> GetAllByItemIdAsync(int itemId);
+        
+        Task<IList<Inventory>> GetInventoryStockAsync();
+
     }
 }

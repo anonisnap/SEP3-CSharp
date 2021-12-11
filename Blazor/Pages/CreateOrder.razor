@@ -1,7 +1,7 @@
 ﻿@page "/CreateOrder"
 @using Blazor.Data
 @using Entities.Models
-@using ItemLocationSelecterComponent
+@using ItemLocationSelectorComponent
 @inject IOrderHandler _orderHandler
 @inject NavigationManager _navigationManager
 
@@ -16,12 +16,17 @@
                         <RadzenLabel Text="Item Name"/>
                     </div>
                     <div class="col-md-8">
-                       
+
                     </div>
                 </div>
-                
-                <ItemLocationSelecter showLocationDetail="false"/>
-                
+
+                <ItemLocationSelector ShowLocationDetail="false"
+                                      InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
+
+                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton class="Button" ButtonType="ButtonType.Button" Click="AddOrderEntry" Icon="add" Text="Add to Order"/>
+                </div>
+
                 <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
                     <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
                 </div>
@@ -31,4 +36,15 @@
 </RadzenTemplateForm>
 
 
+<RadzenDataGrid @ref="orderEntryGrid" Data="@_orderEntries" TItem="OrderEntry" AllowFiltering="true" FilterMode="FilterMode.Simple"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                LogicalFilterOperator="LogicalFilterOperator.Or"
+                AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
+                ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
+    <Columns>
+        <RadzenDataGridColumn TItem="OrderEntry" Property="Item.ItemName" Title="Item name" SortOrder="SortOrder.Ascending"/>
+        <RadzenDataGridColumn TItem="OrderEntry" Property="Amount" Title="Amount"/>
+    </Columns>
+</RadzenDataGrid>
 
+<p>@testString</p>

@@ -101,7 +101,7 @@ namespace GrpcClient.Clients {
 			return inventories;
 		}
 		
-		public async Task<IList<Inventory>> GetInventoryStock()
+		public async Task<IList<Inventory>> GetInventoryStockAsync()
 		{
 			// Convert Item to gRPC Item | Here, it is specifically used as an Object Template for later
 			gInventory template = new( ) { };

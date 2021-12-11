@@ -56,5 +56,10 @@ namespace Blazor.Data
         {
             return await _inventoryDataServerComm.GetAllByItemIdAsync(itemId);
         }
+
+        public async Task<IList<Inventory>> GetInventoryStockAsync()
+        {
+            return await _inventoryDataServerComm.GetInventoryStockAsync();
+        }
     }
 }

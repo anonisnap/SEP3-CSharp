@@ -6,7 +6,7 @@ using Radzen;
 
 namespace Blazor.Pages
 {
-    public partial class RemoveItems
+    public partial class TrashItems
     {
         private IList<Inventory> _inventories;
 
