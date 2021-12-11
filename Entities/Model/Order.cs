@@ -13,5 +13,14 @@ namespace Entities.Models
         public List<OrderEntry> OrderEntries { get; set; }
         
         public Location Location { get; set; }
+
+        public override string ToString()
+        {
+            return $"Order:\n" +
+                   $"Id: {Id}\n" +
+                   $"OrderNumber: {OrderNumber}\n" +
+                   $"OrderEntries: {OrderEntries}\n" +
+                   $"Location: {Location.Description}";
+        }
     }
 }
