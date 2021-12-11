@@ -16,5 +16,10 @@ namespace Blazor.Pages.Cards
             _orders = await _orderHandler.GetAllAsync();
 
         }
+
+        private void OnChange(object value, string name)
+        {
+            //do something 
+        }
     }
 }
