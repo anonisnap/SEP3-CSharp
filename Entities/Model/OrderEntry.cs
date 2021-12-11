@@ -8,8 +8,7 @@ namespace Entities.Models
         public int OrderId { get; set; }
         public int Amount { get; set; }
         public Item Item { get; set; }
-
-
+        
         public override string ToString()
         {
             return $"Order Entry\n " +

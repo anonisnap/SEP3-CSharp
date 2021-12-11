@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
@@ -25,7 +26,8 @@ namespace GrpcClient.Clients {
 
 			// Send call to Service
 			var reply = await _client.RegisterOrderAsync(gOrder);
-
+			Console.WriteLine(reply);
+			
 			// Disconnect from Service
 			await Disconnect( );
 
@@ -53,7 +55,7 @@ namespace GrpcClient.Clients {
 
 			// Create Connection Point
 			Connect( );
-
+			
 			// Send Call Request to Server and store reply
 			var reply = await _client.UpdateOrderAsync(g);
 
@@ -166,7 +168,7 @@ namespace GrpcClient.Clients {
 				oE.Add(ConvertGOrderEntryToOrderEntry(e));
 			}
 			Order o = new Order { Id = gO.Id, OrderNumber = gO.OrderNumber, Location = new Location { Id = gO.Location.Id, Description = gO.Location.Description } };
-			o.OrderEntries.AddRange(oE);
+			o.OrderEntries = oE;
 			return o;
 		}
 

@@ -32,6 +32,14 @@ namespace WebDBserverAPI.Controllers
             return orders != null ? Ok(orders) : NotFound();
         }
         
+        [HttpGet]
+        [Route("LatestOrderNumber")]
+        public async Task<ActionResult<int>> GetLatestOrderNumber()
+        {
+            int latestOrderNumber = await _orderDataRepo.GetLatestOrderNumber();
+            return Ok(latestOrderNumber);
+        }
+        
         [HttpPost]
         [Route("add")]
         public async Task<ActionResult> PostAddAsync([FromBody] Order entity)

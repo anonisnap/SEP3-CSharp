@@ -53,5 +53,12 @@ namespace DataBaseAccess.DataRepos.Impl
             return await _warehouseDbContext.Orders.Include(order => order.OrderEntries)
                 .Where(order => order.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<int> GetLatestOrderNumber()
+        {
+            Order order = await _warehouseDbContext.Orders.OrderBy(o => o.OrderNumber).LastOrDefaultAsync();
+            if (order == null) return 0;
+            return order.OrderNumber;
+        }
     }
 }

@@ -32,7 +32,7 @@ else
                 <Template Context="data">
                     <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="info" 
                                   Class="formButton" 
-                                  Click=@(() => OpenLocationWithItems(data)) Text="@data.OrderNumber.ToString()"/>
+                                  Click=@(() => OpenOrderCard(data)) Text="@data.OrderNumber.ToString()"/>
                 </Template>
             </RadzenDataGridColumn>
         </Columns>

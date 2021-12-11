@@ -18,14 +18,14 @@
             <Columns>
 
                 @{
-                    if (ShowLocationDetail)
-                    {
-                        <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
-                        <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
-                    }
+                    if (ShowLocationDetail){<RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>}
+                      
+                    if (ShowItemDetails){<RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>}
                 }
-                <RadzenDropDownDataGridColumn Property="Item.ItemName" Title="Item"/>
+                
+                
                 <RadzenDropDownDataGridColumn Property="Amount" Title="Amount"/>
+                
             </Columns>
         </RadzenDropDownDataGrid>
     </div>
@@ -40,6 +40,12 @@
 
     [Parameter]
     public bool ShowLocationDetail { get; set; }
+    
+    [Parameter]
+    public bool ShowItemDetails { get; set; }
+    
+    [Parameter]
+    public int ItemId { get; set; }
 
     [Parameter]
     public EventCallback<Inventory> InventoryChange { get; set; }
@@ -57,6 +63,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (ItemId != 0)
+        {
+            _inventories = await _inventoryHandler.GetAllByItemIdAsync(ItemId);
+            return;
+        } 
+        
         _inventories = await _inventoryHandler.GetInventoryStockAsync();
     }
 

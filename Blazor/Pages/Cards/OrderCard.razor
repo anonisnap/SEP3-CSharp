@@ -2,15 +2,15 @@
 @* @attribute [Authorize(Policy = "SecurityLevel1")] *@
 @using Entities.Models
 @using Blazor.Data
-
+@using ItemLocationSelectorComponent
 @inject DialogService DialogService
 @inject IOrderHandler _orderHandler
 
-@if (_orders == null)
+@if (Order == null)
 {
     <p>Loading...........</p>
 }
-else if (!_orders.Any())
+else if (!Order.OrderEntries.Any())
 {
     <p>No Locations ;(</p>
 }
@@ -21,18 +21,24 @@ else
             <div class="col-md-12">
                 <h3>Order Details</h3>
                 <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                Data="@_orders" TItem="Order" ColumnWidth="200px">
+                                Data="@Order.OrderEntries" TItem="OrderEntry" ColumnWidth="100px">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Item.ItemName" Title="Item Name"/>
-                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.OrderId" Title="Order Id"/>
-                        <RadzenDataGridColumn TItem="Order" Property="Location.Description" Title="Amount"/>
-                        <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Amount" Title="Amount"/>
+                        <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Item.ItemName" Title="Item Name"/>
+                        <RadzenDataGridColumn TItem="OrderEntry"  Title="SelectLocation">
+                            <Template Context="data">
+                            <ItemLocationSelector ShowLocationDetail="true" ShowItemDetails="false" 
+                                                  ItemId="data.Item.Id"
+                                                  InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        
+                        
+                        <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Amount" Title="Amount"/>
                         <RadzenDataGridColumn TItem="Inventory" Title="Packed" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                             <Template Context="data">
                                 <RadzenNumeric TValue="int" Min="0" Max="10" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
                             </Template>
                         </RadzenDataGridColumn>
-
                     </Columns>
                 </RadzenDataGrid>
             </div>

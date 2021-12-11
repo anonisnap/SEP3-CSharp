@@ -22,13 +22,13 @@ namespace Blazor.Pages
             DialogService.OnClose += Close;
         }
 
-        async Task OpenLocationWithItems(Order order)
+        async Task OpenOrderCard(Order order)
         {
-            await DialogService.OpenAsync<LocationsCard>($"\nOrder number: {order.OrderNumber}",
+            await DialogService.OpenAsync<OrderCard>($"\nOrder number: {order.OrderNumber}",
                 new Dictionary<string, object>() {{"Order", order}},
                 new DialogOptions()
                 {
-                    Width = "700px", Height = "530px",
+                    Width = "70%", Height = "80%",
                     CloseDialogOnOverlayClick = true, Resizable = true
                 });
         }

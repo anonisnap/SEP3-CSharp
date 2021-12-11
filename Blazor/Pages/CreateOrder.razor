@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <ItemLocationSelector ShowLocationDetail="false"
+                <ItemLocationSelector ShowLocationDetail="false" ShowItemDetails="true"
                                       InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
 
                 <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
@@ -36,7 +36,7 @@
 </RadzenTemplateForm>
 
 
-<RadzenDataGrid @ref="orderEntryGrid" Data="@_orderEntries" TItem="OrderEntry" AllowFiltering="true" FilterMode="FilterMode.Simple"
+<RadzenDataGrid @ref="_orderEntryGrid" Data="@_orderEntries" TItem="OrderEntry" AllowFiltering="true" FilterMode="FilterMode.Simple"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"

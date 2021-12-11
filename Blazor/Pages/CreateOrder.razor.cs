@@ -16,7 +16,9 @@ namespace Blazor.Pages
         private OrderEntry _orderEntry;
         
         private List<OrderEntry> _orderEntries;
-        private RadzenDataGrid<OrderEntry> orderEntryGrid;
+        private RadzenDataGrid<OrderEntry> _orderEntryGrid;
+
+        private Item _selectedItem;
         
         private int _amount;
         private int _maxValue;
@@ -25,6 +27,7 @@ namespace Blazor.Pages
         protected override async Task OnInitializedAsync()
         {
             _order = new();
+            _order.Location = new Location {Description = "Default"};
             _orderEntries = new ();
             _orderEntry = new OrderEntry();
             
@@ -32,33 +35,32 @@ namespace Blazor.Pages
 
         private async Task CreateNewOrder()
         {
-            
-            //await _orderHandler.RegisterAsync(_order);
-            //_navigationManager.NavigateTo("/Orders");
+            _order.OrderEntries = _orderEntries;
+            _order.OrderNumber = 1; // will be overwritten on server
+            Order order = await _orderHandler.RegisterAsync(_order);
+            _navigationManager.NavigateTo($"/OrderCard/{order}");
         }
 
         private async Task AddOrderEntry()
         {
-           
+            _orderEntry.Item = _selectedItem;
+            _orderEntry.Amount = _amount;
+            
             if (IsOrderEntryInList(_orderEntry) || !IsItemAndAmountSelected(_orderEntry)) return;
             
             _orderEntries.Add((OrderEntry) _orderEntry.Clone());
-            Console.WriteLine("Added to list");
-            _orderEntry = new ();
             
-            await orderEntryGrid.Reload();
+            await _orderEntryGrid.Reload();
         }
         
-        public async void InventoryChanged(Inventory inventory)
+        public void InventoryChanged(Inventory inventory)
         {
-            Console.WriteLine("Inventory changed ");
-            _orderEntry.Item = inventory.Item;
+            _selectedItem = inventory.Item;
         }
         
-        public async void AmountChanged(int amount)
+        public void AmountChanged(int amount)
         {
-            Console.WriteLine("Amount changed " + amount);
-            _orderEntry.Amount = amount;
+            _amount = amount;
         }
 
         private bool IsItemAndAmountSelected(OrderEntry orderEntry)
