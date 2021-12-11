@@ -25,7 +25,14 @@ else
                     <Columns>
                         <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Item.ItemName" Title="Item Name"/>
                         <RadzenDataGridColumn TItem="Order" Property="OrderEntry.OrderId" Title="Order Id"/>
+                        <RadzenDataGridColumn TItem="Order" Property="Location.Description" Title="Amount"/>
                         <RadzenDataGridColumn TItem="Order" Property="OrderEntry.Amount" Title="Amount"/>
+                        <RadzenDataGridColumn TItem="Inventory" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <RadzenNumeric TValue="int" Min="0" Max="10" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
+                            </Template>
+                        </RadzenDataGridColumn>
+
                     </Columns>
                 </RadzenDataGrid>
             </div>

@@ -10,7 +10,7 @@ namespace T1Contracts.ServerCommunicationInterfaces
         public Task<IList<Inventory>> GetAllByItemIdAsync(int itemId);
         public Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId);
 
-        public Task<IList<Inventory>> GetInventoryStock();
+        public Task<IList<Inventory>> GetInventoryStockAsync();
 
     }
 }

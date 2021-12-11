@@ -18,7 +18,7 @@ namespace Blazor.Pages.Show
 
         protected override async Task OnInitializedAsync()
         {
-            _inventories = await _inventoryHandler.GetAllAsync();
+            _inventories = await _inventoryHandler.GetInventoryStockAsync();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += Close;

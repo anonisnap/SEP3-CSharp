@@ -12,8 +12,8 @@ namespace GrpcClient.Clients {
 		private GrpcChannel _channel;
 		private OrderService.OrderServiceClient _client;
 
-		public GrpcOrderClient(string address) {
-			_address = address;
+		public GrpcOrderClient(GRPCConnStr address) {
+			_address = address.GrpcAddress;
 		}
 
 		public async Task<Order> RegisterAsync(Order order) {

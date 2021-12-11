@@ -35,8 +35,8 @@
                 </NavLink>
             </li>
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="RemoveItems">
-                    <span class="oi oi-delete" aria-hidden="true"></span> Remove Items
+                <NavLink class="nav-link" href="TrashItems">
+                    <span class="oi oi-delete" aria-hidden="true"></span> Trash Items
                 </NavLink>
             </li>
 
@@ -60,7 +60,7 @@
         <AuthorizeView Policy="SecurityLevel2">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" @onclick="ToggleSubmenu" Match="NavLinkMatch.All">
-                    <span class="oi oi-menu" aria-hidden="true"></span> More options
+                    <span class="oi oi-menu" aria-hidden="true"></span> Manager tap
                 </NavLink>
                 @if (expandSubMenu)
                 {

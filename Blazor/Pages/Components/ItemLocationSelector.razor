@@ -1,11 +1,11 @@
-@page "/ItemLocationSelecter"
+@page "/ItemLocationSelector"
 @using Entities.Models
 @using Blazor.Data
-@namespace ItemLocationSelecterComponent
+@namespace ItemLocationSelectorComponent
 
 @inject IInventoryHandler _inventoryHandler
 @inject NavigationManager _navigationManager
-<h3>InventorySelecter</h3>
+<h3>InventorySelector</h3>
 
 <div class="row">
     <div class="col-xl-6 mb-5">
@@ -13,12 +13,12 @@
         <RadzenDropDownDataGrid PageSize="15" TValue="Inventory" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 FilterOperator="StringFilterOperator.Contains"
                                 AllowFiltering="true" AllowClear="false" Placeholder="Select"
-                                Data="@_inventories" TextProperty="Item.ItemName" Change=@(args => OnChange(args, "Inventory")) Style="width:100%"
+                                Data="@_inventories" TextProperty="Item.ItemName" Change=@(OnInventoryChange) Style="width:100%"
                                 AllowFilteringByAllStringColumns="true" ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
             <Columns>
 
                 @{
-                    if (showLocationDetail)
+                    if (ShowLocationDetail)
                     {
                         <RadzenDropDownDataGridColumn Property="Location.Description" Title="Location"/>
                         <RadzenDropDownDataGridColumn Property="Location.Id" Title="Location Id"/>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-2 mb-5">
         <h5>Amount</h5>
-        <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
+        <RadzenNumeric TValue="int" Min="0" Max="_maxValue" Change=@(OnAmountChange)></RadzenNumeric>
     </div>
 </div>
 
@@ -39,7 +39,14 @@
 @code {
 
     [Parameter]
-    public bool showLocationDetail { get; set; }
+    public bool ShowLocationDetail { get; set; }
+
+    [Parameter]
+    public EventCallback<Inventory> InventoryChange { get; set; }
+
+    [Parameter]
+    public EventCallback<int> AmountChange { get; set; }
+
 
     private IList<Inventory> _inventories;
     private int _amount;
@@ -50,31 +57,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _inventories = await _inventoryHandler.GetAllAsync();
+        _inventories = await _inventoryHandler.GetInventoryStockAsync();
     }
 
-    void OnChange(object value, string name)
+    private void OnInventoryChange(object value)
     {
-        if (name.Equals("Inventory"))
-        {
-            Console.WriteLine("selected inventory " + value);
-
-    /*
-            _oldInventory = (Inventory) value;
-            _maxValue = _oldInventory.Amount;
-            Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
-            Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
-            Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
-            _newInventory.Item = _oldInventory.Item;
-            _newInventory.Amount = _oldInventory.Amount;
-            _newInventory.Id = _oldInventory.Id;
-*/
-        }
-        else if (name.Equals("amount"))
-        {
-            _amount = (int) value;
-        }
+        Inventory inventory = (Inventory) value;
+        _maxValue = inventory.Amount;
+        InventoryChange.InvokeAsync(inventory);
     }
 
+
+    private void OnAmountChange(int amount)
+    {
+        AmountChange.InvokeAsync(amount);
+    }
 
 }
