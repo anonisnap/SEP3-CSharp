@@ -13,7 +13,7 @@ namespace Blazor.Pages.Cards
         public Order Order { set; get; }
         protected override async Task OnInitializedAsync()
         {
-            _orders = await _orderHandler.GetAllAsync();
+            //_orders = await _orderHandler.
 
         }
 
