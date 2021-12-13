@@ -7,6 +7,7 @@ namespace Entities.Models
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int Amount { get; set; }
+        public bool IsPicked { get; set; }
         public Item Item { get; set; }
         
         public override string ToString()
@@ -15,7 +16,9 @@ namespace Entities.Models
                    $"Id: {Id}\n" +
                    $"OrderId: {OrderId}\n" +
                    $"Amount: {Amount}\n" +
-                   $"Item: {Item.ItemName}";        }
+                   $"Item: {Item.ItemName}"+
+                    $"Picked: {IsPicked}";        
+        }
 
         public object Clone()
         {

@@ -24,6 +24,8 @@ namespace Blazor.Pages
 
         async Task OpenOrderCard(Order order)
         {
+            order.OrderEntries.ForEach(entry => Console.WriteLine(entry.IsPicked));
+            
             await DialogService.OpenAsync<OrderCard>($"\nOrder number: {order.OrderNumber}",
                 new Dictionary<string, object>() {{"Order", order}},
                 new DialogOptions()

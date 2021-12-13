@@ -4,7 +4,8 @@
 @using ItemLocationSelectorComponent
 @inject IOrderHandler _orderHandler
 @inject NavigationManager _navigationManager
-
+@inject NotificationService _notificationService
+@inject GlobalNotificationService _globalNotificationService
 <h3>CreateOrder</h3>
 
 <RadzenTemplateForm class="RegisterForm" TItem="Order" Data="@_order" Submit="@CreateNewOrder">
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
-                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save" />
                 </div>
             </RadzenFieldset>
         </div>

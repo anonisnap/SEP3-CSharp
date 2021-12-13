@@ -38,9 +38,7 @@ namespace DataBaseAccess.DataRepos.Impl {
 
 		public async Task<Location> UpdateAsync(Location location) {
 			var entityEntry = _warehouseDbContext.Locations.Update(location);
-
-			entityEntry.CurrentValues.SetValues(location);
-
+			
 			await _warehouseDbContext.SaveChangesAsync( );
 
 			return entityEntry.Entity;

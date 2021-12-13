@@ -38,6 +38,11 @@ namespace Blazor.Data
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public async Task<bool> ProcessOrder(Order order, List<Inventory> pickInventories)
+        {
+            return await _orderDataServerComm.ProcessOrder(order, pickInventories);
+            
+        }
     }
 }

@@ -3,8 +3,9 @@
 @using Entities.Models
 @using Blazor.Data
 @using ItemLocationSelectorComponent
-@inject DialogService DialogService
 @inject IOrderHandler _orderHandler
+@inject NotificationService _notificationService
+
 
 @if (Order == null)
 {
@@ -20,27 +21,33 @@ else
         <div class="row">
             <div class="col-md-12">
                 <h3>Order Details</h3>
-                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                Data="@Order.OrderEntries" TItem="OrderEntry" ColumnWidth="100px">
-                    <Columns>
-                        <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Item.ItemName" Title="Item Name"/>
-                        <RadzenDataGridColumn TItem="OrderEntry"  Title="SelectLocation">
-                            <Template Context="data">
-                            <ItemLocationSelector ShowLocationDetail="true" ShowItemDetails="false" 
-                                                  ItemId="data.Item.Id"
-                                                  InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
-                            </Template>
-                        </RadzenDataGridColumn>
-                        
-                        
-                        <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Amount" Title="Amount"/>
-                        <RadzenDataGridColumn TItem="Inventory" Title="Packed" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-                            <Template Context="data">
-                                <RadzenNumeric TValue="int" Min="0" Max="10" Change=@(args => OnChange(args, "amount"))></RadzenNumeric>
-                            </Template>
-                        </RadzenDataGridColumn>
-                    </Columns>
-                </RadzenDataGrid>
+                <RadzenTemplateForm class="RegisterForm" TItem="Order" Data="@Order" Submit="@ProcessOrder">
+                    <RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    Data="@Order.OrderEntries" TItem="OrderEntry" ColumnWidth="100px">
+                        <Columns>
+                            <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Item.ItemName" Title="Item Name"/>
+                            <RadzenDataGridColumn TItem="OrderEntry" Title="SelectLocation">
+                                <Template Context="data">
+                                    <ItemLocationSelector IsDisabled=@data.IsPicked ShowLocationDetail="true" ShowItemDetails="false"
+                                                          ItemId="data.Item.Id"
+                                                          InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
+                                </Template>
+                            </RadzenDataGridColumn>
+
+                            <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="Amount" Title="Amount"/>
+
+                            <RadzenDataGridColumn Width="10%" TItem="OrderEntry" Property="IsPicked" Title="Picked">
+                                <Template Context="data">
+                                    <RadzenCheckBox @bind-Value=data.IsPicked Disabled=@data.IsPicked Name="CheckBox1" TValue="bool"
+                                                    Change=@(args => OnPick(data)) />
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                    <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                        <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Complete order"/>
+                    </div>
+                </RadzenTemplateForm>
             </div>
         </div>
     </RadzenCard>

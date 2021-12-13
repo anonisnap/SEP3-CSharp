@@ -55,11 +55,15 @@ namespace WebDBserverAPI.Controllers
             Order order = await _orderDataRepo.RemoveAsync(entityId);
             return order != null ? Ok(order) : NotFound( );
         }
+        
 
         [HttpPost]
         [Route("update")]
         public async Task<ActionResult> PostUpdateAsync([FromBody] Order entity)
         {
+            
+            entity.OrderEntries.ForEach(entry => Console.WriteLine(entry));
+            
             return Ok(await _orderDataRepo.UpdateAsync(entity));
         }
     }

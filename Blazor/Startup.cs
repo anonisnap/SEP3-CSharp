@@ -47,7 +47,10 @@ namespace Blazor
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
           
             services.AddScoped<DialogService>();
-
+            services.AddScoped<NotificationService>();
+            
+            services.AddSingleton<GlobalNotificationService>();
+            
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("SecurityLevel1", a => a.RequireClaim("Level", "1", "2"));

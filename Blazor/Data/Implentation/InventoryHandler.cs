@@ -18,7 +18,7 @@ namespace Blazor.Data
         }
 
 
-        public async void CallBackBroardcast(object itemLocation)
+        public void CallBackBroardcast(object itemLocation)
         {
         }
 

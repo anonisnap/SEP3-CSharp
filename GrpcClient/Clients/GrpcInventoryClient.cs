@@ -20,7 +20,7 @@ namespace GrpcClient.Clients {
 		// IEntityManager Override Methods
 		public async Task<Inventory> RegisterAsync(Inventory entity) {
 			// Convert Item to gRPC Item
-			gInventory g = ConvertInventoryToGInventory(entity);
+			gInventory g = GrpcConverter.FromEntity.ToGInventory(entity);
 
 			// Create Connection Point
 			Connect( );
@@ -32,7 +32,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGInventoryToInventory(reply);
+			Inventory inventory = GrpcConverter.FromGEntity.ToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -56,7 +56,7 @@ namespace GrpcClient.Clients {
 
 		public async Task<Inventory> UpdateAsync(Inventory entity) {
 			// Convert Item to gRPC Item
-			gInventory g = ConvertInventoryToGInventory(entity);
+			gInventory g = GrpcConverter.FromEntity.ToGInventory(entity);
 
 			// Create Connection Point
 			Connect( );
@@ -68,7 +68,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGInventoryToInventory(reply);
+			Inventory inventory = GrpcConverter.FromGEntity.ToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -94,7 +94,7 @@ namespace GrpcClient.Clients {
 			// Loop Through Collection of gInventorys
 			foreach (var g in gInventorys) {
 				// Convert each gInventory and add to list of Items
-				inventories.Add(ConvertGInventoryToInventory(g));
+				inventories.Add(GrpcConverter.FromGEntity.ToInventory(g));
 			}
 
 			// Return Item to User
@@ -122,7 +122,7 @@ namespace GrpcClient.Clients {
 			// Loop Through Collection of gInventorys
 			foreach (var g in gInventorys) {
 				// Convert each gInventory and add to list of Items
-				inventories.Add(ConvertGInventoryToInventory(g));
+				inventories.Add(GrpcConverter.FromGEntity.ToInventory(g));
 			}
 
 			// Return Item to User
@@ -145,7 +145,7 @@ namespace GrpcClient.Clients {
 			await Disconnect( );
 
 			// Convert returned gRPC Item to Item
-			Inventory inventory = ConvertGInventoryToInventory(reply);
+			Inventory inventory = GrpcConverter.FromGEntity.ToInventory(reply);
 
 			// Return Item to User
 			return inventory;
@@ -164,7 +164,7 @@ namespace GrpcClient.Clients {
 			// Loop Through Collection of gInventorys
 			foreach (var g in gInventorys) {
 				// Convert each gInventory and add to list of Items
-				Inventorys.Add(ConvertGInventoryToInventory(g));
+				Inventorys.Add(GrpcConverter.FromGEntity.ToInventory(g));
 			}
 			
 			await Disconnect();
@@ -186,7 +186,7 @@ namespace GrpcClient.Clients {
 			// Loop Through Collection of gInventorys
 			foreach (var g in gInventorys) {
 				// Convert each gInventory and add to list of Items
-				Inventorys.Add(ConvertGInventoryToInventory(g));
+				Inventorys.Add(GrpcConverter.FromGEntity.ToInventory(g));
 			}
 			
 			await Disconnect();
@@ -195,36 +195,6 @@ namespace GrpcClient.Clients {
 		}
 
 		
-
-		private gInventory ConvertInventoryToGInventory(Inventory from) {
-			gInventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertItemToGItem(from.Item), Location = ConvertLocationToGLocation(from.Location) };
-			return to;
-		}
-
-		private Inventory ConvertGInventoryToInventory(gInventory from) {
-			Inventory to = new( ) { Id = from.Id, Amount = from.Amount, Item = ConvertGItemToItem(from.Item), Location = ConvertGLocationToLocation(from.Location) };
-			return to;
-		}
-		
-		private gLocation ConvertLocationToGLocation(Location from) {
-			gLocation to = new( ) { Id = from.Id, Description = from.Description };
-			return to;
-		}
-
-		private Location ConvertGLocationToLocation(gLocation from) {
-			Location to = new( ) { Id = from.Id, Description = from.Description };
-			return to;
-		}
-		private gItem ConvertItemToGItem(Item from) {
-			gItem to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
-			return to;
-		}
-
-		private Item ConvertGItemToItem(gItem from) {
-			Item to = new( ) { Id = from.Id, ItemName = from.ItemName, Height = from.Height, Length = from.Length, Width = from.Width, Weight = from.Weight };
-			return to;
-		}
-
 		private void Connect( ) {
 			_channel = GrpcChannel.ForAddress(_address);
 			_client = new InventoryService.InventoryServiceClient(_channel);

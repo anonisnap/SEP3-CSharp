@@ -19,10 +19,8 @@ namespace DataBaseAccess.DataRepos.Impl
         
         public async Task<Order> AddAsync(Order order)
         {
-            
             order.OrderEntries.ForEach(entry => entry.Item = _warehouseDbContext.Items.Find(entry.Item.Id));
-           
-            Console.WriteLine(order);
+            
             var entityEntry = await _warehouseDbContext.Orders.AddAsync(order);
             await _warehouseDbContext.SaveChangesAsync( );
 
@@ -35,10 +33,15 @@ namespace DataBaseAccess.DataRepos.Impl
             throw new System.NotImplementedException();
         }
 
-        public async Task<Order> UpdateAsync(Order itemLocation)
+        public async Task<Order> UpdateAsync(Order order)
         {
-            //TODO: FIX ME
-            throw new System.NotImplementedException();
+            order.OrderEntries.ForEach(entry => Console.WriteLine(entry.IsPicked));
+            
+            Order updatedOrder  = _warehouseDbContext.Orders.Update(order).Entity;
+
+            await _warehouseDbContext.SaveChangesAsync();
+            
+            return updatedOrder;
         }
 
         public async Task<IList<Order>> GetAllAsync()

@@ -70,7 +70,11 @@ namespace Blazor.Pages
             if (result != null) // if the user hits the x near the top right null is returned
             {
                 // result is false if the user clicks no
-                if ((bool) result) Save();
+                if ((bool) result)
+                {
+                    Save();
+                    Dispose();
+                }
             }
         }
 
@@ -82,7 +86,7 @@ namespace Blazor.Pages
 
         private void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
         {
-            Console.WriteLine("Dialog opened");
+           // Console.WriteLine("Dialog opened");
         }
     }
 }
