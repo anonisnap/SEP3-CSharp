@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ServerCommunication
+namespace Entities.GlobalContracts
 {
     public interface IEntityManager<TEntity>
     {

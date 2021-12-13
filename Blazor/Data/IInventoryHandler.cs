@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Entities.GlobalContracts;
 using Entities.Models;
 using ServerCommunication;
 
@@ -9,7 +10,6 @@ namespace Blazor.Data
     {
         Task<IList<Inventory>> GetAllByLocationIdAsync(int locationId);
         Task<IList<Inventory>> GetAllByItemIdAsync(int itemId);
-        
         Task<IList<Inventory>> GetInventoryStockAsync();
 
     }
