@@ -21,15 +21,15 @@ namespace Blazor.Pages
             _items = await _itemsHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
             _inventory = new();
-
-            DialogService.OnOpen += Open;
+            
             DialogService.OnClose += CloseConfirmAdd;
         }
 
         private async Task Save()
         {
+            
             await _inventoryHandler.RegisterAsync(_inventory);
-
+            
             Console.WriteLine($"Printing Location: /n {_inventory}");
 
             _navigationManager.NavigateTo("/Items");
@@ -56,29 +56,17 @@ namespace Blazor.Pages
             }
         }
 
-        void CloseConfirmAdd(dynamic result)
+        private async void CloseConfirmAdd(dynamic result)
         {
             if (result != null) // if the user hits the x near the top right null is returned
             {
                 // result is false if the user clicks no
-                if ((bool) result) Save();
+                if ((bool) result)
+                {
+                    await Save();
+                    DialogService.OnClose -= CloseConfirmAdd;
+                }
             }
-        }
-
-        public void Dispose()
-        {
-            DialogService.OnOpen -= Open;
-            DialogService.OnClose -= CloseConfirmAdd;
-        }
-
-        void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
-        {
-            Console.WriteLine("Dialog opened");
-        }
-
-        void Close(dynamic result)
-        {
-            Console.WriteLine($"Dialog closed {result}");
         }
     }
 }

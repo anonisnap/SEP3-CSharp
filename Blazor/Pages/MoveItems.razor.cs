@@ -29,8 +29,7 @@ namespace Blazor.Pages
 
             _newInventory = new();
             _oldInventory = new();
-
-            DialogService.OnOpen += Open;
+            
             DialogService.OnClose += CloseConfirmAdd;
         }
 
@@ -85,15 +84,8 @@ namespace Blazor.Pages
             }
         }
 
-        public void Dispose()
-        {
-            DialogService.OnOpen -= Open;
+        public void Dispose() {
             DialogService.OnClose -= CloseConfirmAdd;
-        }
-
-        private void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
-        {
-           // Console.WriteLine("Dialog opened");
         }
     }
 }

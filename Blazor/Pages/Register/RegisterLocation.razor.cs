@@ -12,9 +12,9 @@ namespace Blazor.Pages.Register
             _location = new();
         }
 
-        private void RegisterNewLocation()
+        private async void RegisterNewLocation()
         {
-            _locationHandler.RegisterAsync(_location);
+            await _locationHandler.RegisterAsync(_location);
             _navigationManager.NavigateTo("/RegisteredLocations");
         }
     }

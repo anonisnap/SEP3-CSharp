@@ -2,7 +2,7 @@
 @attribute [Authorize(Policy = "SecurityLevel1")]
 @using Blazor.Data
 @using Entities.Models
-
+@inject IInventoryHandler _inventoryHandler
 @inject IItemHandler _ItemHandler;
 @inject DialogService DialogService
 

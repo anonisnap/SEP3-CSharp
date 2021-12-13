@@ -15,7 +15,6 @@ namespace Blazor.Pages.Register
         private async Task AddNewItem()
         {
             await _itemsHandler.RegisterAsync(_item);
-
             //Navigate to specific Item created instead?
             _navigationManager.NavigateTo("/RegisteredItems");
         }
