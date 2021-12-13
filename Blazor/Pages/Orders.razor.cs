@@ -30,7 +30,9 @@ namespace Blazor.Pages
                 new Dictionary<string, object>() {{"Order", order}},
                 new DialogOptions()
                 {
-                    Width = "70%", Height = "80%",
+                    Draggable = false,
+                    Left = "-100px", 
+                    Style = "width:80vw;height:80vh;",
                     CloseDialogOnOverlayClick = true, Resizable = true
                 });
         }
