@@ -5,7 +5,6 @@ namespace DataBaseAccess.DataRepos
 {
     public interface IUserDataRepo
     {
-        Task<User> ValidateUser(string userName, string Password);
-
+        Task<User> ValidateUser(string username, string password);
     }
 }

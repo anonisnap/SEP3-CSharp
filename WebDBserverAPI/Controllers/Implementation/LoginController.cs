@@ -9,7 +9,7 @@ namespace WebDBserverAPI.Controllers
    
     [ApiController]
     [Route("[controller]")]
-    public class LoginController : ControllerBase
+    public class LoginController : ControllerBase, ILoginController
     {
 
         private IUserDataRepo _userDataRepo;

@@ -6,6 +6,7 @@ namespace DataBaseAccess
     public abstract class WarehouseDbContext: DbContext 
     {
         public DbSet<Location> Locations { get; set; }
+        
         public DbSet<Item> Items { get; set; }
         
         public DbSet<Inventory> Inventory { get; set; }
@@ -22,7 +23,6 @@ namespace DataBaseAccess
             options.EnableSensitiveDataLogging();
             modelBuilder.Entity<Location>().HasIndex(l => l.Description).IsUnique();
             modelBuilder.Entity<Order>().HasIndex(order => order.OrderNumber).IsUnique();
-            //modelBuilder.Entity<OrderEntryDb>().HasIndex(entry => new {entry.Id, entry.OrderId}).IsUnique();
             modelBuilder.Entity<User>().HasKey(user => user.Username);
 
         }
