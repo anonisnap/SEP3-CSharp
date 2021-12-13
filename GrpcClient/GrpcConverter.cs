@@ -105,9 +105,6 @@ namespace GrpcClient.Clients
 	            };
         
             }
-
-
-            
             
             public static gInventoryList ToGInventoryList(List<Inventory> inventories)
             {
@@ -129,5 +126,6 @@ namespace GrpcClient.Clients
             }
             
         }
+        
     }
 }

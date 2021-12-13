@@ -11,24 +11,25 @@ namespace Blazor.Pages.Show
 {
     public partial class Items
     {
-        private IList<Inventory> _inventories;
+        private IList<Item> _items;
 
         string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
         bool showPagerSummary = true;
 
         protected override async Task OnInitializedAsync()
         {
-            _inventories = await _inventoryHandler.GetInventoryStockAsync();
+            _items = await _ItemHandler.GetAllAsync();
 
             DialogService.OnOpen += Open;
             DialogService.OnClose += Close;
         }
 
-        async Task OpenLocationWithItems(Inventory inventory)
+        async Task OpenLocationWithItems(Item item)
         {
-            await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {inventory.Item.ItemName}" +
-                                                         $"Item Id {inventory.Item.Id}",
-                new Dictionary<string, object>() {{"Inventory", inventory}},
+            
+            await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {item.ItemName}" +
+                                                         $"Item Id {item.Id}",
+                new Dictionary<string, object>() {{"ItemId", item.Id}},
                 new DialogOptions()
                 {
                     Width = "700px", Height = "530px",

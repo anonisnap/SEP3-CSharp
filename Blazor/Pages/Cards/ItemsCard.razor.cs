@@ -10,11 +10,11 @@ namespace Blazor.Pages.Cards
         private IList<Inventory> _inventories;
 
         [Parameter]
-        public Inventory Inventory { set; get; }
+        public int LocationId { set; get; }
 
         protected override async Task OnInitializedAsync()
         {
-            _inventories = await _inventoryHandler.GetAllByLocationIdAsync(Inventory.Location.Id);
+            _inventories = await _inventoryHandler.GetAllByLocationIdAsync(LocationId);
         }
     }
 }

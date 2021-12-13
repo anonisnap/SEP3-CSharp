@@ -39,7 +39,7 @@ namespace WebDBserverAPI.Controllers {
 		[HttpGet]
 		[Route("locationId/{locationId:int}")]
 		public async Task<ActionResult<IList<Inventory>>> GetByLocationIdAsync([FromRoute] int locationId) {
-			IList<Inventory> itemLocations = await _inventoryRepo.GetInventoryIdAsync(locationId);
+			IList<Inventory> itemLocations = await _inventoryRepo.GetByLocationIdAsync(locationId);
 			return itemLocations != null ? Ok(itemLocations) : NotFound( );
 		}
 		

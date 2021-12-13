@@ -14,4 +14,8 @@
       <PackageReference Include="Radzen.Blazor" Version="3.13.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CustomServices" />
+    </ItemGroup>
+
 </Project>

@@ -3,19 +3,18 @@
 @using Entities.Models
 @using Blazor.Data
 @using Blazor.Pages.Cards
-
-@inject IInventoryHandler _inventoryHandler
+@inject ILocationHandler _locationHandler
 @inject DialogService DialogService
 
 <h2>Locations</h2>
 
-@if (_inventories == null)
+@if (_locations == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!_inventories.Any())
+else if (!_locations.Any())
 {
     <p>
         <em>No registered locations exist. Please add some.</em>
@@ -23,20 +22,19 @@ else if (!_inventories.Any())
 }
 else
 {
-    <RadzenDataGrid Data="@_inventories" TItem="Inventory" AllowFiltering="true" FilterMode="FilterMode.Simple"
+    <RadzenDataGrid Data="@_locations" TItem="Location" AllowFiltering="true" FilterMode="FilterMode.Simple"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     LogicalFilterOperator="LogicalFilterOperator.Or"
                     AllowSorting="true" PageSize="15" AllowPaging="true" AllowColumnResize="true"
                     ShowPagingSummary="@showPagerSummary" PagingSummaryFormat="@pagingSummaryFormat">
         <Columns>
-            <RadzenDataGridColumn TItem="Inventory" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            <RadzenDataGridColumn TItem="Location" Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
                 <Template Context="data">
                     <RadzenButton Icon="info" Size="ButtonSize.Small" Class="formButton m-1"
                                   Click="@(() => OpenItemWithLocations(data))" @onclick:stopPropagation="true"/>
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="Inventory" Property="Location.Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
-            <RadzenDataGridColumn TItem="Inventory" Property="Item.ItemName" Title="Item Name"/>
+            <RadzenDataGridColumn TItem="Location" Property="Description" Title="Location Description" SortOrder="SortOrder.Ascending"/>
         </Columns>
     </RadzenDataGrid>
 }

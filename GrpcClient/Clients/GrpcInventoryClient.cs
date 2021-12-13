@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using System;
+using Grpc.Net.Client;
 using myGrpc;
 
 using System.Collections.Generic;
@@ -57,10 +58,10 @@ namespace GrpcClient.Clients {
 		public async Task<Inventory> UpdateAsync(Inventory entity) {
 			// Convert Item to gRPC Item
 			gInventory g = GrpcConverter.FromEntity.ToGInventory(entity);
-
+			
 			// Create Connection Point
 			Connect( );
-
+			Console.WriteLine(g);
 			// Send Call Request to Server and store reply
 			var reply = await _client.UpdateInventoryAsync(g);
 
@@ -69,7 +70,7 @@ namespace GrpcClient.Clients {
 
 			// Convert returned gRPC Item to Item
 			Inventory inventory = GrpcConverter.FromGEntity.ToInventory(reply);
-
+			Console.WriteLine(inventory);
 			// Return Item to User
 			return inventory;
 		}

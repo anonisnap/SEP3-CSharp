@@ -74,20 +74,24 @@ namespace DataBaseAccess.DataRepos.Impl
             IList<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
-                .Where(itemLocation => itemLocation.Item.Id == itemId)
+                .Where(itemLocation => itemLocation.Item.Id == itemId 
+                                       && !itemLocation.Location.Description.StartsWith("o") 
+                                       && !itemLocation.Location.Description.Equals("Trashed"))
                 .ToListAsync();
 
             return entity;
         }
 
-        public async Task<IList<Inventory>> GetInventoryIdAsync(int locationId)
+        public async Task<IList<Inventory>> GetByLocationIdAsync(int locationId)
         {
             List<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
-                .Where(ItemLocation => ItemLocation.Location.Id == locationId)
+                .Where(itemLocation => itemLocation.Location.Id == locationId 
+                                       && !itemLocation.Location.Description.StartsWith("o") 
+                                       && !itemLocation.Location.Description.Equals("Trashed"))
                 .ToListAsync();
-
+            
             return entity;
         }
         

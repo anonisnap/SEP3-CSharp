@@ -38,7 +38,7 @@ namespace Blazor.Pages
         {
             //hack slash amount
             _newInventory.Amount = _amount;
-
+            Console.WriteLine($"About to move {_newInventory.Amount} items to " + _newInventory.Location.Description);
             await _inventoryHandler.UpdateAsync(_newInventory);
             _navigationManager.NavigateTo("/Items");
         }
@@ -59,20 +59,27 @@ namespace Blazor.Pages
 
                 Console.WriteLine($"++++ NewItemLocation.Id - {_newInventory.Id}");
             }
+            else if (name.Equals("Location"))
+            {
+                Location location = (Location) value;
+                _newInventory.Location = location;
+            }
             else if (name.Equals("amount"))
             {
                 _amount = (int) value;
             }
         }
 
-        private void CloseConfirmAdd(dynamic result)
+        private async void CloseConfirmAdd(dynamic result)
         {
+            Console.WriteLine("result from dialog box" + result);
             if (result != null) // if the user hits the x near the top right null is returned
             {
                 // result is false if the user clicks no
-                if ((bool) result)
+                if (result)
                 {
-                    Save();
+                    Console.WriteLine("call save");
+                    await Save();
                     Dispose();
                 }
             }

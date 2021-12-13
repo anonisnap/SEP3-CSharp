@@ -9,7 +9,7 @@ namespace DataBaseAccess.DataRepos.Impl
         
         Task<IList<Inventory>> GetByItemIdAsync(int itemId);
         
-        Task<IList<Inventory>> GetInventoryIdAsync(int locationId);
+        Task<IList<Inventory>> GetByLocationIdAsync(int locationId);
 
         Task<IList<Inventory>> GetInventoryStock();
 
