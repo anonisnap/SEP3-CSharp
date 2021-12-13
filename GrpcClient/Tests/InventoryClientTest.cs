@@ -1,7 +1,6 @@
 ﻿using Entities.Models;
 using GrpcClient.Clients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServerCommunication;
 using System.Threading.Tasks;
 using T1Contracts.ServerCommunicationInterfaces;
 

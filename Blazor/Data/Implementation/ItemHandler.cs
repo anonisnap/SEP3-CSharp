@@ -4,20 +4,13 @@ using System.Threading.Tasks;
 using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data {
+namespace Blazor.Data.Implementation {
 	public class ItemHandler : IItemHandler {
-		//TODO: Jeg mangler i astah ;(
 		
 		private IItemDataServerComm _itemDataServerComm;
 
 		public ItemHandler(IItemDataServerComm itemDataServerComm) {
 			_itemDataServerComm = itemDataServerComm;
-		}
-
-		
-		public void CallBackBroardcast(object item)
-		{
-			throw new NotImplementedException();
 		}
 
 		public async Task<Item> RegisterAsync(Item item)

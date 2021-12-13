@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ServerCommunication;
+using Entities.GlobalContracts;
 
 namespace T1Contracts.ServerCommunicationInterfaces
 {

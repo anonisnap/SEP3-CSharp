@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
-using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data
+namespace Blazor.Data.Implementation
 {
     public class InventoryHandler : IInventoryHandler
     {
@@ -16,12 +14,7 @@ namespace Blazor.Data
         {
             _inventoryDataServerComm = inventoryDataServerComm;
         }
-
-
-        public void CallBackBroardcast(object itemLocation)
-        {
-        }
-
+        
         public async Task<Inventory> RegisterAsync(Inventory inventory)
         {
             return await _inventoryDataServerComm.RegisterAsync(inventory);

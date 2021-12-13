@@ -1,5 +1,4 @@
-﻿using ServerCommunication;
-using Entities.Models;
+﻿using Entities.Models;
 using GrpcClient.Clients;
 using System;
 using System.Threading.Tasks;

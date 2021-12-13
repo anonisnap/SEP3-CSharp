@@ -1,14 +1,12 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazor.Data;
-using Blazor.Data.Implentation;
+using Blazor.Data.Implementation;
 using GrpcClient;
 using Radzen;
-using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
 using GrpcClient.Clients;
 using Microsoft.AspNetCore.Components.Authorization;

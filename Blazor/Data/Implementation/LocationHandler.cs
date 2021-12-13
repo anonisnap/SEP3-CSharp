@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
-using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data
+namespace Blazor.Data.Implementation
 {
     public class LocationHandler : ILocationHandler
     {
@@ -14,11 +12,6 @@ namespace Blazor.Data
         public LocationHandler(ILocationDataServerComm locationDataServerComm)
         {
             _locationDataServerComm = locationDataServerComm;
-        }
-
-        public void CallBackBroardcast(object jsonEntity)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task<Location> RegisterAsync(Location location)
