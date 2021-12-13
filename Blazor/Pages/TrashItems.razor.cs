@@ -37,7 +37,7 @@ namespace Blazor.Pages
             SetLocation();
             _newInventory.Amount = _amount;
             await _inventoryHandler.UpdateAsync(_newInventory);
-            _navigationManager.NavigateTo("/Items");
+            _navigationManager.NavigateTo("/Trashed");
         }
 
         private void SetLocation()
