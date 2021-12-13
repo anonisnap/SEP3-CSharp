@@ -11,15 +11,8 @@
 <RadzenTemplateForm class="RegisterForm" TItem="Order" Data="@_order" Submit="@CreateNewOrder">
     <div class="row">
         <div class="col-md-5">
-            <RadzenFieldset Text="Item Information">
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Item Name"/>
-                    </div>
-                    <div class="col-md-8">
-
-                    </div>
-                </div>
+            <RadzenFieldset Text="Order Information">
+                
 
                 <ItemLocationSelector ShowLocationDetail="false" ShowItemDetails="true"
                                       InventoryChange="InventoryChanged" AmountChange="AmountChanged"/>
