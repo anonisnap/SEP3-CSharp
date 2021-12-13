@@ -14,12 +14,7 @@ namespace Blazor.Data.Implementation
         {
             _inventoryDataServerComm = inventoryDataServerComm;
         }
-
-
-        public void CallBackBroardcast(object itemLocation)
-        {
-        }
-
+        
         public async Task<Inventory> RegisterAsync(Inventory inventory)
         {
             return await _inventoryDataServerComm.RegisterAsync(inventory);

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using myGrpc;
-using Protos;
 using T1Contracts.ServerCommunicationInterfaces;
 using Item = Entities.Models.Item;
 

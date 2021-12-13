@@ -1,11 +1,7 @@
 ﻿using Entities.Models;
 using Grpc.Net.Client;
 using myGrpc;
-using ServerCommunication;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using T1Contracts.ServerCommunicationInterfaces;
 

@@ -14,11 +14,6 @@ namespace Blazor.Data.Implementation
             _locationDataServerComm = locationDataServerComm;
         }
 
-        public void CallBackBroardcast(object jsonEntity)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<Location> RegisterAsync(Location location)
         {
             return await _locationDataServerComm.RegisterAsync(location);
