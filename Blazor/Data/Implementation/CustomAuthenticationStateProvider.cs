@@ -7,7 +7,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 
-namespace Blazor.Data.Implentation
+namespace Blazor.Data.Implementation
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {

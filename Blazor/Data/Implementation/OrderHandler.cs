@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data
+namespace Blazor.Data.Implementation
 {
     public class OrderHandler : IOrderHandler
     {

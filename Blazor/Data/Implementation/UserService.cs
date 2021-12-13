@@ -2,7 +2,7 @@
 using Entities.Models;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data
+namespace Blazor.Data.Implementation
 {
     public class UserService : IUserService
     {

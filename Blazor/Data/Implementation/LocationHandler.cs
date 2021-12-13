@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.Models;
-using ServerCommunication;
 using T1Contracts.ServerCommunicationInterfaces;
 
-namespace Blazor.Data
+namespace Blazor.Data.Implementation
 {
     public class LocationHandler : ILocationHandler
     {
