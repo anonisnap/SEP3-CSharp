@@ -30,9 +30,10 @@ namespace Blazor.Pages
             _newInventory = new();
             _oldInventory = new();
             
-            DialogService.OnClose += CloseConfirmAdd;
         }
-
+        
+        
+        
         private async Task Save()
         {
             //hack slash amount
@@ -79,13 +80,26 @@ namespace Blazor.Pages
                 {
                     Console.WriteLine("call save");
                     await Save();
-                    Dispose();
+                    
                 }
             }
+            Dispose();
         }
-
-        public void Dispose() {
+        
+        
+        public void Dispose()
+        {
             DialogService.OnClose -= CloseConfirmAdd;
+        }
+        
+        
+        private void SetUpDialogBox()
+        {
+            
+            DialogService.Confirm("Are you sure you want to move this item?",
+                "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
+            
+            DialogService.OnClose += CloseConfirmAdd;
         }
     }
 }

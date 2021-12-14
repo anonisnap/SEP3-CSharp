@@ -22,7 +22,6 @@ namespace Blazor.Pages
             _locations = await _locationsHandler.GetAllAsync();
             _inventory = new();
             
-            DialogService.OnClose += CloseConfirmAdd;
         }
 
         private async Task Save()
@@ -64,9 +63,23 @@ namespace Blazor.Pages
                 if ((bool) result)
                 {
                     await Save();
-                    DialogService.OnClose -= CloseConfirmAdd;
+                    
                 }
             }
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            DialogService.OnClose -= CloseConfirmAdd;
+        }
+        
+        private void SetUpDialogBox()
+        {
+            DialogService.Confirm("Are you sure you want to add this item?",
+                "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
+            
+            DialogService.OnClose += CloseConfirmAdd;
         }
     }
 }
