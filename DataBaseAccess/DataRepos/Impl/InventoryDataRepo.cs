@@ -57,11 +57,6 @@ namespace DataBaseAccess.DataRepos.Impl
                 .Include(x => x.Item)
                 .Include(x => x.Location)
                 .ToListAsync();
-
-            foreach (var inventory in entity)
-            {
-                Console.WriteLine(inventory.Location.Id);
-            }
             
             return entity;
         }
