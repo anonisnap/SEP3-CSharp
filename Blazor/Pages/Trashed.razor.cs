@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Blazor.Pages.Cards;
 using Entities.Models;
@@ -12,7 +13,7 @@ namespace Blazor.Pages
         //TODO: ALT DETTE TRASHED LOGIK SKAL FLYTTES TIL TIER 2!!!!!!! - FØR AFLEVERING! ;))))
 
 
-        private IList<Inventory> _inventories;
+        private List<Inventory> _inventories;
 
         //For Sorting amount:
         private IList<Item> _items;
@@ -25,10 +26,10 @@ namespace Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _inventories = await _inventoryHandler.GetAllByLocationIdAsync(1);
+            var allStock = await _inventoryHandler.GetAllAsync();
+            _inventories =  allStock.Where(inventory => inventory.Location.Description == "Trashed").ToList();
         }
-
-
+        
         async Task OpenLocationWithItems(Inventory inventory)
         {
             await DialogService.OpenAsync<LocationsCard>($"\nItem Name: {inventory.Item.ItemName}" +

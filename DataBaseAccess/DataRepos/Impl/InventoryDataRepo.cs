@@ -58,6 +58,11 @@ namespace DataBaseAccess.DataRepos.Impl
                 .Include(x => x.Location)
                 .ToListAsync();
 
+            foreach (var inventory in entity)
+            {
+                Console.WriteLine(inventory.Location.Id);
+            }
+            
             return entity;
         }
 
@@ -84,6 +89,7 @@ namespace DataBaseAccess.DataRepos.Impl
 
         public async Task<IList<Inventory>> GetByLocationIdAsync(int locationId)
         {
+            
             List<Inventory> entity = await _warehouseDbContext.Inventory
                 .Include(x => x.Item)
                 .Include(x => x.Location)
