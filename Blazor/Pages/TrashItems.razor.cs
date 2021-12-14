@@ -28,7 +28,6 @@ namespace Blazor.Pages
             _newInventory = new();
             _oldInventory = new();
 
-            DialogService.OnOpen += Open;
             DialogService.OnClose += CloseConfirmTrash;
         }
 
@@ -37,6 +36,7 @@ namespace Blazor.Pages
             SetLocation();
             _newInventory.Amount = _amount;
             await _inventoryHandler.UpdateAsync(_newInventory);
+            Dispose();
             _navigationManager.NavigateTo("/Trashed");
         }
 
@@ -85,13 +85,7 @@ namespace Blazor.Pages
 
         public void Dispose()
         {
-            DialogService.OnOpen -= Open;
             DialogService.OnClose -= CloseConfirmTrash;
-        }
-
-        private void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
-        {
-            Console.WriteLine("Dialog opened");
         }
     }
 }

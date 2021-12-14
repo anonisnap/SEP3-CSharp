@@ -9,7 +9,7 @@ namespace DataBaseAccess.DataRepos
 
         Task<TEntity> RemoveAsync(int id);
 
-        Task<TEntity> UpdateAsync(TEntity itemLocation);
+        Task<TEntity> UpdateAsync(TEntity obj);
 
         Task<IList<TEntity>> GetAllAsync();
 
