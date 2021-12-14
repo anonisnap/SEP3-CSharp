@@ -28,7 +28,6 @@ namespace Blazor.Pages
             _newInventory = new();
             _oldInventory = new();
 
-            DialogService.OnClose += CloseConfirmTrash;
         }
 
         private async Task Trash()
@@ -36,7 +35,6 @@ namespace Blazor.Pages
             SetLocation();
             _newInventory.Amount = _amount;
             await _inventoryHandler.UpdateAsync(_newInventory);
-            Dispose();
             _navigationManager.NavigateTo("/Trashed");
         }
 
@@ -74,18 +72,32 @@ namespace Blazor.Pages
             }
         }
 
-        private void CloseConfirmTrash(dynamic result)
+        private async void CloseConfirmTrash(dynamic result)
         {
             if (result != null) // if the user hits the x near the top right null is returned
             {
                 // result is false if the user clicks no
-                if ((bool) result) Trash();
+                if ((bool) result) await Trash();
             }
+            Dispose();
         }
-
-        public void Dispose()
+        
+        
+        private void Dispose()
         {
             DialogService.OnClose -= CloseConfirmTrash;
         }
+        
+        
+        private void SetUpDialogBox()
+        {
+            
+            DialogService.Confirm("Are you sure you want to remove?",
+                "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
+            
+            DialogService.OnClose += CloseConfirmTrash;
+        }
+
+        
     }
 }

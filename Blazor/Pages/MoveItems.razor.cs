@@ -101,5 +101,6 @@ namespace Blazor.Pages
             
             DialogService.OnClose += CloseConfirmAdd;
         }
+        
     }
 }

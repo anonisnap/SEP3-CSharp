@@ -53,8 +53,7 @@ else
             <div class="row">
                 <div class="col-md-2">
                     <h5>Trash</h5>
-                    <RadzenButton Icon="delete" Text="Trash" Click=@(args => DialogService.Confirm("Are you sure you want to remove?", 
-                                                                       "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"})) />
+                    <RadzenButton Icon="delete" Text="Trash" Click=@(args => SetUpDialogBox()) />
                 </div>
             </div>
 
