@@ -1,5 +1,8 @@
 @inherits LayoutComponentBase
 @using LoginComponent
+@inject NotificationService _notificationService
+@inject GlobalNotificationService _globalNotificationService
+
 
 <div class="page">
     <div class="sidebar">
@@ -19,3 +22,11 @@
         </div>
     </div>
 </div>
+
+@code{
+	protected override async Task OnInitializedAsync()
+	{
+		_globalNotificationService.ListenToGlobalNotificationService(_notificationService);
+	}
+
+}
