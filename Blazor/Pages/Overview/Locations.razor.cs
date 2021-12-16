@@ -5,7 +5,7 @@ using Blazor.Pages.Cards;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages.Show
+namespace Blazor.Pages.Overview
 {
     public partial class Locations
     {
