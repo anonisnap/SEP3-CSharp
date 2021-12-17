@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Entities.Models;
 
-namespace Blazor.Pages.Register
+namespace Blazor.Pages.DataManipulation
 {
     public partial class RegisterItem
     {

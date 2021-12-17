@@ -5,7 +5,7 @@ using Entities.Models;
 using Radzen;
 using Radzen.Blazor;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.DataManipulation
 {
     public partial class CreateOrder
     {

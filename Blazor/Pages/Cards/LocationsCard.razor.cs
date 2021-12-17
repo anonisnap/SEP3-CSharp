@@ -7,11 +7,9 @@ namespace Blazor.Pages.Cards
 {
     public partial class LocationsCard
     {
-        [Parameter]
-        public int ItemId { get; set; }
-    
-        private IList<Inventory> _inventories;
+        [Parameter] public int ItemId { get; set; }
 
+        private IList<Inventory> _inventories;
 
         protected override async Task OnInitializedAsync()
         {

@@ -3,7 +3,7 @@
 @using Blazor.Data
 @using Entities.Models
 
-@inject DialogService DialogService
+@inject DialogService _dialogService
 @inject IInventoryHandler _inventoryHandler
 
 @if (_inventories == null)
@@ -20,7 +20,7 @@ else
         <div class="row">
             <div class="col-md-12">
                 <h3>Location Details</h3>
-                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" 
+                <RadzenDataGrid AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 Data="@_inventories" TItem="Inventory" ColumnWidth="200px">
                     <Columns>

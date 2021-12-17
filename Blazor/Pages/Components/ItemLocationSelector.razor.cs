@@ -39,7 +39,6 @@ namespace Blazor.Pages.Components
                 _inventories = await _inventoryHandler.GetAllByItemIdAsync(ItemId);
                 return;
             } 
-        
             _inventories = await _inventoryHandler.GetInventoryStockAsync();
         }
 
@@ -49,7 +48,6 @@ namespace Blazor.Pages.Components
             _maxValue = inventory.Amount;
             InventoryChange.InvokeAsync(inventory);
         }
-
 
         private void OnAmountChange(int amount)
         {

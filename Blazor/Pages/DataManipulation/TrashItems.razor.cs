@@ -1,14 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.DataManipulation
 {
-    public partial class MoveItems
+    public partial class TrashItems
     {
-        private IList<Location> _locations;
         private IList<Inventory> _inventories;
 
         private Inventory _newInventory;
@@ -23,44 +22,36 @@ namespace Blazor.Pages
         protected override async Task OnInitializedAsync()
         {
             _inventories = await _inventoryHandler.GetAllAsync();
-            _locations = await _locationsHandler.GetAllAsync();
 
             _newInventory = new();
             _oldInventory = new();
-            
         }
-        
-        
-        
-        private async Task Save()
+
+        private async Task Trash()
         {
-            //hack slash amount
+            SetLocation();
             _newInventory.Amount = _amount;
-            Console.WriteLine($"About to move {_newInventory.Amount} items to " + _newInventory.Location.Description);
             await _inventoryHandler.UpdateAsync(_newInventory);
-            _navigationManager.NavigateTo("/Items");
+            _navigationManager.NavigateTo("/Trashed");
         }
-        
+
+        private void SetLocation()
+        {
+            _newInventory.Location = new Location();
+            _newInventory.Location.Id = 1;
+            _newInventory.Location.Description = "Trashed";
+        }
+
         private void OnChange(object value, string name)
         {
-            
             if (name.Equals("Inventory"))
             {
                 _oldInventory = (Inventory) value;
                 _maxValue = _oldInventory.Amount;
-                Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
-                Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
-                Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
+                
                 _newInventory.Item = _oldInventory.Item;
                 _newInventory.Amount = _oldInventory.Amount;
                 _newInventory.Id = _oldInventory.Id;
-
-                Console.WriteLine($"++++ NewItemLocation.Id - {_newInventory.Id}");
-            }
-            else if (name.Equals("Location"))
-            {
-                Location location = (Location) value;
-                _newInventory.Location = location;
             }
             else if (name.Equals("amount"))
             {
@@ -68,37 +59,27 @@ namespace Blazor.Pages
             }
         }
 
-        private async void CloseConfirmAdd(dynamic result)
+        private async void CloseConfirmTrash(dynamic result)
         {
-            Console.WriteLine("result from dialog box" + result);
             if (result != null) // if the user hits the x near the top right null is returned
             {
                 // result is false if the user clicks no
-                if (result)
-                {
-                    Console.WriteLine("call save");
-                    await Save();
-                    
-                }
+                if ((bool) result) await Trash();
             }
             Dispose();
         }
         
-        
-        public void Dispose()
+        private void Dispose()
         {
-            DialogService.OnClose -= CloseConfirmAdd;
+            _dialogService.OnClose -= CloseConfirmTrash;
         }
-        
         
         private void SetUpDialogBox()
         {
-            
-            DialogService.Confirm("Are you sure you want to move this item?",
+            _dialogService.Confirm("Are you sure you want to remove?",
                 "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
             
-            DialogService.OnClose += CloseConfirmAdd;
+            _dialogService.OnClose += CloseConfirmTrash;
         }
-        
     }
 }
