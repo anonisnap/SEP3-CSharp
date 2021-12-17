@@ -44,7 +44,7 @@ namespace WebDBserverAPI {
 					c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebDBserverAPI v1"));
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 
