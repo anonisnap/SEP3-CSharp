@@ -25,8 +25,6 @@ namespace Blazor.Pages
             _inventories = await _inventoryHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
 
-            Console.WriteLine("count of itemlocations : " + _inventories.Count);
-
             _newInventory = new();
             _oldInventory = new();
             
