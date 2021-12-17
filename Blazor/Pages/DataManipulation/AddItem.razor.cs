@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.DataManipulation
 {
     public partial class AddItem
     {
@@ -21,31 +21,20 @@ namespace Blazor.Pages
             _items = await _itemsHandler.GetAllAsync();
             _locations = await _locationsHandler.GetAllAsync();
             _inventory = new();
-            
         }
 
         private async Task Save()
         {
-            
             await _inventoryHandler.RegisterAsync(_inventory);
             
-            Console.WriteLine($"Printing Location: /n {_inventory}");
-
             _navigationManager.NavigateTo("/Items");
         }
 
         void OnChange(object value, string name)
         {
-            Console.WriteLine($"value is: {value}");
-            Console.WriteLine($"name is: {name}");
-            var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>) value) : value;
-
-            Console.WriteLine($"{name} value changed to {str}");
-
             if (name.Equals("Item"))
             {
                 Item item = (Item) value;
-
                 _inventory.Item = item;
             }
             else if (name.Equals("Location"))
@@ -63,7 +52,6 @@ namespace Blazor.Pages
                 if ((bool) result)
                 {
                     await Save();
-                    
                 }
             }
             Dispose();
@@ -71,15 +59,15 @@ namespace Blazor.Pages
         
         public void Dispose()
         {
-            DialogService.OnClose -= CloseConfirmAdd;
+            _dialogService.OnClose -= CloseConfirmAdd;
         }
         
         private void SetUpDialogBox()
         {
-            DialogService.Confirm("Are you sure you want to add this item?",
+            _dialogService.Confirm("Are you sure you want to add this item?",
                 "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
             
-            DialogService.OnClose += CloseConfirmAdd;
+            _dialogService.OnClose += CloseConfirmAdd;
         }
     }
 }

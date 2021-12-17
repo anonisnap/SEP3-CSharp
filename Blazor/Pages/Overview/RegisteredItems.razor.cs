@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 
-namespace Blazor.Pages.Show
+namespace Blazor.Pages.Overview
 {
     public partial class RegisteredItems
     {
@@ -15,15 +13,7 @@ namespace Blazor.Pages.Show
 
         protected override async Task OnInitializedAsync()
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - Before Async");
-
             _registeredItems = await _itemsHandler.GetAllAsync();
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId + " - After Async");
-
-            foreach (var item in _registeredItems)
-            {
-                Console.WriteLine(item?.ItemName);
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ using Blazor.Pages.Cards;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.Overview
 {
     public partial class Orders
     {

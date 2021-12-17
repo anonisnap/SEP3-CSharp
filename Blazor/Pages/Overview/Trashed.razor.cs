@@ -6,13 +6,11 @@ using Blazor.Pages.Cards;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.Overview
 {
     public partial class Trashed
     {
-        //TODO: ALT DETTE TRASHED LOGIK SKAL FLYTTES TIL TIER 2!!!!!!! - FØR AFLEVERING! ;))))
-
-
+        
         private List<Inventory> _inventories;
 
         //For Sorting amount:

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Entities.Models;
 using Radzen;
 
-namespace Blazor.Pages
+namespace Blazor.Pages.DataManipulation
 {
     public partial class TrashItems
     {
@@ -23,11 +23,8 @@ namespace Blazor.Pages
         {
             _inventories = await _inventoryHandler.GetAllAsync();
 
-            Console.WriteLine("count of itemlocations : " + _inventories.Count);
-
             _newInventory = new();
             _oldInventory = new();
-
         }
 
         private async Task Trash()
@@ -43,31 +40,21 @@ namespace Blazor.Pages
             _newInventory.Location = new Location();
             _newInventory.Location.Id = 1;
             _newInventory.Location.Description = "Trashed";
-            Console.WriteLine(_newInventory);
         }
 
         private void OnChange(object value, string name)
         {
-            Console.WriteLine($"value is: {value}");
-            Console.WriteLine($"name is: {name}");
-
             if (name.Equals("Inventory"))
             {
-                Console.WriteLine("-------------------------Inventory---------------------------");
                 _oldInventory = (Inventory) value;
                 _maxValue = _oldInventory.Amount;
-                Console.WriteLine($"+++ OldItemLocation.Id - {_oldInventory.Id}");
-                Console.WriteLine($"-Printing Item from Item Location: {_oldInventory.Item}");
-                Console.WriteLine($"-Printing Amount from Item Location: {_oldInventory.Amount}");
+                
                 _newInventory.Item = _oldInventory.Item;
                 _newInventory.Amount = _oldInventory.Amount;
                 _newInventory.Id = _oldInventory.Id;
-
-                Console.WriteLine($"++++ NewItemLocation.Id - {_newInventory.Id}");
             }
             else if (name.Equals("amount"))
             {
-                Console.WriteLine("-------------------Amount----------------------------");
                 _amount = (int) value;
             }
         }
@@ -82,22 +69,17 @@ namespace Blazor.Pages
             Dispose();
         }
         
-        
         private void Dispose()
         {
-            DialogService.OnClose -= CloseConfirmTrash;
+            _dialogService.OnClose -= CloseConfirmTrash;
         }
-        
         
         private void SetUpDialogBox()
         {
-            
-            DialogService.Confirm("Are you sure you want to remove?",
+            _dialogService.Confirm("Are you sure you want to remove?",
                 "Save", new ConfirmOptions() {OkButtonText = "Yes", CancelButtonText = "No"});
             
-            DialogService.OnClose += CloseConfirmTrash;
+            _dialogService.OnClose += CloseConfirmTrash;
         }
-
-        
     }
 }

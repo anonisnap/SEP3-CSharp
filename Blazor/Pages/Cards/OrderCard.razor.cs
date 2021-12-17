@@ -9,8 +9,6 @@ namespace Blazor.Pages.Cards
 {
     public partial class OrderCard
     {
-        
-        
         private List<Inventory> _pickInventories;
 
         private Inventory _selectedInventory;
@@ -23,12 +21,10 @@ namespace Blazor.Pages.Cards
             _pickInventories = new List<Inventory>();
         }
 
-
         private async Task ProcessOrder()
         {
-            
             bool processed = await _orderHandler.ProcessOrder(Order, _pickInventories);
-            
+
             if (processed)
             {
                 _notificationService
@@ -39,7 +35,7 @@ namespace Blazor.Pages.Cards
                     });
             }
         }
-        
+
         private void InventoryChanged(Inventory inventory)
         {
             _selectedInventory = inventory;
@@ -49,8 +45,8 @@ namespace Blazor.Pages.Cards
         {
             _amount = amount;
         }
-        
-        
+
+
         private void OnPick(OrderEntry entry)
         {
             if (entry.Amount != _amount)
@@ -72,7 +68,7 @@ namespace Blazor.Pages.Cards
                     Item = _selectedInventory.Item, Location = _selectedInventory.Location
                 };
 
-            
+
             AddPickInventory(pickInventory);
         }
 
@@ -90,7 +86,7 @@ namespace Blazor.Pages.Cards
                 return;
             }
 
-           
+
             _pickInventories.Add(pInventory);
             _notificationService
                 .Notify(new NotificationMessage
