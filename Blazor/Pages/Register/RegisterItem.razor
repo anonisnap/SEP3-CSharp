@@ -9,60 +9,6 @@
 
 <h2>Register a new Item</h2>
 
-@*<EditForm class="RegisterForm" Model="@_item" OnValidSubmit="@AddNewItem">
-    <DataAnnotationsValidator/><ValidationSummary/>
-    <div class="row">
-        <div class="col-md-5">
-            <RadzenFieldset Text="Item Information">
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Item Name"/>
-                    </div>
-                    <div class="col-md-8">
-                        <RadzenTextBox style="width: 80%;" Name="Name" @bind-Value="_item.ItemName"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Length"/>
-                    </div>
-                    <div class="col-md-8">
-                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Length"></RadzenNumeric>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Width"/>
-                    </div>
-                    <div class="col-md-8">
-                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Width"></RadzenNumeric>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Height"/>
-                    </div>
-                    <div class="col-md-8">
-                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Height"></RadzenNumeric>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 align-items-center d-flex">
-                        <RadzenLabel Text="Weight"/>
-                    </div>
-                    <div class="col-md-8">
-                        <RadzenNumeric TValue="double" style="width: 80%;" @bind-Value="_item.Weight"></RadzenNumeric>
-                    </div>
-                </div>
-                
-                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
-                    <RadzenButton class="formButton" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
-                </div>
-            </RadzenFieldset>
-        </div>
-    </div>
-</EditForm>*@
-
 <RadzenTemplateForm class="RegisterForm" TItem="Item" Data="@_item" Submit="@AddNewItem">
     <div class="row">
         <div class="col-md-5">
