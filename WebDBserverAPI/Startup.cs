@@ -14,7 +14,6 @@ namespace WebDBserverAPI {
 		public Startup(IConfiguration configuration) {
 			Configuration = configuration;
 		}
-
 		public IConfiguration Configuration {
 			get;
 		}
@@ -26,7 +25,7 @@ namespace WebDBserverAPI {
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebDBserverAPI", Version = "v1" });
 			});
-			services.AddDbContext<WarehouseDbContext, SEP_DBContext>();
+			services.AddDbContext<WarehouseDbContext, SEP_DBContext>(); //can be switched; TestDbContext, SEP_DBContext.
 			services.AddScoped<IItemDataRepo, ItemDataRepo>();
 			services.AddScoped<ILocationDataRepo, LocationDataRepo>();
 			services.AddScoped<IInventoryDataRepo, InventoryDataRepo>();

@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Entities.Models;
 
-namespace Blazor.Pages.Show
+namespace Blazor.Pages.Overview
 {
     public partial class RegisteredItems
     {

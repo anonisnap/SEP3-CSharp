@@ -2,7 +2,7 @@
 @using Entities.Models
 @using Blazor.Pages.Cards
 @using Blazor.Data
-
+@attribute [Authorize(Policy = "SecurityLevel2")]
 @inject IInventoryHandler _inventoryHandler
 @inject DialogService DialogService
 
